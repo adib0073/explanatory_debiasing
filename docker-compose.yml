@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3971:3000'
+    depends_on:
+      - mongo
+    environment:
+      ROOT_URL: ${APP_ROOT_URL:-http://localhost}
+      MONGO_URL: mongodb://mongo:27017/meteor
+      PORT: 3000
+      restart: restart
+
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - exmos_data:/data/db
+
+  py-app:
+    build:
+      context: ./app-api
+      dockerfile: Dockerfile
+    ports:
+      - "3970:8000"
+    restart: always
+
+volumes:
+  exmos_data:

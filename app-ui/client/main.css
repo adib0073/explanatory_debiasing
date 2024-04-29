@@ -1,0 +1,371 @@
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #E5E5E5;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  /*overflow-y: auto;*/
+  /*overflow: hidden;*/
+}
+
+/* app-container */
+.app-container {
+  font-family: "Montserrat", sans-serif;
+  background-color: #E5E5E5;
+  /* Check the overflow here */
+  height: 100vh;
+  /*overflow-y: auto;*/
+  width: 100%;
+}
+
+/* video-container */
+.video-container {
+  position: relative;
+}
+
+video {
+  object-fit: fill;
+}
+
+/* landing page container */
+.lp-container {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  /*background: rgba(255, 255, 255, 0.2);*/
+}
+
+/* landing page inner container */
+.lp-container-inner {
+  position: relative;
+  padding: 32px;
+  width: 80%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+/* landing page image changes */
+.lp-container-image {
+  padding-bottom: 30px;
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  max-width: 769px;
+}
+
+/* landing page header font */
+.lp-container-headerfont-1 {
+  color: #fff;
+  text-align: center;
+  max-width: 1200px;
+  background-size: cover !important;
+  margin: 0 auto;
+  background-position: center;
+  margin-top: 0px;
+  padding-top: 10px;
+  font-size: 27px;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
+
+.lp-container-headerfont-2 {
+  color: #fff;
+  text-align: center;
+  max-width: 1000px;
+  background-size: cover !important;
+  margin: 0 auto;
+  background-position: center;
+  margin-top: 0px;
+  padding-top: 3px;
+  font-size: 25px;
+  font-weight: 400 !important;
+  padding-bottom: 50px;
+  line-height: 38px;
+}
+
+.lp-container-entry {
+  color: #fff;
+  text-align: center;
+  max-width: 1000px;
+  background-size: cover !important;
+  margin: 0 auto;
+  background-position: center;
+  margin-top: 0px;
+  padding-top: 2px;
+  font-size: 25px;
+  font-weight: 400 !important;
+  padding-bottom: 50px;
+  line-height: 38px;
+}
+
+.lp-container-entry-input {
+  color: #000;
+  font-size: 20px;
+  border: None;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 180ms box-shadow ease-in-out;
+  width: 100%;
+  height: 20%;
+}
+
+.lp-container-entry-input:focus {
+  color: #244CB1;
+  box-shadow: 0px 1px 3px rgb(192, 185, 185);
+}
+
+.lp-container-entry-button {
+  color: #fff;
+  border: None;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #244CB1;
+}
+
+.lp-container-entry-button:hover {
+  background-color: #1363DF;
+}
+
+.lp-container-entry-button:disabled {
+  background-color: #E5E5E5;
+  color: #000
+}
+
+i.ant-spin-dot-item {
+  background-color: #6929c4;
+}
+
+.ant-spin-text {
+  color: #6929c4;
+}
+
+/*------------------------------*/
+/* main-container after nav bar */
+.container {
+  margin: 20px 90px 20px 90px;
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #E5E5E5;
+  padding-bottom: 20px;
+}
+
+/* --- */
+/* box-1 */
+.container-box-1 {
+  padding: 15px 30px 15px 50px;
+  margin: 0px 0px 10px 0px;
+  background: rgba(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+/* text-box */
+.text-box {
+  display: flex;
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  flex: 5;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+/* inner-text-box-1 */
+.inner-text-box-1-key {
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  font-size: 0.9rem;
+  justify-content: center;
+}
+
+.inner-text-box-1-val {
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: 0.9rem;
+  justify-content: center;
+}
+
+/* key-value-text-box */
+.key-value-text-box {
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  flex: 1;
+}
+
+/* --- */
+/* progress-box */
+.progress-box {
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  flex: 1.5;
+  align-items: center;
+  text-align: center;
+}
+
+/* --- */
+/* box-2 */
+.container-box-2 {
+  display: flex;
+  border: 2px;
+  border-style: solid;
+  border-color: transparent;
+  flex: 8;
+}
+
+/* --- */
+/* inner-box-2-1 */
+.container-box-2-1 {
+  border: 2px;
+  border-style: solid;
+  border-color: transparent;
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* inner-box-2-1-1 */
+.container-box-2-1-1 {
+  padding: 10px;
+  background: rgba(255, 255, 255, 1.00);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+}
+
+/* chart-title-box */
+.chart-title-box {
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding-left: 2px;
+  margin-left: 5px;
+}
+
+.chart-title {
+  font-size: 1.1vw;
+  font-weight: bold;
+}
+
+.chart-icons {
+  margin-left: auto;
+  padding: 2px;
+  cursor: help;
+  display: flex;
+}
+
+.chart-reload {
+  margin-right: 30px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.chart-info-logo {
+  padding: 2px;
+  cursor: help;
+  flex: 1;
+}
+
+
+/* chart-container */
+.chart-container {
+  border: 1px;
+  border-style: solid;
+  border-color: transparent;
+  display: flex;
+  flex: 12;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* --- */
+/* inner-box-2-1-2 */
+.container-box-2-1-2 {
+  padding: 10px;
+  background: rgba(255, 255, 255, 1.00);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* --- */
+/* inner-box-2-2 */
+.container-box-2-2 {
+  margin-left: 20px;
+  border: 2px;
+  border-style: solid;
+  border-color: transparent;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* inner-box-2-2-1 */
+.container-box-2-2-1 {
+  padding: 10px;
+  background: rgba(255, 255, 255, 1.00);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* inner-box-2-2-2 */
+.container-box-2-2-2 {
+  padding: 10px;
+  background: rgba(255, 255, 255, 1.00);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+/* progress-bar-div */
+
+
+/* --- NavBar CSS --- */

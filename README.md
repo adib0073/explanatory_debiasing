@@ -1,2 +1,2 @@
-# explanatory_debiasing
+# Explanatory Debiasing
 Explanatory Debiasing: Steering Generated Data Involving Domain Experts for Mitigating Representation Bias
