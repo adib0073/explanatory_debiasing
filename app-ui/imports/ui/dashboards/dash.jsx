@@ -21,10 +21,23 @@ export const DASH = ({ user }) => {
             <NavBar user={user} />
             <div className="dash-container">
                 <div className="dash-container-left">
-                    Left
+                    <div className="dash-container-left-sec1">
+                        System Overview
+                    </div>
+                    <div className="dash-container-left-sec2">
+                        Data Explorer
+                    </div>
+                    <div className="dash-container-left-sec3">
+                        Data Quality Overview
+                    </div>
                 </div>
                 <div className="dash-container-right">
-                    Right
+                    <div className="dash-container-right-sec1">
+                        Augmentation Controller
+                    </div>
+                    <div className="dash-container-right-sec2">
+                        Generated Data Controller
+                    </div>
                 </div>
             </div>
         </>
