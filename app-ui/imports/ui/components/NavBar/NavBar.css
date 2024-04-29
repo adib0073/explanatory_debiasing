@@ -38,13 +38,13 @@
     width: 70vw;
     justify-content: end;
     margin-right: 2rem;
-    padding-top: 0.6rem;
+    /*padding-top: 0.6rem;*/
 }
 
 .nav-links {
     color: #000000;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    /*padding: 0.5rem 1rem;*/
 }
 
 .nav-links:hover {
