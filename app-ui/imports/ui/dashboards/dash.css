@@ -1,0 +1,29 @@
+.dash-container {
+    margin: 30px 120px 30px 120px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #E5E5E5;
+    height: 87vh;
+}
+
+.dash-container-left {
+    border: 1px;
+    border-style: solid;
+    border-color: blue;
+    display: flex;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.dash-container-right {
+    border: 1px;
+    border-style: solid;
+    border-color: red;
+    display: flex;
+    flex: 1;
+    margin-bottom: 20px;
+}

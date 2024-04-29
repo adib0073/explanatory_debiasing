@@ -19,8 +19,13 @@ export const DASH = ({ user }) => {
     return (
         <>
             <NavBar user={user} />
-            <div>
-                Under Construction ....
+            <div className="dash-container">
+                <div className="dash-container-left">
+                    Left
+                </div>
+                <div className="dash-container-right">
+                    Right
+                </div>
             </div>
         </>
     );
