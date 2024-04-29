@@ -9,18 +9,16 @@ export const LandingPage = ({ user, setUser }) => {
     useEffect(() => {
         window.localStorage.setItem('userid', user.id);
     }, [user.id]);
-    useEffect(() => {
-        window.localStorage.setItem('cohort', user.cohort);
-    }, [user.cohort]);
-    useEffect(() => {
-        window.localStorage.setItem('language', user.language);
-    }, [user.language]);
-    useEffect(() => {
-        window.localStorage.setItem('group', user.group);
-    }, [user.group]);
+
+    const [buttonText, setButtonText] = useState("Not ready yet?");
 
     const selectedDashType = () => {
+        setButtonText("Logging ...");
         console.log(user);
+        navigate('/platform/' + user.cohort);
+
+        // Include this when API part is integrated
+        /*
         axios.post(BASE_API + '/validateusers', {
             UserId: user.id,
             Cohort: user.group,
@@ -35,7 +33,7 @@ export const LandingPage = ({ user, setUser }) => {
         }).then(function (response) {
             //console.log(response.data);
             if (response.data["StatusCode"]) {
-                navigate('/dashboard/' + user.cohort);
+                navigate('/platform/' + user.cohort);
             }
             else {
                 console.log("Error reported. Login failed.")
@@ -44,6 +42,7 @@ export const LandingPage = ({ user, setUser }) => {
         }).catch(function (error) {
             console.log(error);
         });
+        */
     }
 
     const handleChange = e => {
@@ -52,25 +51,22 @@ export const LandingPage = ({ user, setUser }) => {
             ...prevState,
             [name]: value
         }));
+
+        if (value) {
+            setButtonText("Let's Start");
+        }
     };
     console.log(BASE_API);
 
     return (<div className="app-container">
         <div className="lp-container">
             <div className="lp-container-inner">
-                <img className="lp-container-image" src="https://raw.githubusercontent.com/adib0073/HCI_design/main/EXMOS2023/exmos_logo_1.png" />
                 <h1 className="lp-container-headerfont-1">
-                    {user.language == "ENG"
-                        ?
-                        "Explanatory Model Steering for Healthcare"
-                        :
-                        "Explanatory Model Steering for Healthcare"
-                    }
-
+                    Explanatory Debiasing
                 </h1>
                 <br />
                 <h1 className="lp-container-headerfont-2">
-                    {"An Interactive Explainable Machine Learning Platform for Healthcare Experts for Personalized Predictions"}
+                    {"An Interactive Explainable Machine Learning Platform"}
 
                 </h1>
 
@@ -92,10 +88,7 @@ export const LandingPage = ({ user, setUser }) => {
                             type="submit"
                             onClick={selectedDashType}
                         >
-                            {
-                                user.id === "" || user.group === "" ?
-                                    "Not ready yet?" : "Let's Start"
-                            }
+                            {buttonText}
                         </button>
                     </form>
                 </div>

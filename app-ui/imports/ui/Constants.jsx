@@ -1,5 +1,5 @@
 //export const BASE_API = "http://cassatt.experiments.cs.kuleuven.be:3970"; //"http://127.0.0.1:8000";
-export const BASE_API = "http://127.0.0.1:3970";
+export const BASE_API =  "" //"http://127.0.0.1:3970";
 
 // DATA SUMMARY VIZ DEFAULT MODEL
 export const DATA_SUMMARY_DEFAULT_MODEL = {
@@ -141,15 +141,6 @@ export const DATA_ISSUE_FRIENDLY_NAMES_Eng = {
   "correlation" : "Feature Correlation",
 }
 
-// DATA ISSUE FRIENDLY NAMES SLO
-export const DATA_ISSUE_FRIENDLY_NAMES_Slo = {
-  "drift" : "Odstopanje podatkov",
-  "imbalance" : "Neuravnoteženost razredov",
-  "skew" : "Izkrivljenost podatkov",
-  "duplicate" : "Podvajanje podatkov",
-  "outlier" : "Izstopajoče vrednosti",
-  "correlation" : "Korelacija značilnosti",
-}
 
 // FRIENDLY NAMES
 export const FRIENDLY_NAMES_ENG = {
@@ -162,27 +153,4 @@ export const FRIENDLY_NAMES_ENG = {
     "DiabetesPedigreeFunction": "Diabetes Pedigree Function",
     "Age": "Age",
     "target" : "Diabetes Status"
-}
-
-export const FRIENDLY_NAMES_SLO = {
-  "Pregnancies": "Število nosečnosti",
-  "Glucose": "Koncentracija glukoze v plazmi",
-  "BloodPressure": "Diastolični krvni tlak",
-  "SkinThickness": "Debelina kožne gube tricepsa",
-  "Insulin": "Dveurni serumski inzulin",
-  "BMI": "Indeks telesne mase (BMI)",
-  "DiabetesPedigreeFunction": "Rodovniška funkcija diabetesa",
-  "Age": "Starost",
-  "target" : "Stanje sladkorne bolezni"
-}
-
-export const FEAT_DESCRIPTIONS_SLO = {
-  "Pregnancies": "Število nosečnosti v preteklosti",
-  "Glucose": "Plazemska koncentracija glukoze v slini po dveh urah po zaužitju hrane pri oralnem tolerančnem testu z glukozo. Meri se v mg/dl.",
-  "BloodPressure": "Diastolični krvni tlak pacientov, izmerjen v mmHg",
-  "SkinThickness": "Debelina kožne gube tricepsa pri pacientih",
-  "Insulin": "Dveurni serumski inzulin, izmerjen v U/ml",
-  "BMI": "Indeks telesne mase pacientov (BMI)",
-  "DiabetesPedigreeFunction": "Funkcija rodovnika sladkorne bolezni je funkcija, ki oceni verjetnost sladkorne bolezni na podlagi družinske anamneze.",
-  "Age": "Starost pacientov v letih"
 }
