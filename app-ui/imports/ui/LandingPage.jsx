@@ -15,7 +15,7 @@ export const LandingPage = ({ user, setUser }) => {
     const selectedDashType = () => {
         setButtonText("Logging ...");
         console.log(user);
-        navigate('/platform/' + user.cohort);
+        navigate('/platform/');
 
         // Include this when API part is integrated
         /*
