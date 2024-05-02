@@ -177,10 +177,12 @@
     font-size: 1.5vh;
     justify-content: space-between;
 }
+
 .dq-info-left {
     flex: 1;
 }
-.dq-info-right   {
+
+.dq-info-right {
     flex: 1;
 }
 
@@ -209,6 +211,11 @@
     flex: 1;
 }
 
+.ac-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .dash-container-gen-controller {
     border: 1px;
     border-style: solid;
@@ -221,4 +228,21 @@
     padding: 10px;
     margin: 5px 0 0 5px;
     flex: 2;
+}
+
+.gc-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.generated-data-holder {
+    display: flex;
+    background: #999999;
+    border-radius: 20px;
+    flex: 10;
+}
+
+/* GC Components */
+.empty-holder {
+    display: flex;
 }

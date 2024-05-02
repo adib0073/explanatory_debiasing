@@ -187,7 +187,7 @@ export const DASH = ({ user }) => {
                                 <InfoLogo />
                             </div>
                         </div>
-                        <div className="chart-container" >
+                        <div className="ac-container" >
                             <div>
                                 Apply constraints to the generated data
                             </div>
@@ -212,15 +212,19 @@ export const DASH = ({ user }) => {
                                 <InfoLogo />
                             </div>
                         </div>
-                        <div className="chart-container" >
-                            <div>
-                                Please use the augmentation controller to generate data.
-                            </div>
-                            <div>
-                                Image Here
-                            </div>
-                            <div>
-                                Buttons
+                        <div className='chart-container'>
+                            <div className="dc-container" >
+                                <div>
+                                    Please use the augmentation controller to generate data.
+                                </div>
+                                <div className='generated-data-holder'>
+                                    <div className='empty-holder'>
+                                        Image Here
+                                    </div>
+                                </div>
+                                <div>
+                                    Buttons
+                                </div>
                             </div>
                         </div>
                     </div>
