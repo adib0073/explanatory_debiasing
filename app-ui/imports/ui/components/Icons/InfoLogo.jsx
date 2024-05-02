@@ -3,7 +3,7 @@ import React from 'react';
 export const InfoLogo = () => {
     return (
       <svg
-        width="17"
+        width="15"
         height="15"
         viewBox="0 0 94 94"
         fill="none"

@@ -1,70 +1,132 @@
 .dash-container {
-    margin: 30px 120px 30px 120px;
-    border: 1px;
+    margin: 20px 120px 20px 120px;
+    border: 0px;
     border-style: solid;
     border-color: black;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     background-color: #E5E5E5;
     height: 87vh;
 }
 
 .dash-container-left {
-    border: 1px;
+    border: 0px;
     border-style: solid;
     border-color: blue;
-    display: flex;    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.dash-container-system-overview {
+    border: 1px;
+    border-style: solid;
+    border-color: transparent;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 5px 5px 0;
+    flex: 1;
+}
+
+.so-desc-left {
+    border: 0px;
+    border-style: solid;
+    border-color: blue;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    margin: 10px;
+}
+.chart-container-info {
+    flex: 1;
+    font-size: 1.8vh;
+    margin-left: 20px;
+}
+
+.so-chart-right {
+    border: 0px;
+    border-style: solid;
+    border-color: red;
+    display: flex;
     flex-direction: column;
     flex: 1;
-    margin-bottom: 20px;
+    margin: 10px;
+    align-items:flex-start;
+    justify-content:flex-start;
 }
 
-.dash-container-left-sec1 {
+.dash-container-data-explorer {
     border: 1px;
     border-style: solid;
-    border-color: pink;
+    border-color: transparent;
     display: flex;
-    flex: 1;
-}
-
-.dash-container-left-sec2 {
-    border: 1px;
-    border-style: solid;
-    border-color: pink;
-    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 5px 5px 0;
     flex: 2;
 }
 
-.dash-container-left-sec3 {
+.dash-container-quality {
     border: 1px;
     border-style: solid;
-    border-color: pink;
+    border-color: transparent;
     display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 5px 0 0;
     flex: 2;
 }
 
 .dash-container-right {
-    border: 1px;
+    border: 0px;
     border-style: solid;
     border-color: red;
     display: flex;
+    flex-wrap: wrap;
     flex: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex-direction: column;
 }
 
-.dash-container-right-sec1 {
+.dash-container-aug-controller {
     border: 1px;
     border-style: solid;
-    border-color: orange;
+    border-color: transparent;
     display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 0 5px 5px;
     flex: 1;
 }
-.dash-container-right-sec2 {
+
+.dash-container-gen-controller {
     border: 1px;
     border-style: solid;
-    border-color: orange;
+    border-color: transparent;
     display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 0 0 5px;
     flex: 2;
 }

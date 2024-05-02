@@ -45,13 +45,13 @@ const centerText = {
         
         ctx.save();
         const fontHeight = 0.2 * height;
-        ctx.font = `bolder ${fontHeight / 2}px Open Sans`;
+        ctx.font = `bolder ${fontHeight / 2.2}px Open Sans`;
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
         // For Overall text
         ctx.fillText('Overall', width / 2, 0.65 * height);
 
-        ctx.font = `bolder ${fontHeight * 1.2}px Open Sans`;
+        ctx.font = `bolder ${fontHeight * 1}px Open Sans`;
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
         
