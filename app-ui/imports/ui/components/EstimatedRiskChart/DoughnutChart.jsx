@@ -80,8 +80,8 @@ export const DoughnutChart = ({ accuracy, chartRef, language = "ENG" }) => {
     options.accuracy=accuracy;
 
     data.datasets[0].data = [accuracy, 100 - accuracy];
-    data.datasets[0].backgroundColor = ['#6929c4', '#E5E5E5'];
-    data.datasets[0].borderColor = ['#6929c4', '#E5E5E5'];
+    data.datasets[0].backgroundColor = ['#1363DF', '#E5E5E5'];
+    data.datasets[0].borderColor = ['#1363DF', '#E5E5E5'];
 
     if (chartRef.current) {
         chartRef.current.data.datasets[0].data = [accuracy, 100 - accuracy];

@@ -9,6 +9,8 @@ import { UpGreenArrow } from '../components/Icons/UpGreenArrow.jsx';
 import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
+import GaugeChart from 'react-gauge-chart'
+
 
 
 export const DASH = ({ user }) => {
@@ -126,7 +128,21 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className="chart-container" >
-                            Chart Here
+                            <div>
+                                <GaugeChart
+                                    nrOfLevels={3}
+                                    arcsLength={[0.5, 0.3, 0.2]}
+                                    percent={0.6}
+                                    textColor={"black"}
+                                    hideText={true}
+                                    colors={[
+                                        (0.6 > 0.0 ? '#1363DF' : '#E5E5E5'),
+                                        (0.6> 0.5 ? '#1363DF' : '#E5E5E5'),
+                                        (0.6 > 0.8 ? '#1363DF' : '#E5E5E5')
+                                    ]}
+                                    style={{ width: "15vw" }}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
