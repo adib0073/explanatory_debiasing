@@ -60,7 +60,7 @@
 }
 
 .dash-container-data-explorer {
-    border: 1px;
+    border: 0px;
     border-style: solid;
     border-color: transparent;
     display: flex;
@@ -71,6 +71,39 @@
     padding: 10px;
     margin: 5px 5px 5px 0;
     flex: 3;
+}
+.de-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.de-metric-container{
+    flex: 1;
+    display: flex;
+    border: 0px;
+    border-style: solid;
+    border-color: blue;
+    flex-direction: column;
+}
+.de-info {
+    font-size: 1.8vh;
+}
+.de-chart-container{
+    flex: 6;
+    display: flex;
+    border: 1px;
+    border-style: solid;
+    border-color: #D9D9D9;
+    border-radius: 20px;
+    flex-direction: column;
+}
+.de-insights-container{
+    flex: 1;
+    display: flex;
+    border: 0px;
+    border-style: solid;
+    border-color: blue;
+    flex-direction: column;
 }
 
 .dash-container-quality {

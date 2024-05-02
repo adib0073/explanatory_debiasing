@@ -78,7 +78,41 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className="chart-container" >
-                            Chart Here
+                            <div className="de-container" >
+                                <div className="de-metric-container" >
+                                    <div className='de-info'>
+                                        &nbsp;{"Overall representation rate (RR) is"} : <b>{70}</b>
+                                    </div>
+                                    <div className='de-info'>
+                                        &nbsp;{"Overall data coverage is"} : <b>{60}</b>
+                                    </div>
+                                    <div className='de-info'>
+                                        &nbsp;{"Low RR and coverage indicates presence of potential bias in the variables"}
+                                    </div>
+                                </div>
+                                <div className="de-chart-container" >
+                                    <div>
+                                        Variable Selected
+                                    </div>
+                                    <div>
+                                        <div className='chart-container-viz'>
+                                            <DoughnutChart accuracy={80} chartRef={accuracyChartRef} />
+                                        </div>
+                                    </div>
+                                    <div className="de-insights-container" >
+                                        Insights:
+                                        <div className='chart-container-info'>
+                                            <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
+                                        </div>
+                                        <div className='chart-container-info'>
+                                            <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{18}</b>
+                                        </div>
+                                        <div className='chart-container-info'>
+                                            <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{80}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="dash-container-quality">
