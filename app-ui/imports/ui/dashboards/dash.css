@@ -230,19 +230,33 @@
     flex: 2;
 }
 
-.gc-container {
+.gd-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 }
 
 .generated-data-holder {
     display: flex;
-    background: #999999;
-    border-radius: 20px;
-    flex: 10;
 }
 
 /* GC Components */
 .empty-holder {
     display: flex;
+    background: #F0F0F0;
+    border-radius: 20px;
+    flex: 10;
+    padding: 20px;
+}
+
+.reset-button {
+    padding: 10px;
+    border: None;
+    font-weight: 600;
+    color: #fff;
+    background-color: #6C6C6C;
+    cursor: pointer;
+    margin-right: 10px;
 }

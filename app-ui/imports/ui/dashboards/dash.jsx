@@ -9,7 +9,8 @@ import { UpGreenArrow } from '../components/Icons/UpGreenArrow.jsx';
 import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
-import GaugeChart from 'react-gauge-chart'
+import GaugeChart from 'react-gauge-chart';
+import { Empty } from 'antd';
 
 
 
@@ -213,17 +214,27 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className='chart-container'>
-                            <div className="dc-container" >
+                            <div className="gd-container" >
                                 <div>
                                     Please use the augmentation controller to generate data.
                                 </div>
                                 <div className='generated-data-holder'>
                                     <div className='empty-holder'>
-                                        Image Here
+                                        <Empty description={
+                                            <span>
+                                                There is no unsaved generated data.
+                                                Please use the Augmentation Controller to generate new data.
+                                            </span>
+                                        } />
                                     </div>
                                 </div>
                                 <div>
-                                    Buttons
+                                    <button
+                                        className="reset-button"
+                                        type="submit"
+                                    >
+                                        Restore to defaults
+                                    </button>
                                 </div>
                             </div>
                         </div>
