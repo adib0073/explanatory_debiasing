@@ -199,7 +199,19 @@ export const DASH = ({ user }) => {
                                 Table Here
                             </div>
                             <div>
-                                Buttons here
+                                <button
+                                    className="reset-button"
+                                    type="submit"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    className="train-button"
+                                    type="submit"
+                                >
+                                   Generate
+                                </button>
                             </div>
                         </div>
                     </div>
