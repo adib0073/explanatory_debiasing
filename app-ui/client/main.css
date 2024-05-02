@@ -311,9 +311,7 @@ i.ant-spin-dot-item {
   border-style: solid;
   border-color: transparent;
   display: flex;
-  flex: 12;
-  justify-content: center;
-  align-items: stretch;
+  flex: 5;
 }
 
 /* --- */

@@ -42,7 +42,7 @@ export const DASH = ({ user }) => {
                                 <InfoLogo />
                             </div>
                         </div>
-                        <div className="chart-container" >
+                        <div className="so-container" >
                             <div className="so-desc-left" >
                                 <div className='chart-container-info'>
                                     <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
@@ -127,34 +127,50 @@ export const DASH = ({ user }) => {
                                 <InfoLogo />
                             </div>
                         </div>
-                        <div className="chart-container" >
+                        <div className='dq-container'>
                             <div className="dq-guage">
-                                <GaugeChart
-                                    nrOfLevels={3}
-                                    arcsLength={[0.5, 0.3, 0.2]}
-                                    percent={0.6}
-                                    textColor={"black"}
-                                    hideText={true}
-                                    colors={[
-                                        (0.6 > 0.0 ? '#1363DF' : '#E5E5E5'),
-                                        (0.6 > 0.5 ? '#1363DF' : '#E5E5E5'),
-                                        (0.6 > 0.8 ? '#1363DF' : '#E5E5E5')
-                                    ]}
-                                    style={{ width: "15vw" }}
-                                />
+                                <div>
+                                    <GaugeChart
+                                        nrOfLevels={3}
+                                        arcsLength={[0.5, 0.3, 0.2]}
+                                        percent={0.6}
+                                        textColor={"black"}
+                                        hideText={true}
+                                        colors={[
+                                            (0.6 > 0.0 ? '#1363DF' : '#E5E5E5'),
+                                            (0.6 > 0.5 ? '#1363DF' : '#E5E5E5'),
+                                            (0.6 > 0.8 ? '#1363DF' : '#E5E5E5')
+                                        ]}
+                                        style={{ width: "12vw" }}
+                                    />
+                                </div>
                             </div>
                             <div className="dq-score">
-                                Poor : 60 %
+                                <div>
+                                    Poor : 60 %
+                                </div>
+                            </div>
+                            <div className="dq-tag">
+                                <div>
+                                    The data quality is poor because of the following potential data issues.
+                                </div>
                             </div>
                             <div className="dq-info">
-                                <div className='chart-container-info'>
-                                    <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
+                                <div className="dq-info-left">
+                                    <div className='chart-container-info'>
+                                        <HollowBullet /> &nbsp;{"Class Imbalance"} : <b>{3000}</b>
+                                    </div>
+                                    <div className='chart-container-info'>
+                                        <HollowBullet /> &nbsp;{"Correlated Features"} : <b>{18}</b>
+                                    </div>
                                 </div>
-                                <div className='chart-container-info'>
-                                    <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{18}</b>
-                                </div>
-                                <div className='chart-container-info'>
-                                    <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{80}</b>
+                                <div className='dq-info-right'>
+                                    <div className='chart-container-info'>
+                                        <HollowBullet /> &nbsp;{"Outlier Features"} : <b>{80}</b>
+                                    </div>
+                                    <div className='chart-container-info'>
+                                        <HollowBullet /> &nbsp;{"Data Drift"} : <b>{80}</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
