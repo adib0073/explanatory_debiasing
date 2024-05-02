@@ -120,6 +120,16 @@
     flex: 1.5;
 }
 
+.dq-gauge{
+    flex: 1;
+}
+.dq-score{
+    flex: 1;
+}
+.dq-info{
+    flex: 1;
+}
+
 .dash-container-right {
     border: 0px;
     border-style: solid;

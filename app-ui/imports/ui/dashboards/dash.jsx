@@ -128,7 +128,7 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className="chart-container" >
-                            <div>
+                            <div className="dq-guage">
                                 <GaugeChart
                                     nrOfLevels={3}
                                     arcsLength={[0.5, 0.3, 0.2]}
@@ -137,11 +137,25 @@ export const DASH = ({ user }) => {
                                     hideText={true}
                                     colors={[
                                         (0.6 > 0.0 ? '#1363DF' : '#E5E5E5'),
-                                        (0.6> 0.5 ? '#1363DF' : '#E5E5E5'),
+                                        (0.6 > 0.5 ? '#1363DF' : '#E5E5E5'),
                                         (0.6 > 0.8 ? '#1363DF' : '#E5E5E5')
                                     ]}
                                     style={{ width: "15vw" }}
                                 />
+                            </div>
+                            <div className="dq-score">
+                                Poor : 60 %
+                            </div>
+                            <div className="dq-info">
+                                <div className='chart-container-info'>
+                                    <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
+                                </div>
+                                <div className='chart-container-info'>
+                                    <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{18}</b>
+                                </div>
+                                <div className='chart-container-info'>
+                                    <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{80}</b>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,7 +172,18 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className="chart-container" >
-                            Chart Here
+                            <div>
+                                Apply constraints to the generated data
+                            </div>
+                            <div>
+                                Number of samples
+                            </div>
+                            <div>
+                                Table Here
+                            </div>
+                            <div>
+                                Buttons here
+                            </div>
                         </div>
                     </div>
                     <div className="dash-container-gen-controller">
@@ -172,7 +197,15 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className="chart-container" >
-                            Chart Here
+                            <div>
+                                Please use the augmentation controller to generate data.
+                            </div>
+                            <div>
+                                Image Here
+                            </div>
+                            <div>
+                                Buttons
+                            </div>
                         </div>
                     </div>
                 </div>
