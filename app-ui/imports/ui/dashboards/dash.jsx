@@ -10,7 +10,7 @@ import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
 import GaugeChart from 'react-gauge-chart';
-import { Empty, InputNumber } from 'antd';
+import { Empty, InputNumber, Table, Select } from 'antd';
 
 
 
@@ -27,6 +27,85 @@ export const DASH = ({ user }) => {
 
     const greenFont = "#449231";
     const redFont = "#D64242";
+
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+    };
+    const ac_columns = [
+        {
+            title: 'Predictor Variable',
+            dataIndex: 'feature',
+            key: 'feature',
+        },
+        {
+            title: 'Variable Type',
+            dataIndex: 'type',
+            key: 'type',
+        },
+        {
+            title: 'Variable Values',
+            dataIndex: 'values',
+            key: 'values',
+            render: (_, record) => (
+                (record.type == "categorical")
+                    ?
+                    <Select
+                        mode="multiple"
+                        allowClear
+                        style={{
+                            width: '100%',
+                        }}
+                        placeholder="Please select"
+                        onChange={handleChange}
+                        options={record.values.map((item) => ({
+                            value: item,
+                            label: item,
+                        }))}
+                    />
+                    :
+                    <a>Not invited {record.type}</a>
+            ),
+        },
+    ];
+
+    const ac_data = [
+        {
+            key: '1',
+            feature: 'Age',
+            type: 'continuous',
+            values: [0, 100],
+        },
+        {
+            key: '2',
+            feature: 'BMI',
+            type: 'continuous',
+            values: [10, 50],
+        },
+        {
+            key: '3',
+            feature: 'Gender',
+            type: 'categorical',
+            values: ['Male', 'Female'],
+        },
+        {
+            key: '4',
+            feature: 'Gender',
+            type: 'categorical',
+            values: ['Male', 'Female'],
+        },
+        {
+            key: '5',
+            feature: 'Gender',
+            type: 'categorical',
+            values: ['Male', 'Female'],
+        },
+        {
+            key: '6',
+            feature: 'Gender',
+            type: 'categorical',
+            values: ['Male', 'Female'],
+        },
+    ];
 
     return (
         <>
@@ -194,14 +273,23 @@ export const DASH = ({ user }) => {
                             </div>
                             <div className="ac-info-label">
                                 <div className='ac-info-label-sub'>
-                                    Number of samples: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor:'#E5E5E5', fontSize:'1.8vh', handleWidth:'0.5vw' }}/>
+                                    Number of samples: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh', handleWidth: '0.5vw' }} />
                                 </div>
                                 <div className='ac-info-label-sub'>
-                                    Prediction category: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor:'#E5E5E5', fontSize:'1.8vh', handleWidth:'0.5vw' }}/>
+                                    Prediction category: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh', handleWidth: '0.5vw' }} />
                                 </div>
                             </div>
                             <div className='ac-feature-table'>
-                                Table Here
+                                <Table
+                                    columns={ac_columns}
+                                    dataSource={ac_data}
+                                    size='small'
+                                    pagination={{
+                                        pageSize: 4,
+                                        responsive: false,
+                                    }}
+
+                                />
                             </div>
                             <div>
                                 <button
