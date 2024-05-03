@@ -312,6 +312,7 @@ i.ant-spin-dot-item {
   border-color: transparent;
   display: flex;
   flex: 5;
+  justify-content: center;
 }
 
 /* --- */

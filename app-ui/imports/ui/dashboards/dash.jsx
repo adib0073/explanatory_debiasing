@@ -376,20 +376,21 @@ export const DASH = ({ user }) => {
                         </div>
                         <div className='chart-container'>
                             <div className="gd-container" >
-                                <div>
+                                <div className='gd-subtitle'>
                                     Please use the augmentation controller to generate data.
                                 </div>
                                 <div className='generated-data-holder'>
                                     <div className='empty-holder'>
                                         <Empty description={
-                                            <span>
+                                            <span className='gd-empty-text'>
                                                 There is no unsaved generated data.
+                                                <br/>
                                                 Please use the Augmentation Controller to generate new data.
                                             </span>
                                         } />
                                     </div>
                                 </div>
-                                <div>
+                                <div className='gd-buttons'>
                                     <button
                                         className="reset-button"
                                         type="submit"
