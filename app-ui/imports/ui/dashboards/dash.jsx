@@ -1,4 +1,5 @@
 import React from 'react';
+import 'antd/dist/antd.css';
 import { useRef, useState, useEffect } from 'react';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
 import './dash.css'
@@ -41,6 +42,7 @@ export const DASH = ({ user }) => {
             title: 'Variable Type',
             dataIndex: 'type',
             key: 'type',
+            hidden: true
         },
         {
             title: 'Variable Values',
@@ -49,24 +51,30 @@ export const DASH = ({ user }) => {
             render: (_, record) => (
                 (record.type == "categorical")
                     ?
-                    <Select
-                        mode="multiple"
-                        allowClear
-                        style={{
-                            width: '100%',
-                        }}
-                        placeholder="Please select"
-                        onChange={handleChange}
-                        options={record.values.map((item) => ({
-                            value: item,
-                            label: item,
-                        }))}
-                    />
+                    <>
+                        <Select
+                            mode="multiple"
+                            allowClear
+                            style={{
+                                width: '100%',
+                            }}
+                            placeholder="Please select"
+                            onChange={handleChange}
+                            options={record.values.map((item) => ({
+                                value: item,
+                                label: item,
+                            }))}
+                        />
+                    </>
                     :
-                    <a>Not invited {record.type}</a>
+                    <>
+                        Select Range:
+                        Lower Limit-<InputNumber min={0} defaultValue={record.values[0]} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
+                        Upper Limit-<InputNumber min={0} defaultValue={record.values[1]} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
+                    </>
             ),
         },
-    ];
+    ].filter(item => !item.hidden);
 
     const ac_data = [
         {
@@ -273,10 +281,10 @@ export const DASH = ({ user }) => {
                             </div>
                             <div className="ac-info-label">
                                 <div className='ac-info-label-sub'>
-                                    Number of samples: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh', handleWidth: '0.5vw' }} />
+                                    Number of samples: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
                                 </div>
                                 <div className='ac-info-label-sub'>
-                                    Prediction category: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh', handleWidth: '0.5vw' }} />
+                                    Prediction category: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
                                 </div>
                             </div>
                             <div className='ac-feature-table'>
@@ -286,7 +294,7 @@ export const DASH = ({ user }) => {
                                     size='small'
                                     pagination={{
                                         pageSize: 4,
-                                        responsive: false,
+                                        responsive: true,
                                     }}
 
                                 />

@@ -244,10 +244,10 @@
 .ac-feature-table{
     border: 1px;
     border-style: solid;
-    border-color: gray;
+    border-color: #B5B5B5;
     border-radius: 20px;
     margin: 10px;
-    padding: 5px;
+    padding: 5px 5px 0px 5px;
 }
 
 .dash-container-gen-controller {
