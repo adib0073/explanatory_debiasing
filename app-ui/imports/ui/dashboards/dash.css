@@ -159,6 +159,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 600;
+    font-size: 2vh;
+    padding: 5px 5px 0px 5px;
 }
 
 .dq-tag {
@@ -166,8 +169,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5vh;
+    font-size: 1.6vh;
     color: gray;
+    padding: 10px;
 }
 
 .dq-info {
@@ -176,11 +180,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     font-size: 1.5vh;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .dq-info-left {
     flex: 1;
+    border-right: 1px dotted #6C6C6C;
+    margin-left: 5%;
 }
 
 .dq-info-right {
@@ -348,6 +355,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 10px 10px 10px 10px;
+    padding-top: 10px;
 }
 
 .reset-button {

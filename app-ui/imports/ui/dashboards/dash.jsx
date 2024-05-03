@@ -272,18 +272,18 @@ export const DASH = ({ user }) => {
                             <div className="dq-info">
                                 <div className="dq-info-left">
                                     <div className='chart-container-info'>
-                                        <HollowBullet /> &nbsp;{"Class Imbalance"} : <b>{3000}</b>
+                                        <UpRedArrow /> &nbsp;{"Class Imbalance"} : <b>{3000}</b>
                                     </div>
                                     <div className='chart-container-info'>
-                                        <HollowBullet /> &nbsp;{"Correlated Features"} : <b>{18}</b>
+                                        <UpRedArrow /> &nbsp;{"Correlated Features"} : <b>{18}</b>
                                     </div>
                                 </div>
                                 <div className='dq-info-right'>
                                     <div className='chart-container-info'>
-                                        <HollowBullet /> &nbsp;{"Outlier Features"} : <b>{80}</b>
+                                        <UpRedArrow /> &nbsp;{"Outlier Features"} : <b>{80}</b>
                                     </div>
                                     <div className='chart-container-info'>
-                                        <HollowBullet /> &nbsp;{"Data Drift"} : <b>{80}</b>
+                                        <UpRedArrow /> &nbsp;{"Data Drift"} : <b>{80}</b>
                                     </div>
                                 </div>
                             </div>
