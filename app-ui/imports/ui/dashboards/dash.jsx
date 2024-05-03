@@ -66,7 +66,7 @@ export const DASH = ({ user }) => {
                             <div>
                                 Select Category:&nbsp;
                             </div>
-                            
+
                             <div>
                                 <Select
                                     mode="multiple"
@@ -197,20 +197,45 @@ export const DASH = ({ user }) => {
                             <div className="de-container" >
                                 <div className="de-metric-container" >
                                     <div className='de-info'>
-                                        &nbsp;{"Overall representation rate (RR) is"} : <b>{70}</b>
+                                        {"Overall representation rate (RR) is"} : &nbsp; <b>{70}</b> &nbsp; <DownRedArrow/> {"-15% below threshold"}
                                     </div>
                                     <div className='de-info'>
-                                        &nbsp;{"Overall data coverage is"} : <b>{60}</b>
+                                        {"Overall data coverage is"} : &nbsp; <b>{60}</b> &nbsp; <DownRedArrow/> {"-10% below threshold"}
                                     </div>
                                     <div className='de-info'>
-                                        &nbsp;{"Low RR and coverage indicates presence of potential bias in the variables"}
+                                        {"Low RR and coverage indicates presence of potential bias in the variables"}
                                     </div>
                                 </div>
                                 <div className="de-chart-container" >
-                                    <div>
-                                        Variable Selected
+                                    <div className='de-variable-selector'>
+                                        Variable Selected: &nbsp;
+                                        <Select
+                                            defaultValue="both"
+                                            onChange={handleChange}
+                                            options={[
+                                                {
+                                                    value: 'age',
+                                                    label: 'Age',
+                                                },
+                                                {
+                                                    value: 'gender',
+                                                    label: 'Gender',
+                                                },
+                                                {
+                                                    value: 'bmi',
+                                                    label: 'BMI',
+                                                }
+                                            ]}
+                                            size='small'
+                                            style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                                        />
+                                        &nbsp; <DownRedArrow/> &nbsp; {"RR: 61%"}
+                                        &nbsp; <DownRedArrow/> &nbsp; {"CR: 50%"}
                                     </div>
-                                    <div>
+                                    <div className='de-charts'>
+                                        <div className='chart-container-viz'>
+                                            <DoughnutChart accuracy={80} chartRef={accuracyChartRef} />
+                                        </div>
                                         <div className='chart-container-viz'>
                                             <DoughnutChart accuracy={80} chartRef={accuracyChartRef} />
                                         </div>
@@ -384,7 +409,7 @@ export const DASH = ({ user }) => {
                                         <Empty description={
                                             <span className='gd-empty-text'>
                                                 There is no unsaved generated data.
-                                                <br/>
+                                                <br />
                                                 Please use the Augmentation Controller to generate new data.
                                             </span>
                                         } />
