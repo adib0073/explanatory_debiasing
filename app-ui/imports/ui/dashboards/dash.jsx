@@ -37,6 +37,16 @@ export const DASH = ({ user }) => {
             title: 'Predictor Variable',
             dataIndex: 'feature',
             key: 'feature',
+            width: '30%',
+            render: (_, record) => (
+                <>
+                    <div className='ac-inner-cell-li'>
+                        <div>
+                            {record.feature}
+                        </div>
+                    </div>
+                </>
+            )
         },
         {
             title: 'Variable Type',
@@ -52,25 +62,41 @@ export const DASH = ({ user }) => {
                 (record.type == "categorical")
                     ?
                     <>
-                        <Select
-                            mode="multiple"
-                            allowClear
-                            style={{
-                                width: '100%',
-                            }}
-                            placeholder="Please select"
-                            onChange={handleChange}
-                            options={record.values.map((item) => ({
-                                value: item,
-                                label: item,
-                            }))}
-                        />
+                        <div className='ac-inner-cell-cat'>
+                            <div>
+                                Select Category:&nbsp;
+                            </div>
+                            
+                            <div>
+                                <Select
+                                    mode="multiple"
+                                    allowClear
+                                    style={{
+                                        width: '16vw',
+                                    }}
+                                    placeholder="Please select from the following:"
+                                    onChange={handleChange}
+                                    options={record.values.map((item) => ({
+                                        value: item,
+                                        label: item,
+                                    }))}
+                                />
+                            </div>
+                        </div>
                     </>
                     :
                     <>
-                        Select Range:
-                        Lower Limit-<InputNumber min={0} defaultValue={record.values[0]} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
-                        Upper Limit-<InputNumber min={0} defaultValue={record.values[1]} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
+                        <div className='ac-inner-cell'>
+                            <div>
+                                Select Range:
+                            </div>
+                            <div>
+                                Lower Limit &nbsp;- &nbsp; <InputNumber min={0} defaultValue={record.values[0]} size='small' style={{ width: '4vw', fontSize: '1.8vh' }} />
+                            </div>
+                            <div>
+                                Upper Limit &nbsp; - &nbsp; <InputNumber min={0} defaultValue={record.values[1]} size='small' style={{ width: '4vw', fontSize: '1.8vh' }} />
+                            </div>
+                        </div>
                     </>
             ),
         },
@@ -97,21 +123,21 @@ export const DASH = ({ user }) => {
         },
         {
             key: '4',
-            feature: 'Gender',
-            type: 'categorical',
-            values: ['Male', 'Female'],
+            feature: 'Cholesterol',
+            type: 'continuous',
+            values: [1, 12],
         },
         {
             key: '5',
-            feature: 'Gender',
+            feature: 'Family history of diabetes',
             type: 'categorical',
-            values: ['Male', 'Female'],
+            values: ['Yes', 'No'],
         },
         {
             key: '6',
-            feature: 'Gender',
-            type: 'categorical',
-            values: ['Male', 'Female'],
+            feature: 'Blood Pressure',
+            type: 'continuous',
+            values: [100, 200],
         },
     ];
 
@@ -281,10 +307,30 @@ export const DASH = ({ user }) => {
                             </div>
                             <div className="ac-info-label">
                                 <div className='ac-info-label-sub'>
-                                    Number of samples: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
+                                    Number of samples: &nbsp; <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', fontSize: '1.8vh' }} />
                                 </div>
                                 <div className='ac-info-label-sub'>
-                                    Prediction category: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }} />
+                                    Prediction category: &nbsp;
+                                    <Select
+                                        defaultValue="both"
+                                        onChange={handleChange}
+                                        options={[
+                                            {
+                                                value: 'both',
+                                                label: 'Both',
+                                            },
+                                            {
+                                                value: 'diabetic',
+                                                label: 'Diabetic',
+                                            },
+                                            {
+                                                value: 'non-diabetic',
+                                                label: 'Non-diabetic',
+                                            }
+                                        ]}
+                                        size='small'
+                                        style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                                    />
                                 </div>
                             </div>
                             <div className='ac-feature-table'>
@@ -292,14 +338,16 @@ export const DASH = ({ user }) => {
                                     columns={ac_columns}
                                     dataSource={ac_data}
                                     size='small'
-                                    pagination={{
-                                        pageSize: 4,
-                                        responsive: true,
+                                    pagination={false}
+                                    style={
+                                        { fontSize: "1.5vh" }
+                                    }
+                                    scroll={{
+                                        y: "25vh",
                                     }}
-
                                 />
                             </div>
-                            <div>
+                            <div className='ac-buttons'>
                                 <button
                                     className="reset-button"
                                     type="submit"

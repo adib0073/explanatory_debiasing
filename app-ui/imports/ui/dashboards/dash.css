@@ -206,7 +206,7 @@
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    padding: 10px;
+    padding: 10px 10px 15px 10px;
     margin: 0 0 5px 5px;
     flex: 1;
 }
@@ -218,7 +218,7 @@
 
 
 .ac-subtitle {
-    flex: 1;
+    flex: 0.5;
     font-size: 1.6vh;
     color: #999999;
     margin-left: 10px;
@@ -226,28 +226,68 @@
 
 .ac-info-label {
     display: flex;
-    flex: 1;
+    flex: 0.5;
     font-size: 1.8vh;
     flex-direction: row;
-    padding: 10px;
-    margin-right: 10%;
+    padding: 5px;
+    margin-left: 5px;
 }
 
 .ac-info-label-sub {
     display: flex;
     flex: 1;
-    justify-content: space-between;
     align-items: center;
-    margin-right: 20%;
 }
 
-.ac-feature-table{
+.ac-feature-table {
+    flex: 6;
     border: 1px;
     border-style: solid;
     border-color: #B5B5B5;
     border-radius: 20px;
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
     padding: 5px 5px 0px 5px;
+    font-size: 1.8vh;
+    max-height: 25vh;
+    overflow-y: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.ac-inner-cell-li {
+    display: flex;
+    flex-direction: row;
+    padding: 0px 5px 0px 5px;
+    font-size: 1.8vh;
+    margin-left: 20px;
+    font-weight: 600;
+}
+
+.ac-inner-cell-cat {
+    display: flex;
+    flex-direction: row;
+    padding: 0px 5px 0px 5px;
+    font-size: 1.8vh;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 15px;
+}
+
+.ac-inner-cell {
+    display: flex;
+    flex-direction: row;
+    padding: 0px 5px 0px 5px;
+    font-size: 1.8vh;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ac-buttons {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 20px 0px 20px;
 }
 
 .dash-container-gen-controller {
@@ -286,13 +326,14 @@
 }
 
 .reset-button {
-    padding: 10px;
+    padding: 5px 20px 5px 20px;
     border: None;
     font-weight: 600;
     color: #fff;
     background-color: #6C6C6C;
     cursor: pointer;
-    margin-right: 10px;
+    margin: 0px 20px 0px 20px;
+    border-radius: 10px;
 }
 
 .reset-button:hover {
@@ -301,13 +342,14 @@
 }
 
 .train-button {
-    margin-left: 10px;
-    padding: 10px;
+    margin: 0px 20px 0px 20px;
+    padding: 5px 20px 5px 20px;
     background-color: #1363DF;
     color: #fff;
     border: None;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .train-button:hover {
