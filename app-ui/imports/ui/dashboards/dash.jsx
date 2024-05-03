@@ -10,7 +10,7 @@ import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
 import GaugeChart from 'react-gauge-chart';
-import { Empty } from 'antd';
+import { Empty, InputNumber } from 'antd';
 
 
 
@@ -189,13 +189,18 @@ export const DASH = ({ user }) => {
                             </div>
                         </div>
                         <div className="ac-container" >
-                            <div>
+                            <div className="ac-subtitle">
                                 Apply constraints to the generated data
                             </div>
-                            <div>
-                                Number of samples
+                            <div className="ac-info-label">
+                                <div className='ac-info-label-sub'>
+                                    Number of samples: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor:'#E5E5E5', fontSize:'1.8vh', handleWidth:'0.5vw' }}/>
+                                </div>
+                                <div className='ac-info-label-sub'>
+                                    Prediction category: <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', backgroundColor:'#E5E5E5', fontSize:'1.8vh', handleWidth:'0.5vw' }}/>
+                                </div>
                             </div>
-                            <div>
+                            <div className='ac-feature-table'>
                                 Table Here
                             </div>
                             <div>
@@ -210,7 +215,7 @@ export const DASH = ({ user }) => {
                                     className="train-button"
                                     type="submit"
                                 >
-                                   Generate
+                                    Generate
                                 </button>
                             </div>
                         </div>

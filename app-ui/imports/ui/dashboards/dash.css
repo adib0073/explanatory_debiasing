@@ -216,6 +216,39 @@
     flex-direction: column;
 }
 
+
+.ac-subtitle {
+    flex: 1;
+    font-size: 1.6vh;
+    color: #999999;
+    margin-left: 10px;
+}
+
+.ac-info-label {
+    display: flex;
+    flex: 1;
+    font-size: 1.8vh;
+    flex-direction: row;
+    padding: 10px;
+    margin-right: 10%;
+}
+
+.ac-info-label-sub {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20%;
+}
+
+.ac-feature-table{
+    border: 1px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 20px;
+    margin: 10px;
+}
+
 .dash-container-gen-controller {
     border: 1px;
     border-style: solid;
