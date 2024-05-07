@@ -138,8 +138,8 @@
     border-bottom: 3px solid #E5E5E5;
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 5px;
+    align-items: stretch;
 }
 
 .de-charts-acc {

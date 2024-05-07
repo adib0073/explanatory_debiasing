@@ -15,27 +15,35 @@ const labelWrapper = (value) => {
 };
 
 
-export const BiasPlots = ({ y_values, x_values}) => {
+export const BiasAccPlots = ({ y_values, x_values}) => {
 
     let data = {
         labels: labelWrapper(x_values),
         datasets: [
             {
-                label: 'sample counts',
-                data: y_values,
+                label: 'diabetic',
+                stack: 'Stack 0',
+                data: y_values[0],
                 pointRadius: 0,
                 fill: true,
-                backgroundColor: ["#67A3FF", "#244CB1"],
-                borderColor: ["#67A3FF", "#244CB1"],
+                backgroundColor: "#67A3FF",
+                borderColor: "#67A3FF",
                 barPercentage: 1,
-                categoryPercentage: 1,
+                categoryPercentage: 0.6,
                 //maxBarThickness: 20,
-                datalabels: {
-                    anchor: 'end',
-                    align: 'top',
-                    offset: 8,
-                }
             },
+            {
+                label: 'non-diabetic',
+                stack: 'Stack 1',
+                data: y_values[1],
+                pointRadius: 0,
+                fill: true,
+                backgroundColor: "#999999",
+                borderColor: "#999999",
+                barPercentage: 1,
+                categoryPercentage: 0.6,
+                //maxBarThickness: 20,
+            }
         ],
     };
 
@@ -100,7 +108,7 @@ export const BiasPlots = ({ y_values, x_values}) => {
                     drawTicks: false,
                 },
                 min: 0,
-                max: Math.max.apply(Math, y_values) * 2,
+                max: Math.max.apply(Math, y_values[0]) * 2,
                 ticks: {
                     padding: 0,
                     color: "#000000",
@@ -135,7 +143,8 @@ export const BiasPlots = ({ y_values, x_values}) => {
 
     data.labels = labelWrapper(x_values);
 
-    data.datasets[0].data = y_values;
+    data.datasets[0].data = y_values[0];
+    data.datasets[1].data = y_values[1];
 
     const chartRef = useRef();
 

@@ -12,8 +12,8 @@ import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
 import GaugeChart from 'react-gauge-chart';
-import { BiasPlots } from '../components/BiasDetectionPlots/BiasPlots.jsx';
-
+import { BiasCountPlots } from '../components/BiasDetectionPlots/BiasCountPlots.jsx';
+import { BiasAccPlots } from '../components/BiasDetectionPlots/BiasAccPlots.jsx';
 
 
 export const DASH = ({ user }) => {
@@ -235,10 +235,10 @@ export const DASH = ({ user }) => {
                                     </div>
                                     <div className='de-charts'>
                                         <div className='de-charts-sc'>
-                                            <BiasPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
+                                            <BiasCountPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
                                         </div>
                                         <div className='de-charts-acc'>
-                                            <BiasPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
+                                            <BiasAccPlots x_values={['High', 'Low']} y_values={[[75, 10], [45, 35]]} />
                                         </div>
                                     </div>
                                     <div className="de-insights-container" >
