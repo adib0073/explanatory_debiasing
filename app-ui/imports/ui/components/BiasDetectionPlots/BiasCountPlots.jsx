@@ -15,7 +15,7 @@ const labelWrapper = (value) => {
 };
 
 
-export const BiasCountPlots = ({ y_values, x_values}) => {
+export const BiasCountPlots = ({ y_values, x_values, coverage, rr}) => {
 
     let data = {
         labels: labelWrapper(x_values),
@@ -48,12 +48,12 @@ export const BiasCountPlots = ({ y_values, x_values}) => {
             datalabels: {
                 color: "#000",
                 formatter: function (value, context) {
-                    return context.chart.data.labels[context.dataIndex];
+                    return "RR: "+ rr[context.dataIndex] + "\n" +"coverage :" + coverage[context.dataIndex];
                 },
                 textAlign: 'center',
                 font: function (context) {
                     var width = context.chart.width;
-                    var size = Math.round(width / 12);
+                    var size = Math.round(width / 30);
                     return {
                         size: size,
                     };
@@ -125,10 +125,7 @@ export const BiasCountPlots = ({ y_values, x_values}) => {
                     padding: 1,
                     color: "#000000",
                     font: {
-                        size: 9
-                    },
-                    callback: (value, index, values) => {
-                        return ""
+                        size: 14
                     }
                 },
                 text: "Features",

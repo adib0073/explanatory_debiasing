@@ -235,7 +235,7 @@ export const DASH = ({ user }) => {
                                     </div>
                                     <div className='de-charts'>
                                         <div className='de-charts-sc'>
-                                            <BiasCountPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
+                                            <BiasCountPlots x_values={['High', 'Low']} y_values={[3500, 500]} coverage={[1300, 1500]}  rr={[60, 40]}/>
                                         </div>
                                         <div className='de-charts-acc'>
                                             <BiasAccPlots x_values={['High', 'Medium', 'Low']} y_values={[[75, 10, 81], [45, 35, 85]]} />
