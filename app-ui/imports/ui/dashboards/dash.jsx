@@ -234,10 +234,10 @@ export const DASH = ({ user }) => {
                                         &nbsp; <DownRedArrow /> &nbsp; {"CR: 50%"}
                                     </div>
                                     <div className='de-charts'>
-                                        <div className='chart-container-viz'>
+                                        <div className='de-charts-sc'>
                                             <BiasPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
                                         </div>
-                                        <div className='chart-container-viz'>
+                                        <div className='de-charts-acc'>
                                             <BiasPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
                                         </div>
                                     </div>
