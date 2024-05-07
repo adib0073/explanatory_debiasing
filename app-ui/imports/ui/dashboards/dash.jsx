@@ -1,8 +1,9 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import { useRef, useState, useEffect } from 'react';
-import { NavBar } from '../components/NavBar/NavBar.jsx';
+import 'antd/dist/antd.css';
+import { Empty, InputNumber, Table, Select } from 'antd';
 import './dash.css'
+import { NavBar } from '../components/NavBar/NavBar.jsx';
 import axios from 'axios';
 import { InfoLogo } from '../components/Icons/InfoLogo.jsx';
 import { HollowBullet } from '../components/Icons/HollowBullet.jsx';
@@ -11,7 +12,7 @@ import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
 import GaugeChart from 'react-gauge-chart';
-import { Empty, InputNumber, Table, Select } from 'antd';
+import { BiasPlots } from '../components/BiasDetectionPlots/BiasPlots.jsx';
 
 
 
@@ -197,10 +198,10 @@ export const DASH = ({ user }) => {
                             <div className="de-container" >
                                 <div className="de-metric-container" >
                                     <div className='de-info'>
-                                        {"Overall representation rate (RR) is"} : &nbsp; <b>{70}</b> &nbsp; <DownRedArrow/> {"-15% below threshold"}
+                                        {"Overall representation rate (RR) is"} : &nbsp; <b>{70}</b> &nbsp; <DownRedArrow /> {"-15% below threshold"}
                                     </div>
                                     <div className='de-info'>
-                                        {"Overall data coverage is"} : &nbsp; <b>{60}</b> &nbsp; <DownRedArrow/> {"-10% below threshold"}
+                                        {"Overall data coverage is"} : &nbsp; <b>{60}</b> &nbsp; <DownRedArrow /> {"-10% below threshold"}
                                     </div>
                                     <div className='de-info'>
                                         {"Low RR and coverage indicates presence of potential bias in the variables"}
@@ -229,15 +230,15 @@ export const DASH = ({ user }) => {
                                             size='small'
                                             style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
                                         />
-                                        &nbsp; <DownRedArrow/> &nbsp; {"RR: 61%"}
-                                        &nbsp; <DownRedArrow/> &nbsp; {"CR: 50%"}
+                                        &nbsp; <DownRedArrow /> &nbsp; {"RR: 61%"}
+                                        &nbsp; <DownRedArrow /> &nbsp; {"CR: 50%"}
                                     </div>
                                     <div className='de-charts'>
                                         <div className='chart-container-viz'>
-                                            <DoughnutChart accuracy={80} chartRef={accuracyChartRef} />
+                                            <BiasPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
                                         </div>
                                         <div className='chart-container-viz'>
-                                            <DoughnutChart accuracy={80} chartRef={accuracyChartRef} />
+                                            <BiasPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
                                         </div>
                                     </div>
                                     <div className="de-insights-container" >

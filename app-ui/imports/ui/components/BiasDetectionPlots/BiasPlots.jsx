@@ -15,18 +15,18 @@ const labelWrapper = (value) => {
 };
 
 
-export const ConfigBar = ({ y_values, x_values}) => {
+export const BiasPlots = ({ y_values, x_values}) => {
 
     let data = {
         labels: labelWrapper(x_values),
         datasets: [
             {
-                label: 'Count',
+                label: 'sample counts',
                 data: y_values,
                 pointRadius: 0,
                 fill: true,
-                backgroundColor: ["#C5C4C4", "#be95ff"],
-                borderColor: ["#C5C4C4", "#be95ff"],
+                backgroundColor: ["#67A3FF", "#244CB1"],
+                borderColor: ["#67A3FF", "#244CB1"],
                 barPercentage: 1,
                 categoryPercentage: 1,
                 //maxBarThickness: 20,
@@ -92,7 +92,7 @@ export const ConfigBar = ({ y_values, x_values}) => {
         },
         scales: {
             y: {
-                display: false,
+                display: true,
                 beginAtZero: true,
                 grid: {
                     display: false,
@@ -111,7 +111,7 @@ export const ConfigBar = ({ y_values, x_values}) => {
                 text: "Count of patients",
             },
             x: {
-                display: false,
+                display: true,
                 offset: true,
                 grid: {
                     display: false,

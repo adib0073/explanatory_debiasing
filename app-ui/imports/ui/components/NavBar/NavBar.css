@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.2vw;
     font-family: 'Roboto';
 }
 
@@ -16,7 +16,7 @@
     align-items: center;
     margin-left: 20px;
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1.4vw;
     margin-top: 0.5rem;
 }
 
