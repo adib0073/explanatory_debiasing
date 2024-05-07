@@ -108,7 +108,10 @@ export const BiasCountPlots = ({ y_values, x_values}) => {
                         size: 8
                     }
                 },
-                text: "Count of patients",
+                title: {
+                    display: true,
+                    text: 'No. of samples'
+                  }
             },
             x: {
                 display: true,

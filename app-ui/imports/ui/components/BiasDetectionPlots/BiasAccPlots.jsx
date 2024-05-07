@@ -52,7 +52,7 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
         maintainAspectRatio: false,
         responsive: true,
         plugins: {
-            legend: { display: false },
+            legend: { display: true },
             datalabels: {
                 color: "#000",
                 formatter: function (value, context) {
@@ -72,7 +72,7 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
                 displayColors: false,
                 callbacks: {
                     label: function (context) {
-                        let label = "Proportion " || '';
+                        let label = "accuracy " || '';
 
                         if (label) {
                             label += ': ';
@@ -108,7 +108,7 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
                     drawTicks: false,
                 },
                 min: 0,
-                max: Math.max.apply(Math, y_values[0]) * 2,
+                max: 100,
                 ticks: {
                     padding: 0,
                     color: "#000000",
@@ -116,7 +116,10 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
                         size: 8
                     }
                 },
-                text: "Count of patients",
+                title: {
+                    display: true,
+                    text: 'Accuracy'
+                  }
             },
             x: {
                 display: true,
@@ -130,11 +133,8 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
                     padding: 1,
                     color: "#000000",
                     font: {
-                        size: 9
+                        size: 14
                     },
-                    callback: (value, index, values) => {
-                        return ""
-                    }
                 },
                 text: "Features",
             }
@@ -156,7 +156,6 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
             redraw={true}
             //onMouseDown={onDown}
             //onMouseUp={onUp}
-            plugins={[ChartDataLabels]}
         />
     </div>);
 };

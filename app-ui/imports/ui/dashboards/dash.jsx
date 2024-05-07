@@ -238,7 +238,7 @@ export const DASH = ({ user }) => {
                                             <BiasCountPlots x_values={['High', 'Low']} y_values={[3500, 500]} />
                                         </div>
                                         <div className='de-charts-acc'>
-                                            <BiasAccPlots x_values={['High', 'Low']} y_values={[[75, 10], [45, 35]]} />
+                                            <BiasAccPlots x_values={['High', 'Medium', 'Low']} y_values={[[75, 10, 81], [45, 35, 85]]} />
                                         </div>
                                     </div>
                                     <div className="de-insights-container" >
