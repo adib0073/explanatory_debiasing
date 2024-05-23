@@ -1,6 +1,6 @@
 .BarPlotContainer {
-    background: #FFFFFF;
-    padding: 2px 5px 5px 5px;    
+    background: #FFFFFF;    
     align-items: stretch;
     max-height: 14vh;
+    flex: 2;
 }

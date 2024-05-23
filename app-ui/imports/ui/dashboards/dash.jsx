@@ -235,10 +235,19 @@ export const DASH = ({ user }) => {
                                     </div>
                                     <div className='de-charts'>
                                         <div className='de-charts-sc'>
-                                            <BiasCountPlots x_values={['High', 'Low']} y_values={[2500, 1500]} coverage={[2500, 1500]}  rr={[60, 40]} cov_thres={2000}/>
+                                            <BiasCountPlots x_values={['High', 'Low']} y_values={[2500, 1500]} coverage={[2500, 1500]} rr={[60, 40]} cov_thres={2000} />
+                                            <div className='de-charts-sc-legend'>
+                                                <div className="de-charts-sc-ltext">
+                                                    RR: 100%
+                                                </div>
+                                                <div className="de-charts-sc-colorbar"></div>
+                                                <div className="de-charts-sc-ltext">
+                                                    RR: 0%
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className='de-charts-acc'>
-                                            <BiasAccPlots x_values={['High', 'Medium', 'Low']} y_values={[[75, 10, 81], [45, 35, 85]]} />
+                                            <BiasAccPlots x_values={['High', 'Medium', 'Low']} y_values={[[75, 10, 81], [45, 35, 85]]} acc_thres={80} />
                                         </div>
                                     </div>
                                     <div className="de-insights-container" >

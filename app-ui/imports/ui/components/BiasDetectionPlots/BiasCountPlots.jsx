@@ -84,7 +84,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
             datalabels: {
                 color: "#000",
                 formatter: function (value, context) {
-                    return "RR: " + rr[context.dataIndex] + "\n" + "Coverage :" + coverage[context.dataIndex];
+                    return "RR: " + rr[context.dataIndex] + "%" + "\n" + "Coverage :" + coverage[context.dataIndex];
                 },
                 textAlign: 'center',
                 font: function (context) {
