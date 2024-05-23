@@ -2,4 +2,5 @@
     background: #FFFFFF;
     padding: 2px 5px 5px 5px;    
     align-items: stretch;
+    max-height: 15vh;
 }

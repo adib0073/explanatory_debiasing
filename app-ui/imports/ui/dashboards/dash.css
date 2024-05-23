@@ -131,19 +131,23 @@
     border: 3px;
     border-style: solid;
     border-color: #E5E5E5;
+    justify-content: center;
+    align-items: stretch;
 
 }
 
 .de-charts-sc {
     border-bottom: 3px solid #E5E5E5;
     display: flex;
+    flex: 1;
     justify-content: center;
     padding: 5px;
-    align-items: stretch;
+    align-items: center;
 }
 
 .de-charts-acc {
     display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
     padding: 5px;
@@ -219,6 +223,8 @@
     font-size: 1.5vh;
     justify-content: space-around;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .dq-info-left {

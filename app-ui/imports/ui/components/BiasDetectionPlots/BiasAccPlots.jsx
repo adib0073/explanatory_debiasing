@@ -118,7 +118,11 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
                 },
                 title: {
                     display: true,
-                    text: 'Accuracy'
+                    text: 'Accuracy',
+                    color: "#000000",
+                    font: {
+                        size: "12vh"
+                    }
                   }
             },
             x: {
@@ -133,8 +137,8 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
                     padding: 1,
                     color: "#000000",
                     font: {
-                        size: 14
-                    },
+                        size: "12vh"
+                    }
                 },
                 text: "Features",
             }

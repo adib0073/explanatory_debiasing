@@ -110,7 +110,11 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr}) => {
                 },
                 title: {
                     display: true,
-                    text: 'No. of samples'
+                    text: 'No. of samples',
+                    color: "#000000",
+                    font: {
+                        size: "12vh"
+                    }
                   }
             },
             x: {
@@ -125,7 +129,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr}) => {
                     padding: 1,
                     color: "#000000",
                     font: {
-                        size: 14
+                        size: "12vh"
                     }
                 },
                 text: "Features",
