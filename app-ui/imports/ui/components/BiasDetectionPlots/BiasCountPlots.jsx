@@ -53,7 +53,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr}) => {
                 textAlign: 'center',
                 font: function (context) {
                     var width = context.chart.width;
-                    var size = Math.round(width / 30);
+                    var size = Math.round(width / 40);
                     return {
                         size: size,
                     };

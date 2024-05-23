@@ -52,7 +52,19 @@ export const BiasAccPlots = ({ y_values, x_values}) => {
         maintainAspectRatio: false,
         responsive: true,
         plugins: {
-            legend: { display: true },
+            legend: { 
+                display: true,
+                position: "right",
+                align: "start",
+                labels:{
+                    boxWidth: 10,
+                    padding: 5,
+                    color: "#000000",
+                    font: {
+                        size: "11vh"
+                    }
+                }
+            },
             datalabels: {
                 color: "#000",
                 formatter: function (value, context) {
