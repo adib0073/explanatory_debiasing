@@ -18,11 +18,25 @@ body {
   height: 100vh;
   /*overflow-y: auto;*/
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 /* video-container */
 .video-container {
   position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+
 }
 
 video {
@@ -35,6 +49,7 @@ video {
   width: 100%;
   position: absolute;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   top: 0;
@@ -148,11 +163,11 @@ video {
 }
 
 i.ant-spin-dot-item {
-  background-color: #6929c4;
+  background-color: #1363DF;
 }
 
 .ant-spin-text {
-  color: #6929c4;
+  color: #1363DF;
 }
 
 /*------------------------------*/

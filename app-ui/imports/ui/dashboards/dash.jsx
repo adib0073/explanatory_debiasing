@@ -11,6 +11,7 @@ import { UpGreenArrow } from '../components/Icons/UpGreenArrow.jsx';
 import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
+import { SystemOverview } from '../components/SystemOverview/SystemOverview.jsx';
 import GaugeChart from 'react-gauge-chart';
 import { BiasCountPlots } from '../components/BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../components/BiasDetectionPlots/BiasAccPlots.jsx';
@@ -22,13 +23,8 @@ export const DASH = ({ user }) => {
         userid = window.localStorage.getItem('userid');
     }
 
-    const accuracyChartRef = useRef();
-
     useEffect(() => {
     }, []);
-
-    const greenFont = "#449231";
-    const redFont = "#D64242";
 
     const handleChange = (value) => {
         console.log(`selected ${value}`);
@@ -147,43 +143,7 @@ export const DASH = ({ user }) => {
             <NavBar user={user} />
             <div className="dash-container">
                 <div className="dash-container-left">
-                    <div className="dash-container-system-overview">
-                        <div className="chart-title-box">
-                            <div className="chart-title">
-                                System Overview
-                            </div>
-
-                            <div className="chart-icons">
-                                <InfoLogo />
-                            </div>
-                        </div>
-                        <div className="so-container" >
-                            <div className="so-desc-left" >
-                                <div className='chart-container-info'>
-                                    <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
-                                </div>
-                                <div className='chart-container-info'>
-                                    <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{18}</b>
-                                </div>
-                                <div className='chart-container-info'>
-                                    <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{80}</b>
-                                </div>
-                                <div className='chart-container-info'>
-                                    <span style={{ color: (5 > 0) ? greenFont : redFont }}>
-                                        {(5 > 0) ? <UpGreenArrow /> : <DownRedArrow />}
-                                        <b> &nbsp;{5}% </b>
-                                    </span>
-                                    {"from previous score"}
-
-                                </div>
-                            </div>
-                            <div className="so-chart-right" >
-                                <div className='chart-container-viz'>
-                                    <DoughnutChart accuracy={80} chartRef={accuracyChartRef} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <SystemOverview />
                     <div className="dash-container-data-explorer">
                         <div className="chart-title-box">
                             <div className="chart-title">
