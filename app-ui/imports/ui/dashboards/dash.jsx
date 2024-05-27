@@ -8,7 +8,7 @@ import { SystemOverview } from '../components/SystemOverview/SystemOverview.jsx'
 import { DataExplorer } from '../components/DataExplorer/DataExplorer.jsx';
 import { DataQuality } from '../components/DataQuality/DataQuality.jsx';
 import { AugmentationController } from '../components/AugmentationController/AugmentationController.jsx';
-import { EmptyDataGenController } from '../components/DataGenController/EmptyDataGenController.jsx';
+import { DataGenController } from '../components/DataGenController/DataGenController.jsx';
 
 export const DASH = ({ user }) => {
     var userid = user.id;
@@ -34,7 +34,7 @@ export const DASH = ({ user }) => {
                 </div>
                 <div className="dash-container-right">
                     <AugmentationController />
-                    <EmptyDataGenController />
+                    <DataGenController />
                 </div>
             </div>
         </>

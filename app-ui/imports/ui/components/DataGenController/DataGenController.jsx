@@ -1,11 +1,11 @@
 import React from 'react';
 import { useRef } from 'react';
 import 'antd/dist/antd.css';
-import "./DataGenController.css"
+import "./DataGenController.css";
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
-import { Empty } from 'antd';
+import { EmptyDataGenController } from './EmptyDataGen.jsx';
 
-export const EmptyDataGenController = (
+export const DataGenController = (
     {
     }) => {
     console.log('Empty Data Gen Controller');
@@ -31,15 +31,7 @@ export const EmptyDataGenController = (
                     Please use the augmentation controller to generate data.
                 </div>
                 <div className='generated-data-holder'>
-                    <div className='empty-holder'>
-                        <Empty description={
-                            <span className='gd-empty-text'>
-                                There is no unsaved generated data.
-                                <br />
-                                Please use the Augmentation Controller to generate new data.
-                            </span>
-                        } />
-                    </div>
+                    <EmptyDataGenController />
                 </div>
                 <div className='gd-buttons'>
                     <button

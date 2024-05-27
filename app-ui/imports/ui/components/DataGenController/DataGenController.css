@@ -27,6 +27,7 @@
 
 .generated-data-holder {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -34,6 +35,7 @@
 /* GC Components */
 .empty-holder {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: #F0F0F0;
