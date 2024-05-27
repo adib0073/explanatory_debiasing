@@ -1,0 +1,114 @@
+.dash-container-data-explorer {
+    border: 0px;
+    border-style: solid;
+    border-color: transparent;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px 10px 20px 10px;
+    margin: 5px 5px 5px 0;
+    flex: 5;
+}
+
+.de-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.de-metric-container {
+    flex: 1;
+    display: flex;
+    border: 0px;
+    border-style: solid;
+    border-color: blue;
+    flex-direction: column;
+}
+
+.de-info {
+    font-size: 1.8vh;
+    margin-left: 10px;
+}
+
+.de-chart-container {
+    flex: 6;
+    display: flex;
+    border: 1px;
+    border-style: solid;
+    border-color: #D9D9D9;
+    border-radius: 20px;
+    flex-direction: column;
+}
+
+.de-variable-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #D9D9D9;
+    padding: 5px;
+}
+
+.de-charts {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 10px 5px 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: #E5E5E5;
+    justify-content: center;
+    align-items: stretch;
+
+}
+
+.de-charts-sc {
+    border-bottom: 3px solid #E5E5E5;
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    padding: 5px;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+}
+
+.de-charts-sc-legend{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0.4;
+}
+
+.de-charts-sc-ltext{
+    flex: 1;
+    font-size: 1.4vh;
+}
+
+.de-charts-sc-colorbar {
+    flex: 4;
+    height: 100%;
+    float: left;
+    width: 5%;
+    background: rgb(204, 223, 252);
+    background: linear-gradient(0deg,rgba(204,223,252,1) 0%, rgba(1,95,242,1) 70%, rgba(36,76,177,1) 100%);
+}
+
+.de-charts-acc {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    align-items: stretch;
+    padding: 5px;
+}
+
+.de-insights-container {
+    flex: 1;
+    display: flex;
+    border: 0px;
+    border-style: solid;
+    border-color: blue;
+    flex-direction: column;
+    padding: 5px 10px 5px 10px;
+}

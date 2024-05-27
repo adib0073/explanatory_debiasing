@@ -12,6 +12,7 @@ import { UpRedArrow } from '../components/Icons/UpRedArrow.jsx';
 import { DownRedArrow } from '../components/Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.jsx';
 import { SystemOverview } from '../components/SystemOverview/SystemOverview.jsx';
+import { DataExplorer } from '../components/DataExplorer/DataExplorer.jsx';
 import GaugeChart from 'react-gauge-chart';
 import { BiasCountPlots } from '../components/BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../components/BiasDetectionPlots/BiasAccPlots.jsx';
@@ -144,88 +145,7 @@ export const DASH = ({ user }) => {
             <div className="dash-container">
                 <div className="dash-container-left">
                     <SystemOverview />
-                    <div className="dash-container-data-explorer">
-                        <div className="chart-title-box">
-                            <div className="chart-title">
-                                Data Explorer
-                            </div>
-
-                            <div className="chart-icons">
-                                <InfoLogo />
-                            </div>
-                        </div>
-                        <div className="chart-container" >
-                            <div className="de-container" >
-                                <div className="de-metric-container" >
-                                    <div className='de-info'>
-                                        {"Overall representation rate (RR) is"} : &nbsp; <b>{70}</b> &nbsp; <DownRedArrow /> {"-15% below threshold"}
-                                    </div>
-                                    <div className='de-info'>
-                                        {"Overall data coverage is"} : &nbsp; <b>{60}</b> &nbsp; <DownRedArrow /> {"-10% below threshold"}
-                                    </div>
-                                    <div className='de-info'>
-                                        {"Low RR and coverage indicates presence of potential bias in the variables"}
-                                    </div>
-                                </div>
-                                <div className="de-chart-container" >
-                                    <div className='de-variable-selector'>
-                                        Variable Selected: &nbsp;
-                                        <Select
-                                            defaultValue="both"
-                                            onChange={handleChange}
-                                            options={[
-                                                {
-                                                    value: 'age',
-                                                    label: 'Age',
-                                                },
-                                                {
-                                                    value: 'gender',
-                                                    label: 'Gender',
-                                                },
-                                                {
-                                                    value: 'bmi',
-                                                    label: 'BMI',
-                                                }
-                                            ]}
-                                            size='small'
-                                            style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
-                                        />
-                                        &nbsp; <DownRedArrow /> &nbsp; {"RR: 61%"}
-                                        &nbsp; <DownRedArrow /> &nbsp; {"CR: 50%"}
-                                    </div>
-                                    <div className='de-charts'>
-                                        <div className='de-charts-sc'>
-                                            <BiasCountPlots x_values={['High', 'Low']} y_values={[2500, 1500]} coverage={[2500, 1500]} rr={[60, 40]} cov_thres={2000} />
-                                            <div className='de-charts-sc-legend'>
-                                                <div className="de-charts-sc-ltext">
-                                                    RR: 100%
-                                                </div>
-                                                <div className="de-charts-sc-colorbar"></div>
-                                                <div className="de-charts-sc-ltext">
-                                                    RR: 0%
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='de-charts-acc'>
-                                            <BiasAccPlots x_values={['High', 'Medium', 'Low']} y_values={[[75, 10, 81], [45, 35, 85]]} acc_thres={80} />
-                                        </div>
-                                    </div>
-                                    <div className="de-insights-container" >
-                                        Insights:
-                                        <div className='chart-container-info'>
-                                            <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
-                                        </div>
-                                        <div className='chart-container-info'>
-                                            <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{18}</b>
-                                        </div>
-                                        <div className='chart-container-info'>
-                                            <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{80}</b>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <DataExplorer />
                     <div className="dash-container-quality">
                         <div className="chart-title-box">
                             <div className="chart-title">
