@@ -14,8 +14,7 @@ import { DoughnutChart } from '../components/EstimatedRiskChart/DoughnutChart.js
 import { SystemOverview } from '../components/SystemOverview/SystemOverview.jsx';
 import { DataExplorer } from '../components/DataExplorer/DataExplorer.jsx';
 import { DataQuality } from '../components/DataQuality/DataQuality.jsx';
-import { EmptyDataGenController } from '../components/DataGenController/EmptyDataGenController.jsx';
-
+import { AugmentationController } from '../components/AugmentationController/AugmentationController.jsx';
 
 export const DASH = ({ user }) => {
     var userid = user.id;
@@ -40,7 +39,7 @@ export const DASH = ({ user }) => {
                     <DataQuality />
                 </div>
                 <div className="dash-container-right">
-                    <EmptyDataGenController />
+                    <AugmentationController />
                     <div className="dash-container-gen-controller">
                         <div className="chart-title-box">
                             <div className="chart-title">
