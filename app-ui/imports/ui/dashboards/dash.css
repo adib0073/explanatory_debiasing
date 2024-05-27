@@ -30,11 +30,11 @@
     border-style: solid;
     border-color: red;
     display: flex;
-    flex-wrap: wrap;
-    flex: 1.5;
-    margin-bottom: 10px;
+    flex-wrap: wrap;    
     flex-direction: column;
     justify-content: space-between;
+    flex: 1.5;
+    margin-bottom: 10px;
     padding-bottom: 20px;
 }
 
