@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { EmptyDataGenController } from './EmptyDataGen.jsx';
+import { GenDataTable } from './GenDataTable.jsx';
 
 export const DataGenController = (
     {
@@ -27,12 +28,7 @@ export const DataGenController = (
         </div>
         <div className='chart-container'>
             <div className="gd-container" >
-                <div className='gd-subtitle'>
-                    Please use the augmentation controller to generate data.
-                </div>
-                <div className='generated-data-holder'>
-                    <EmptyDataGenController />
-                </div>
+                <GenDataTable />
                 <div className='gd-buttons'>
                     <button
                         className="reset-button"

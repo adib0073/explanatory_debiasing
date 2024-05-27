@@ -4,13 +4,20 @@ import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Empty } from 'antd';
 
-export const EmptyDataGenController = (
+export const GenDataTable = (
     {
     }) => {
     return (
         <>
             <div className='gd-subtitle'>
-                Please use the augmentation controller to generate data.
+                <div>
+                    Prediction accuracy on generated data: 85%
+                    Prediction accuracy on generated data: 85%
+                </div>
+                <div>
+                    Sort - switch
+                    filer - switch
+                </div>
             </div>
             <div className='generated-data-holder'>
                 <div className='empty-holder'>
