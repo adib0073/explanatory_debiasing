@@ -2,21 +2,33 @@ import React from 'react';
 import { useRef } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
-import { Empty } from 'antd';
+import { Empty, Switch } from 'antd';
 
 export const GenDataTable = (
     {
     }) => {
+    const onChange = (checked) => {
+        console.log(`switch to ${checked}`);
+    };
+
     return (
         <>
             <div className='gd-subtitle'>
                 <div>
-                    Prediction accuracy on generated data: 85%
-                    Prediction accuracy on generated data: 85%
+                    <div>
+                        Prediction accuracy on generated data: 85%
+                    </div>
+                    <div>
+                        Prediction accuracy on generated data: 85%
+                    </div>
                 </div>
                 <div>
-                    Sort - switch
-                    filer - switch
+                    <div>
+                        Sort: <Switch defaultChecked onChange={onChange} />
+                    </div>
+                    <div>
+                        Filter: <Switch defaultChecked onChange={onChange} />
+                    </div>
                 </div>
             </div>
             <div className='generated-data-holder'>
