@@ -14,7 +14,7 @@ export const GenDataTable = (
     return (
         <>
             <div className='gd-subtitle'>
-                <div>
+                <div className='gd-subtitle-left'>
                     <div>
                         Prediction accuracy on generated data: 85%
                     </div>
@@ -22,7 +22,7 @@ export const GenDataTable = (
                         Prediction accuracy on generated data: 85%
                     </div>
                 </div>
-                <div>
+                <div className='gd-subtitle-right'>
                     <div>
                         Sort: <Switch defaultChecked onChange={onChange} />
                     </div>

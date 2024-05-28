@@ -21,9 +21,34 @@
     flex: 0.5;
     font-size: 1.6vh;
     color: #999999;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
+    border: 1px;
+    border-style: solid;
+    border-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.gd-subtitle-left {
+    font-size: 1.6vh;
+    color: #999999;
+    border: 1px;
+    border-style: solid;
+    border-color: blue;
+}
+
+.gd-subtitle-right {
+    font-size: 1.6vh;
+    color: #999999;
+    border: 1px;
+    border-style: solid;
+    border-color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: flex-end;
+}
 
 .generated-data-holder {
     display: flex;
