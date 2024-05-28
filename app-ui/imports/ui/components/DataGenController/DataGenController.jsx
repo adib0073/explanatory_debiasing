@@ -28,7 +28,7 @@ export const DataGenController = (
         </div>
         <div className='chart-container'>
             <div className="gd-container" >
-                <GenDataTable />
+                <GenDataTable  gen_acc={85} gen_dq={90} default_acc={80} default_dq={80}/>
                 <div className='gd-buttons'>
                     <button
                         className="reset-button"

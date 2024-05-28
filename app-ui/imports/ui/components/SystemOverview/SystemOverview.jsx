@@ -7,13 +7,12 @@ import { HollowBullet } from '../Icons/HollowBullet.jsx';
 import { UpGreenArrow } from '../Icons/UpGreenArrow.jsx';
 import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../EstimatedRiskChart/DoughnutChart.jsx';
+import { greenFont, redFont } from '../../Constants.jsx';
 
 export const SystemOverview = (
     {
     }) => {
     const accuracyChartRef = useRef();
-    const greenFont = "#449231";
-    const redFont = "#D64242";
     return (
         <div className="dash-container-system-overview">
             <div className="chart-title-box">
