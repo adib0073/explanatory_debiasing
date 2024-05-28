@@ -3,8 +3,9 @@ import { useRef } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { Empty, Switch } from 'antd';
+import { Table, Switch, Tag, Space } from 'antd';
 import { greenFont, redFont } from '../../Constants.jsx';
+import { CustomTableComponent } from './CustomTableComponent.jsx';
 
 export const GenDataTable = (
     {
@@ -13,6 +14,7 @@ export const GenDataTable = (
         gen_dq,
         default_dq
     }) => {
+
     const onChange = (checked) => {
         console.log(`switch to ${checked}`);
     };
@@ -39,8 +41,6 @@ export const GenDataTable = (
                         Sort:
                         <div className='gd-subtitle-right-switch'>
                             <Switch
-                                checkedChildren={<CheckOutlined />}
-                                unCheckedChildren={<CloseOutlined />}
                                 size="small"
                                 onChange={onChange} />
                         </div>
@@ -49,8 +49,6 @@ export const GenDataTable = (
                         Filter:
                         <div className='gd-subtitle-right-switch'>
                             <Switch
-                                checkedChildren={<CheckOutlined />}
-                                unCheckedChildren={<CloseOutlined />}
                                 size="small"
                                 onChange={onChange} />
                         </div>
@@ -58,15 +56,30 @@ export const GenDataTable = (
                 </div>
             </div>
             <div className='generated-data-holder'>
-                <div className='empty-holder'>
-                    <Empty description={
-                        <span className='gd-empty-text'>
-                            There is no unsaved generated data.
-                            <br />
-                            Please use the Augmentation Controller to generate new data.
-                        </span>
-                    } />
+                <div className='datagen-holder'>
+                    <CustomTableComponent />
                 </div>
+            </div>
+            <div className='gd-buttons'>
+                <button
+                    className="reset-button"
+                    type="submit"
+                >
+                    Restore to defaults
+                </button>
+                <button
+                    className="cancel-button"
+                    type="submit"
+                >
+                    Cancel changes
+                </button>
+                <button
+                    className="train-button"
+                    type="submit"
+                >
+                    Save and Re-train
+                </button>
+
             </div>
         </>
     )

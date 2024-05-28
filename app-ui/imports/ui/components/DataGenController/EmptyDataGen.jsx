@@ -23,6 +23,14 @@ export const EmptyDataGenController = (
                     } />
                 </div>
             </div>
+            <div className='gd-buttons'>
+                    <button
+                        className="reset-button"
+                        type="submit"
+                    >
+                        Restore to defaults
+                    </button>
+                </div>
         </>
     )
 };

@@ -30,7 +30,7 @@
     border-style: solid;
     border-color: red;
     display: flex;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
     flex: 1.5;
@@ -45,7 +45,7 @@
     color: #fff;
     background-color: #6C6C6C;
     cursor: pointer;
-    margin: 0px 20px 0px 20px;
+    margin: 0px 20px 0px 0px;
     border-radius: 10px;
 }
 
@@ -54,8 +54,25 @@
     background-color: #8d8d8d;
 }
 
+.cancel-button {
+    margin: 0px 0px 0px 20px;
+    margin-left: auto;
+    padding: 5px 20px 5px 20px;
+    border: None;
+    font-weight: 600;
+    color: #6C6C6C;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.cancel-button:hover {
+    color: #565555;
+    background-color: #f1eded;
+}
+
 .train-button {
-    margin: 0px 20px 0px 20px;
+    margin: 0px 0px 0px 20px;
     padding: 5px 20px 5px 20px;
     background-color: #1363DF;
     color: #fff;
