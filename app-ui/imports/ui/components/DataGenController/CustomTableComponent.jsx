@@ -108,7 +108,7 @@ export const CustomTableComponent = (
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
-                    <span>
+                    <span style={{ display: 'flex', flexWrap: 'wrap' }}>
                         <Typography.Link
                             onClick={() => save(record.key)}
                             style={{
@@ -118,7 +118,7 @@ export const CustomTableComponent = (
                             Save
                         </Typography.Link>
                         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-                            <a>Cancel</a>
+                            <a style={{ color: 'gray' }}>Cancel</a>
                         </Popconfirm>
                     </span>
                 ) : (
@@ -157,13 +157,13 @@ export const CustomTableComponent = (
             render: (_, record) => {
                 let color = 'black'
                 if (record.pred === 'Diabetic') {
-                    color = '#67A3FF'
+                    color = '#244CB1'
                 }
                 else if (record.pred === 'Non-diabetic') {
                     color = '#999999'
                 }
                 return (
-                    <span style={{color:color}}>
+                    <span style={{ color: color, fontWeight : 500 }}>
                         {record.pred}
                     </span >)
             }
@@ -309,7 +309,6 @@ export const CustomTableComponent = (
                     rowClassName="editable-row"
                     style={
                         {
-                            fontSize: "1.0vh",
                             maxWidth: "45vw"
                         }
                     }

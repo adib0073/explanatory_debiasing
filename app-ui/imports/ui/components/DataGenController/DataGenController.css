@@ -48,6 +48,7 @@
     align-items: end;
     justify-content: flex-end;
 }
+
 .gd-subtitle-right-row {
     display: flex;
     flex-direction: row;
@@ -55,7 +56,7 @@
     align-items: center;
 }
 
-.gd-subtitle-right-switch{
+.gd-subtitle-right-switch {
     margin: 5px;
 }
 
@@ -95,11 +96,15 @@
     padding-top: 10px;
 }
 
-.datagen-holder{
+.datagen-holder {
     flex: 1;
     display: flex;
     flex-direction: column;
     margin: 10px;
     align-items: center;
     justify-content: center;
+}
+
+.ant-table table {
+    font-size: 1.8vh;
 }
