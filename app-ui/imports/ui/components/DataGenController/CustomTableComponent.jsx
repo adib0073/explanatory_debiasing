@@ -65,6 +65,12 @@ export const CustomTableComponent = (
         const newData = data.filter((item) => item.key !== key);
         setData(newData);
     };
+
+    const onChange = (pagination, filters, sorter, extra) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
+
+
     const edit = (record) => {
         form.setFieldsValue({
             name: '',
@@ -133,6 +139,25 @@ export const CustomTableComponent = (
             dataIndex: 'conf',
             ellipsis: true,
             editable: false,
+            filters: [
+                {
+                  text: 'HIGH',
+                  value: 'High',
+                },
+                {
+                  text: 'MEDIUM',
+                  value: 'Medium',
+                },
+                {
+                    text: 'LOW',
+                    value: 'Low',
+                }
+            ],
+            showSorterTooltip: {
+                target: 'full-header',
+            },
+            onFilter: (value, record) => record.conf.indexOf(value) === 0,
+            sorter: (a, b) => a.conf.length - b.conf.length,
             render: (_, record) => {
                 let color = 'red'
                 if (record.conf === 'High') {
@@ -154,6 +179,7 @@ export const CustomTableComponent = (
             dataIndex: 'pred',
             editable: false,
             ellipsis: true,
+            sorter: (a, b) => a.pred.length - b.pred.length,
             render: (_, record) => {
                 let color = 'black'
                 if (record.pred === 'Diabetic') {
@@ -163,7 +189,7 @@ export const CustomTableComponent = (
                     color = '#999999'
                 }
                 return (
-                    <span style={{ color: color, fontWeight : 500 }}>
+                    <span style={{ color: color, fontWeight: 500 }}>
                         {record.pred}
                     </span >)
             }
@@ -322,6 +348,10 @@ export const CustomTableComponent = (
                         pageSize: 5,
 
                     }}
+                    showSorterTooltip={{
+                        target: 'sorter-icon',
+                    }}
+                    onChange={onChange}
                 />
             </Form>
         </>
