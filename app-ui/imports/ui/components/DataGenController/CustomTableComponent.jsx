@@ -10,7 +10,7 @@ for (let i = 0; i < 99; i++) {
     originData.push({
         key: i.toString(),
         conf: (i % 2 == 0) ? 'High' : 'Low',
-        pred: 'Diabetic',
+        pred: (i % 3 == 0) ? 'Diabetic' : 'Non-diabetic',
         name: `Edward ${i}`,
         age: 32,
         address: `Value. ${i}`,
@@ -55,54 +55,6 @@ export const CustomTableComponent = (
     {
     }) => {
 
-    const columns1 = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text) => <a>{text}</a>,
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (tags) => (
-                <span>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'loser') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </span>
-            ),
-        },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
-                </Space>
-            ),
-        },
-    ];
 
 
     const [form] = Form.useForm();
@@ -202,6 +154,19 @@ export const CustomTableComponent = (
             dataIndex: 'pred',
             editable: false,
             ellipsis: true,
+            render: (_, record) => {
+                let color = 'black'
+                if (record.pred === 'Diabetic') {
+                    color = '#67A3FF'
+                }
+                else if (record.pred === 'Non-diabetic') {
+                    color = '#999999'
+                }
+                return (
+                    <span style={{color:color}}>
+                        {record.pred}
+                    </span >)
+            }
         },
         {
             title: 'Var1',
