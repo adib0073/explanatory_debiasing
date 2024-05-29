@@ -23,6 +23,8 @@ export const DASH = ({ user }) => {
         console.log(`selected ${value}`);
     };
 
+    const [showGDTable, setShowGDTable] = useState(false)
+
     return (
         <>
             <NavBar user={user} />
@@ -33,8 +35,8 @@ export const DASH = ({ user }) => {
                     <DataQuality />
                 </div>
                 <div className="dash-container-right">
-                    <AugmentationController />
-                    <DataGenController />
+                    <AugmentationController showGDTable={showGDTable} setShowGDTable={setShowGDTable}/>
+                    <DataGenController showGDTable={showGDTable} setShowGDTable={setShowGDTable}/>
                 </div>
             </div>
         </>

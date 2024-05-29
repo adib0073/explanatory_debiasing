@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
@@ -8,11 +8,15 @@ import { GenDataTable } from './GenDataTable.jsx';
 
 export const DataGenController = (
     {
+        showGDTable,
+        setShowGDTable
     }) => {
     console.log('Empty Data Gen Controller');
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
+
+
 
 
 
@@ -28,7 +32,11 @@ export const DataGenController = (
         </div>
         <div className='chart-container'>
             <div className="gd-container" >
-                <GenDataTable  gen_acc={85} gen_dq={90} default_acc={80} default_dq={80}/>
+                {
+                    (showGDTable)
+                        ? <GenDataTable gen_acc={85} gen_dq={90} default_acc={80} default_dq={80} />
+                        : <EmptyDataGenController />
+                }
             </div>
         </div>
     </div>)

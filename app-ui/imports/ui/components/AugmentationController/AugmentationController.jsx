@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
@@ -7,10 +7,17 @@ import { Select, Table, InputNumber } from 'antd';
 
 export const AugmentationController = (
     {
+        showGDTable,
+        setShowGDTable
     }) => {
     console.log('Augmentation Controller');
     const handleChange = (value) => {
         console.log(`selected ${value}`);
+    };
+
+    const handleGenButton = (value) => {
+        console.log(showGDTable);
+        setShowGDTable(!showGDTable); // #TO-DO: Temporary Toggle Set
     };
 
     const ac_columns = [
@@ -189,6 +196,7 @@ export const AugmentationController = (
                 <button
                     className="train-button"
                     type="submit"
+                    onClick={handleGenButton}
                 >
                     Generate
                 </button>

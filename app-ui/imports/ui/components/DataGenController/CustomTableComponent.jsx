@@ -348,6 +348,7 @@ export const CustomTableComponent = (
                         position: ["bottomLeft"],
                         size: 'small',
                         pageSize: 5,
+                        showSizeChanger: false,
 
                     }}
                     showSorterTooltip={{
