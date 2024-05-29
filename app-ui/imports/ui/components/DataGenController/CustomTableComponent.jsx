@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
+import { redFont } from '../../Constants';
 
 const originData = [];
 for (let i = 0; i < 99; i++) {
@@ -108,6 +109,10 @@ export const CustomTableComponent = (
     const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
     const isEditing = (record) => record.key === editingKey;
+    const handleDelete = (key) => {
+        const newData = data.filter((item) => item.key !== key);
+        setData(newData);
+    };
     const edit = (record) => {
         form.setFieldsValue({
             name: '',
@@ -147,6 +152,7 @@ export const CustomTableComponent = (
             title: 'Edit',
             dataIndex: 'edit',
             width: '10%',
+            fixed: 'left',
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
@@ -180,7 +186,7 @@ export const CustomTableComponent = (
                 if (record.conf === 'High') {
                     color = 'green'
                 }
-                else if(record.conf === 'Medium') {
+                else if (record.conf === 'Medium') {
                     color = 'geekblue'
                 }
                 return (
@@ -215,6 +221,34 @@ export const CustomTableComponent = (
             width: '15%',
             editable: true,
         },
+        {
+            title: 'Var3',
+            dataIndex: 'address',
+            width: '15%',
+            editable: true,
+        },
+        {
+            title: 'Var4',
+            dataIndex: 'address',
+            width: '15%',
+            editable: true,
+        },
+        {
+            title: 'Remove',
+            dataIndex: 'remove',
+            width: '15%',
+            fixed: 'right',
+            render: (_, record) =>
+                data.length >= 1 ? (
+                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+                        <a>
+                            <span style={{ color: redFont, fontSize : "1.5vh", textDecoration: "underline"  }}>
+                                Remove
+                            </span>
+                        </a>
+                    </Popconfirm>
+                ) : null,
+        }
 
     ];
     const mergedColumns = columns.map((col) => {
@@ -254,6 +288,7 @@ export const CustomTableComponent = (
                     }
                     scroll={{
                         y: "30vh",
+                        x: "30vw"
                     }}
                     pagination={{
                         position: ["bottomLeft"],
