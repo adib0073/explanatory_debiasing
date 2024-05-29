@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
@@ -15,9 +15,16 @@ export const GenDataTable = (
         default_dq
     }) => {
 
-    const onChange = (checked) => {
-        console.log(`switch to ${checked}`);
+    const onChangeSortSwitch = (checked) => {
+        setSortSwitch(!sortSwitch);
     };
+
+    const onChangeFilterSwitch = (checked) => {
+        setFilterSwitch(!filterSwitch);
+    };
+
+    const [sortSwitch, setSortSwitch] = useState(false);
+    const [filterSwitch, setFilterSwitch] = useState(false);
 
     return (
         <>
@@ -42,7 +49,7 @@ export const GenDataTable = (
                         <div className='gd-subtitle-right-switch'>
                             <Switch
                                 size="small"
-                                onChange={onChange} />
+                                onChange={onChangeSortSwitch} />
                         </div>
                     </div>
                     <div className='gd-subtitle-right-row'>
@@ -50,14 +57,14 @@ export const GenDataTable = (
                         <div className='gd-subtitle-right-switch'>
                             <Switch
                                 size="small"
-                                onChange={onChange} />
+                                onChange={onChangeFilterSwitch} />
                         </div>
                     </div>
                 </div>
             </div>
             <div className='generated-data-holder'>
                 <div className='datagen-holder'>
-                    <CustomTableComponent />
+                    <CustomTableComponent isSort={sortSwitch} isFilter={filterSwitch} />
                 </div>
             </div>
             <div className='gd-buttons'>

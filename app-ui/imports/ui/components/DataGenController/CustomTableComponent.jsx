@@ -53,6 +53,8 @@ const EditableCell = ({
 
 export const CustomTableComponent = (
     {
+        isSort,
+        isFilter
     }) => {
 
 
@@ -139,25 +141,25 @@ export const CustomTableComponent = (
             dataIndex: 'conf',
             ellipsis: true,
             editable: false,
-            filters: [
+            filters: (isFilter) ? [
                 {
-                  text: 'HIGH',
-                  value: 'High',
+                    text: 'HIGH',
+                    value: 'High',
                 },
                 {
-                  text: 'MEDIUM',
-                  value: 'Medium',
+                    text: 'MEDIUM',
+                    value: 'Medium',
                 },
                 {
                     text: 'LOW',
                     value: 'Low',
                 }
-            ],
+            ] : null,
             showSorterTooltip: {
                 target: 'full-header',
             },
             onFilter: (value, record) => record.conf.indexOf(value) === 0,
-            sorter: (a, b) => a.conf.length - b.conf.length,
+            sorter: (isSort) ? (a, b) => a.conf.length - b.conf.length : null,
             render: (_, record) => {
                 let color = 'red'
                 if (record.conf === 'High') {
@@ -179,7 +181,7 @@ export const CustomTableComponent = (
             dataIndex: 'pred',
             editable: false,
             ellipsis: true,
-            sorter: (a, b) => a.pred.length - b.pred.length,
+            sorter: (isSort) ? (a, b) => a.pred.length - b.pred.length : null,
             render: (_, record) => {
                 let color = 'black'
                 if (record.pred === 'Diabetic') {
@@ -351,7 +353,7 @@ export const CustomTableComponent = (
                     showSorterTooltip={{
                         target: 'sorter-icon',
                     }}
-                    onChange={onChange}
+                //onChange={onChange}
                 />
             </Form>
         </>
