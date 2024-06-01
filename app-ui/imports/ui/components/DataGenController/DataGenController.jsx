@@ -5,6 +5,7 @@ import "./DataGenController.css";
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { EmptyDataGenController } from './EmptyDataGen.jsx';
 import { GenDataTable } from './GenDataTable.jsx';
+import { BiasAwareness } from './BiasAwareness.jsx';
 
 export const DataGenController = (
     {
@@ -35,7 +36,7 @@ export const DataGenController = (
                 {
                     (showGDTable)
                         ? <GenDataTable gen_acc={85} gen_dq={90} default_acc={80} default_dq={80} />
-                        : <EmptyDataGenController />
+                        : <BiasAwareness />
                 }
             </div>
         </div>

@@ -108,3 +108,15 @@
 .ant-table table {
     font-size: 1.8vh;
 }
+
+.ba-subtitle {
+    flex: 0.5;
+    font-size: 1.6vh;
+    font-weight: 500;
+    color: #B70808;
+    padding: 0px 5px 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
