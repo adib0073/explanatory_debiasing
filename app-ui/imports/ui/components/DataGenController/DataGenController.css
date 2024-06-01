@@ -121,7 +121,7 @@
     text-align: center;
 }
 
-.ba-button-message{
+.ba-button-message {
     flex: 0.5;
     font-size: 1.6vh;
     font-weight: 500;
@@ -171,4 +171,35 @@
 
 .ba-train-button:hover {
     background-color: #2774e8;
+}
+
+.ba-holder-header {
+    font: '#6B6B6B';
+    font-size: 1.6vh;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.ba-holder {
+    border: 0.5px;
+    border-style: solid;
+    border-color: #B5B5B5;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 20px 0px 20px 0px;
+}
+
+.collapse-container-custom {
+    border: none;
+}
+
+.collapse-container-custom>.ant-collapse-item {
+    border-bottom: none;
+}
+
+.collapse-panel-custom>.ant-collapse-header {
+    border: var(--header-border, 0px solid black);
 }

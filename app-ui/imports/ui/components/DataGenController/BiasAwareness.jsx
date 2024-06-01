@@ -2,8 +2,10 @@ import React from 'react';
 import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
+import { Collapse, Select } from 'antd';
 import { redFont } from '../../Constants';
+
+const { Panel } = Collapse;
 
 export const BiasAwareness = (
     {
@@ -19,8 +21,51 @@ export const BiasAwareness = (
                 </div>
             </div>
             <div className='generated-data-holder'>
-                <div className='datagen-holder'>
-                    Collapse here
+                <div className='ba-holder'>
+                    <div className='ba-holder-header'>
+                        Awareness for potential biases that may get introduced during the data generation process:
+                    </div>
+                    <Collapse accordion defaultActiveKey={['1']}>
+                        <Panel header={"Selection Bias"} key="1"
+                            className="collapse-panel-custom"
+                            style={{ ["--header-border"]: "2px dashed #C4C4C4" }}>
+                            <div className='data-issue-r1'>
+                                <span>
+                                    Potential outliers have been found in the training dataset.
+                                </span>
+                                Options Here
+                            </div>
+                            <div className='data-issue-r2'>
+                                Graph Here
+                            </div>
+                            <div className='data-issue-r3'>
+                                <p>
+                                    {"Description Here"}
+                                </p>
+                            </div>
+                        </Panel>
+                        <Panel
+                            header={"Generation Bias"}
+                            key="2"
+                            className="collapse-panel-custom"
+                            style={{ ["--header-border"]: "2px dashed #C4C4C4" }}
+                        >
+                            <div className='data-issue-r1'>
+                                <span>
+                                    Potential outliers have been found in the training dataset.
+                                </span>
+                                Options Here
+                            </div>
+                            <div className='data-issue-r2'>
+                                Graph Here
+                            </div>
+                            <div className='data-issue-r3'>
+                                <p>
+                                    {"Description Here"}
+                                </p>
+                            </div>
+                        </Panel>
+                    </Collapse>
                 </div>
             </div>
             <div className='ba-button-message'>
