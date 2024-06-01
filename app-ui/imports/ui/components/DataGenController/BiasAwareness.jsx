@@ -23,20 +23,22 @@ export const BiasAwareness = (
                     Collapse here
                 </div>
             </div>
-            <div className='gd-buttons'>
+            <div className='ba-button-message'>
+                Are you sure that you want to re-train the model with the generated data?
+            </div>
+            <div className='ba-buttons'>
                 <button
-                    className="cancel-button"
+                    className="ba-cancel-button"
                     type="submit"
                 >
                     Go Back
                 </button>
                 <button
-                    className="train-button"
+                    className="ba-train-button"
                     type="submit"
                 >
                     Confirm
                 </button>
-
             </div>
         </>
     )
