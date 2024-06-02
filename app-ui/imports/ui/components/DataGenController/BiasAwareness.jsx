@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Collapse, Select } from 'antd';
 import { redFont } from '../../Constants';
+import { SelectionBiasPlots } from './SelectionBiasPlots';
 
 const { Panel } = Collapse;
 
@@ -11,6 +12,10 @@ export const BiasAwareness = (
     {
 
     }) => {
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+    };
+
     return (
         <>
             <div className='ba-subtitle'>
@@ -29,18 +34,40 @@ export const BiasAwareness = (
                         <Panel header={"Selection Bias"} key="1"
                             className="collapse-panel-custom"
                             style={{ ["--header-border"]: "2px dashed #C4C4C4" }}>
-                            <div className='data-issue-r1'>
+                            <div className='ba-r1'>
                                 <span>
-                                    Potential outliers have been found in the training dataset.
+                                    The augmentation process might have introduced selection bias for these variables:
                                 </span>
-                                Options Here
+                                &nbsp;
+                                &nbsp;
+                                <Select
+                                    defaultValue="BMI"
+                                    onChange={handleChange}
+                                    options={[
+                                        {
+                                            value: 'age',
+                                            label: 'Age',
+                                        },
+                                        {
+                                            value: 'gender',
+                                            label: 'Gender',
+                                        },
+                                        {
+                                            value: 'bmi',
+                                            label: 'BMI',
+                                        }
+                                    ]}
+                                    size='small'
+                                    style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                                />
                             </div>
-                            <div className='data-issue-r2'>
-                                Graph Here
+                            <div className='ba-r2'>
+                                <SelectionBiasPlots x_values={['High', 'Low']} y_values={[2500, 1500]} coverage={[2500, 1500]} rr={[60, 40]} cov_thres={2000} />
                             </div>
-                            <div className='data-issue-r3'>
+                            <div className='ba-r3'>
                                 <p>
-                                    {"Description Here"}
+                                    Selection bias occurs when you have selected only one sub-category for the data generation process.
+                                    To avoid this bias, please click on 'Go Back' and 'Clear Unsaved Data' to start the data generation process again.
                                 </p>
                             </div>
                         </Panel>
