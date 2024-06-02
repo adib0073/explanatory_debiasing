@@ -155,7 +155,7 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
                 displayColors: false,
                 callbacks: {
                     label: function (context) {
-                        let label = "Proportion " || '';
+                        let label = "Data Counts " || '';
 
                         if (label) {
                             label += ': ';
@@ -163,14 +163,15 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
                         if (context.parsed.y !== null) {
                             label += context.parsed.y;
                         }
-                        return label + "%";
+                        return label + "";
                     },
                     title: function (context) {
                         let label = "";
                         if (context.label !== null) {
                             label += context[0].label;
                         }
-                        return label.replaceAll(",", " ");
+                        //return label.replaceAll(",", " ");
+                        return "";
                     }
                 }
             },

@@ -77,16 +77,16 @@ export const BiasAwareness = (
                             className="collapse-panel-custom"
                             style={{ ["--header-border"]: "2px dashed #C4C4C4" }}
                         >
-                            <div className='data-issue-r1'>
+                            <div className='ba-r1'>
                                 <span>
                                     Potential outliers have been found in the training dataset.
                                 </span>
                                 Options Here
                             </div>
-                            <div className='data-issue-r2'>
+                            <div className='ba-r2'>
                                 Graph Here
                             </div>
-                            <div className='data-issue-r3'>
+                            <div className='ba-r3'>
                                 <p>
                                     {"Description Here"}
                                 </p>
