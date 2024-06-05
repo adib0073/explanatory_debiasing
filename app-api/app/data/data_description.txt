@@ -4,7 +4,7 @@ The main article corresponding to the dataset can be found at: https://bmjopen.b
 
 
 Records: 4303
-Features: 18
+Columns: 18 (17 Features + 1 Target)
 
 
 There are 3 types of input features:
@@ -15,23 +15,23 @@ Subjective: information given by the patient.
 
 
 Features of Dataset:
-Age | Objective | years
-Gender | Objective | null
-BMI | Objective |
-SBP (Systolic Blood Pressure) | Examination | mmHg
-DBP (Diastolic Blood Pressure) | Examination | mmHg
-FPG (Fasting Plasma Glucose) | Examination | mmol/L
-FFPG (Final Fasting Plasma Glucose) | Examination | mmol/L
-Cholesterol | Examination | mmol/L
-Triglyceride | Examination | mmol/L
-HDL (High-Density Lipoprotein) | Examination | mmol/L
-LDL (Low-Density Lipoprotein) | Examination | mmol/L
-ALT (Alanine Aminotransferase) | Examination | Units/L
-BUN (Blood urea nitrogen) | Examination | mmol/L
-CCR (Creatinine Clearance) | Examination | ml/second
-Smoking Status: (1: Current Smoker, 2: Ever Smoker, 3: Never Smoker) | Subjective
-Drinking Status: (1: Current Drinker, 2: Ever Drinker, 3: Never Drinker) | Subjective
-Family History of Diabetes: (1: Yes, 0: No) | Subjective
+Age | Objective | years | Age of the patient
+Gender | Objective | null | Gender of the patient
+BMI | Objective | null | Body Mass Index of the patient
+SBP (Systolic Blood Pressure) | Examination | mmHg | Measures pressure in arteries during heartbeats; high levels can indicate cardiovascular risk in diabetics.
+DBP (Diastolic Blood Pressure) | Examination | mmHg | Measures pressure in arteries between heartbeats; elevated levels can suggest vascular complications in diabetics.
+FPG (Fasting Plasma Glucose) | Examination | mmol/L | Measures blood sugar levels after fasting; crucial for diagnosing and monitoring diabetes.
+FFPG (Final Fasting Plasma Glucose) | Examination | mmol/L | Measures final blood sugar levels after fasting; essential for confirming diabetes diagnosis.
+Cholesterol | Examination | mmol/L | Total cholesterol levels in blood; high levels are a risk factor for cardiovascular diseases in diabetics.
+Triglyceride | Examination | mmol/L | Measures blood triglycerides; elevated levels are linked to insulin resistance and diabetes.
+HDL (High-Density Lipoprotein) | Examination | mmol/L | Measures "good" cholesterol; higher levels are protective against heart disease in diabetics.
+LDL (Low-Density Lipoprotein) | Examination | mmol/L | Measures "bad" cholesterol; high levels increase cardiovascular risk in diabetes patients.
+ALT (Alanine Aminotransferase) | Examination | Units/L | Measures liver enzyme levels; elevated ALT can indicate liver dysfunction, common in diabetes.
+BUN (Blood urea nitrogen) | Examination | mmol/L | Measures kidney function; high BUN can signal kidney complications in diabetes.
+CCR (Creatinine Clearance) | Examination | ml/second | Assesses kidney function by measuring creatinine clearance rate; important for detecting diabetic nephropathy.
+Smoking Status: (1: Current Smoker, 2: Ever Smoker, 3: Never Smoker) | Subjective | Indicates smoking habits; smoking exacerbates diabetes complications and cardiovascular risk
+Drinking Status: (1: Current Drinker, 2: Ever Drinker, 3: Never Drinker) | Subjective | Indicates alcohol consumption; excessive drinking can affect blood sugar control and liver function in diabetics.
+Family History of Diabetes: (1: Yes, 0: No) | Subjective | Indicates genetic predisposition; family history is a significant risk factor for developing diabetes.
 Diabetes | Target variable
 
 
