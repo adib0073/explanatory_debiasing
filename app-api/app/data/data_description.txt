@@ -1,0 +1,38 @@
+Dataset Link: https://www.kaggle.com/datasets/pkdarabi/diabetes-dataset-with-18-features/data
+The main dataset, without cleaning, is available at the following link: https://datadryad.org/stash/dataset/doi:10.5061/dryad.ft8750v.
+The main article corresponding to the dataset can be found at: https://bmjopen.bmj.com/content/8/9/e021768
+
+
+Records: 4303
+Features: 18
+
+
+There are 3 types of input features:
+
+Objective: factual information;
+Examination: results of medical examination;
+Subjective: information given by the patient.
+
+
+Features of Dataset:
+Age | Objective | years
+Gender | Objective | null
+BMI | Objective |
+SBP (Systolic Blood Pressure) | Examination | mmHg
+DBP (Diastolic Blood Pressure) | Examination | mmHg
+FPG (Fasting Plasma Glucose) | Examination | mmol/L
+FFPG (Final Fasting Plasma Glucose) | Examination | mmol/L
+Cholesterol | Examination | mmol/L
+Triglyceride | Examination | mmol/L
+HDL (High-Density Lipoprotein) | Examination | mmol/L
+LDL (Low-Density Lipoprotein) | Examination | mmol/L
+ALT (Alanine Aminotransferase) | Examination | Units/L
+BUN (Blood urea nitrogen) | Examination | mmol/L
+CCR (Creatinine Clearance) | Examination | ml/second
+Smoking Status: (1: Current Smoker, 2: Ever Smoker, 3: Never Smoker) | Subjective
+Drinking Status: (1: Current Drinker, 2: Ever Drinker, 3: Never Drinker) | Subjective
+Family History of Diabetes: (1: Yes, 0: No) | Subjective
+Diabetes | Target variable
+
+
+Description: This dataset is the output of a Chinese research study conducted in 2016. It includes 1304 samples of patients who tested positive for diabetes, and the age of the participants ranges from 21 to 99 years old. The dataset was collected according to the indicators and standards of the World Health Organization, making it a reliable source for building diabetes diagnosis models. Researchers and healthcare professionals can use this dataset to train and test machine learning models to predict and diagnose diabetes in patients.
