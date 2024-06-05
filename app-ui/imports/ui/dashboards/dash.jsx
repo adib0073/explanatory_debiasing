@@ -30,7 +30,7 @@ export const DASH = ({ user }) => {
             <NavBar user={user} />
             <div className="dash-container">
                 <div className="dash-container-left">
-                    <SystemOverview />
+                    <SystemOverview  userid={userid}/>
                     <DataExplorer />
                     <DataQuality />
                 </div>
