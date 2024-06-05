@@ -131,31 +131,5 @@ FRIENDLY_NAMES = {
     "Age": "Age"
 }
 
-# FRIENDLY NAMES in SLOEVNIAN
-FRIENDLY_NAMES_SLO = {
-    "Pregnancies": "Število nosečnosti",
-    "Glucose": "Koncentracija glukoze v plazmi",
-    "BloodPressure": "Diastolični krvni tlak",
-    "SkinThickness": "Debelina kožne gube tricepsa",
-    "Insulin": "Dveurni serumski inzulin",
-    "BMI": "Indeks telesne mase (BMI)",
-    "DiabetesPedigreeFunction": "Rodovniška funkcija diabetesa",
-    "Age": "Starost"
-}
-
-# ACTIONABLE FEATURES
-ACTIONABLE_FEATURES = ["Glucose", "BloodPressure",
-                       "SkinThickness", "Insulin", "BMI"]
 # target variable
 TARGET_VARIABLE = "Outcome"
-# NON-EXTREME VALUES
-NON_EXTREME_VALUES = {
-    "Pregnancies": [-1, -1],
-    "Glucose": [30, 200],
-    "BloodPressure": [30, 115],
-    "SkinThickness": [2, 50],
-    "Insulin": [5, -1],
-    "BMI": [10, -1],
-    "DiabetesPedigreeFunction": [-1, -1],
-    "Age": [-1, -1]
-}
