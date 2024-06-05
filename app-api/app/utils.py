@@ -272,53 +272,6 @@ def detect_correlation(user):
     }
     return (True, f"Successful. Feature Correlation information obtained for user: {user}", output_json, isCorrelated)
 
-
-def data_quality_gen(user):
-    """
-    Method to estimate data quality based on data issues
-    """
-    # Load user data
-    client, user_details = fetch_user_details(user)
-    client.close()
-    if user_details is None:
-        return (False, f"Invalid username: {user}", user_details)
-
-    data_issues = user_details["DataIssues"]
-    data_issue_df = pd.DataFrame(data_issues).transpose()
-    
-    # fetch language
-    lang = user_details["Language"]
-
-    data_issue_df['delta_pct'] = np.round(
-        data_issue_df['curr'] - data_issue_df['prev'], 1)
-    quality_score = (100 - (data_issue_df['curr'].sum()/5))/100
-    if lang == "SLO":
-        quality_class = "Nizka"
-    else:
-        quality_class = "Poor"
-
-    if quality_score > 0.80:
-        if lang == "SLO":
-            quality_class = "Dobra"
-        else:
-            quality_class = "Good"
-    elif quality_score > 0.50:
-        if lang == "SLO":
-            quality_class = "Srednja"
-        else:
-            quality_class = "Moderate"
-
-    data_issue_df.sort_values(by="delta_pct", ascending=False, inplace=True)
-
-    output_json = {
-        "score": quality_score,
-        "quality_class": quality_class,
-        "issues": data_issue_df.index.tolist(),
-        "issue_val": data_issue_df["delta_pct"].tolist()
-    }
-
-    return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
-
 def save_interaction_data(config_data):
     """
     Method to store interaction data
@@ -350,7 +303,6 @@ def load_data_model(user):
     default_test_df = pd.read_csv('data/test_data.csv')
 
     return default_model, default_train_df, default_test_df
-
 
 def get_system_overview(user):
     """
@@ -394,3 +346,141 @@ def get_system_overview(user):
         }
 
     return (True, f"Successful. Data summary details founde for user: {user}", output_json)
+
+
+def outlier_thresholds(dataframe, col_name, q1=0.05, q3=0.95):
+    quartile1 = dataframe[col_name].quantile(q1)
+    quartile3 = dataframe[col_name].quantile(q3)
+    interquantile_range = quartile3 - quartile1
+    up_limit = quartile3 + 1.5 * interquantile_range
+    low_limit = quartile1 - 1.5 * interquantile_range
+    # Correct Thresholds
+    low_limit = max(low_limit, min(dataframe[col_name].to_list()))
+    up_limit = min(up_limit,  max(dataframe[col_name].to_list()))
+    # logging.error(col_name)
+    # logging.error([low_limit, up_limit])
+    # logging.error([NON_EXTREME_VALUES[col_name][0], NON_EXTREME_VALUES[col_name][1]])
+
+    return low_limit, up_limit
+
+def feature_wise_outlier(dataframe, col_name):
+    low_limit, up_limit = outlier_thresholds(dataframe, col_name)
+    if dataframe[(dataframe[col_name] > up_limit) | (dataframe[col_name] < low_limit)].any(axis=None):
+        return (True, low_limit, up_limit)
+    else:
+        return (False, low_limit, up_limit)
+
+def ComputeDataIssues(data, labels, test_data, test_labels):
+    """
+    Updating the data issues
+    """
+    # Imbalance
+    diabetic_count = len(labels[labels[TARGET_VARIABLE] == 1])
+    dc_pct = np.round(100 * (diabetic_count/(len(labels))), 0)
+    ndc_pct = 100 - dc_pct
+    imbalance_score = np.round(
+        (1 - min(dc_pct, ndc_pct) / max(dc_pct, ndc_pct)) * 100, 2)
+
+    # Duplicates
+    duplicate_features = np.count_nonzero(data.duplicated())
+    duplicate_pct = np.round(duplicate_features/len(data) * 100, 2)
+
+    # Outlier
+    outliers = []
+    out_count = 0
+    isOutlier = False
+    for f in ALL_FEATURES:
+        outlier_status, low_limit, up_limit = feature_wise_outlier(data, f)
+        if outlier_status:
+            isOutlier = True
+        original_feature_values = data[f].to_list()
+        # Get data after filering outliers
+        corrected_feature_values = data[(data[f] >= low_limit) & (
+            data[f] <= up_limit)][f].to_list()
+        # Calculate outlier percentage
+        out_count += len(original_feature_values) - len(corrected_feature_values)
+    # Prepare output
+    out_pct = np.round(100 * (out_count/len(data)), 1)
+    
+    # Skew
+    skewed_df = data.skew(axis=0, skipna=True).abs()
+    skewed_features = np.count_nonzero(skewed_df.values > 1)
+    skew_pct = np.round(skewed_features/len(ALL_FEATURES) * 100, 2)
+    
+    # Drift
+    data_drift_dataset_report = Report(metrics=[
+        DataDriftTable(),
+    ])
+    data_drift_dataset_report.run(reference_data=data,
+                                  current_data=test_data)
+
+    report_result = str(data_drift_dataset_report.json())
+    report_result = json.loads(report_result)
+
+    for metric in report_result['metrics']:
+        if metric['metric'] == 'DataDriftTable':
+            drift_pct = np.round(
+                metric['result']['share_of_drifted_columns'] * 100, 2)
+
+    # Correlation
+    corr_list = []
+    corr_df = data.corr()
+    corr_df = corr_df.where(
+        np.triu(np.ones(corr_df.shape), k=1).astype(np.bool))
+
+    for ind in range(len(corr_df)):
+        for col in corr_df.columns:
+            if (corr_df.iloc[ind][col]) > 0.5 or (corr_df.iloc[ind][col]) < -0.5:
+                corr_list.append(
+                    {
+                        "feature1": corr_df.index[ind],
+                        "feature2": col,
+                        "score": corr_df.iloc[ind][col]
+                    }
+                )
+
+    corr_pct = np.round(len(corr_list) * 2/len(ALL_FEATURES) * 100, 2)
+
+    data_issue_impact = imbalance_score + duplicate_pct + out_pct + skew_pct + drift_pct + corr_pct
+    
+    quality_score = np.round((100 - (data_issue_impact/6))/100, 2)
+
+    return quality_score
+
+def data_quality_gen(user):
+    """
+    Method to estimate data quality based on data issues
+    """
+    ####################################################
+    # TO-DO : Fetch user details when connected to Mongo
+    ####################################################
+    '''
+    # Load user data
+    client, user_details = fetch_user_details(user)
+    client.close()
+    if user_details is None:
+        return (False, f"Invalid username: {user}", user_details)
+    '''
+    model, train_df, test_df = load_data_model(user)
+    x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
+    y_train = train_df.filter([TARGET_VARIABLE],axis='columns')  
+    x_test = test_df.drop([TARGET_VARIABLE],axis='columns')
+    y_test = test_df.filter([TARGET_VARIABLE],axis='columns') 
+
+    quality_score = ComputeDataIssues(x_train, y_train, x_test, y_test)
+    
+    quality_class = "Poor"
+
+    if quality_score > 0.80:
+        quality_class = "Good"
+    elif quality_score > 0.50:
+        quality_class = "Moderate"
+
+    output_json = {
+        "score": quality_score,
+        "quality_class": quality_class,
+        "issues": [],
+        "issue_val": []
+    }
+
+    return (True, f"Successful. Data quality information obtained for user: {user}", output_json)

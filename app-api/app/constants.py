@@ -1,5 +1,9 @@
-ALL_FEATURES = ["Pregnancies", "Glucose", "BloodPressure",
-                "SkinThickness", "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"]
+ALL_FEATURES = ["Age", "Gender", "BMI", 
+                "SBP", "DBP", "FPG", "Chol",
+                "Tri", "HDL", "LDL", "ALT", 
+                "BUN", "CCR", "FFPG", "smoking", 
+                "drinking", "family_history"]
+
 DEFAULT_VALUES = [(0, 15), (0, 199), (0, 122), (0, 99),
                   (0, 846), (0.0, 67.1), (0.078, 2.329), (21, 81)]
 # Provide the mongodb atlas url to connect python to mongodb using pymongo

@@ -64,8 +64,8 @@ async def GetDataQuality(user: str):
     code, message, output_json = data_quality_gen(user)
 
     response = {
-        "StatusCode": True,
-        "StatusMessage": f"Data quality fetched for user: {user}",
+        "StatusCode": code,
+        "StatusMessage": message,
         "OutputJson": output_json
     }
     return response
