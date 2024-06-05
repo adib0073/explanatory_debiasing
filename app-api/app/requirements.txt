@@ -5,7 +5,8 @@ pandas==1.5.3
 pydantic==1.10.7
 scikit-learn==1.2.2
 evidently==0.2.8
-shap==0.41.0
+joblib==1.2.0
+lightgbm==4.3.0
 pymongo
 pymongo[srv]
 uvicorn[standard]

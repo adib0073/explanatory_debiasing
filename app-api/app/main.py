@@ -43,11 +43,11 @@ async def validate_user(user: ValidateUserModel):
     return response
 
 # TO-DO: To be used
-@app.get("/getpredchartvalues/", response_model=OutputwithPayloadDataModel)
-async def GetPredictedChartValues(user: str):
+@app.get("/getsystemoverview/", response_model=OutputwithPayloadDataModel)
+async def GetSystemOverview(user: str):
 
     # Call method to get prediction chart value
-    code, message, output_json = generate_pred_chart_data(user)
+    code, message, output_json = get_system_overview(user)
 
     response = {
         "StatusCode": code,

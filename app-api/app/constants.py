@@ -132,4 +132,4 @@ FRIENDLY_NAMES = {
 }
 
 # target variable
-TARGET_VARIABLE = "Outcome"
+TARGET_VARIABLE = "Diabetes"
