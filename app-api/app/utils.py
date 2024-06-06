@@ -445,7 +445,7 @@ def ComputeDataIssues(data, labels, test_data, test_labels):
     
     quality_score = np.round((100 - (data_issue_impact/6))/100, 2)
 
-    return quality_score
+    return quality_score, [out_pct, drift_pct, corr_pct, duplicate_pct, imbalance_score, skew_pct]
 
 def data_quality_gen(user):
     """
@@ -467,7 +467,7 @@ def data_quality_gen(user):
     x_test = test_df.drop([TARGET_VARIABLE],axis='columns')
     y_test = test_df.filter([TARGET_VARIABLE],axis='columns') 
 
-    quality_score = ComputeDataIssues(x_train, y_train, x_test, y_test)
+    quality_score, issue_scores = ComputeDataIssues(x_train, y_train, x_test, y_test)
     
     quality_class = "Poor"
 
@@ -476,11 +476,14 @@ def data_quality_gen(user):
     elif quality_score > 0.50:
         quality_class = "Moderate"
 
+    sorted_data_issues = [x for _,x in sorted(zip(issue_scores,DATA_ISSUES), reverse=True)]
+    sorted_issue_vals = sorted(issue_scores,reverse=True)
+    
     output_json = {
         "score": quality_score,
         "quality_class": quality_class,
-        "issues": [],
-        "issue_val": []
+        "issues": sorted_data_issues,
+        "issue_val": sorted_issue_vals
     }
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)

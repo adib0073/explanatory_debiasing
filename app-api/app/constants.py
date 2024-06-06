@@ -123,6 +123,9 @@ USER_DETAIL_JSON = {
         },
     }
 }
+
+DATA_ISSUES = ["outlier", "drift", "correlation", "duplicate", "imbalance", "skew"]
+
 # FRIENDLY NAMES
 FRIENDLY_NAMES = {
     "Pregnancies": "Number of Pregnancies",
