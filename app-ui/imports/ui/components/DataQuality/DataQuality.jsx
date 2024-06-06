@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./DataQuality.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
@@ -7,18 +7,48 @@ import { HollowBullet } from '../Icons/HollowBullet.jsx';
 import { UpRedArrow } from '../Icons/UpRedArrow.jsx';
 import { UpGreenArrow } from '../Icons/UpGreenArrow.jsx';
 import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
-import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
-import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
-import { Select } from 'antd';
 import GaugeChart from 'react-gauge-chart';
+import { greenFont, redFont, BASE_API } from '../../Constants.jsx';
+import axios from 'axios';
+
+
+const GetDataQuality = ({ userid, setDqChartVals }) => {
+    axios.get(BASE_API + '/getdataquality/?user=test' + userid)
+        .then(function (response) {
+            //console.log(response.data["OutputJson"]);
+            setDqChartVals({
+                "score": response.data["OutputJson"]["score"],
+                "quality_class": response.data["OutputJson"]["quality_class"],
+                "issues": response.data["OutputJson"]["issues"],
+                "issue_val": response.data["OutputJson"]["issue_val"]
+            });
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+}
 
 export const DataQuality = (
     {
+        userid,
     }) => {
-    console.log('Data Quality');
+
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
+
+    const [dqChartVals, setDqChartVals] = useState({
+        "score": 0.0,
+        "quality_class": "Unknown",
+        "issues": ["class imbalance", "outliers", "feature correlation", "data redundancy", "data drift", "data leakage"],
+        "issue_val": [0, 0, 0, 0, 0, 0]
+    });
+
+    useEffect(() => {
+        GetDataQuality({ userid, setDqChartVals });
+    }, []);
+    // Data Quality Gauage Chart Color
+    const dqChartColor = dqChartVals["score"] > 0.8 ? "#1363DF" : dqChartVals["score"] > 0.5 ? "#67A3FF" : "#FFB1C1"
 
     return (<div className="dash-container-quality">
         <div className="chart-title-box">
@@ -36,13 +66,13 @@ export const DataQuality = (
                     <GaugeChart
                         nrOfLevels={3}
                         arcsLength={[0.5, 0.3, 0.2]}
-                        percent={0.6}
+                        percent={dqChartVals["score"]}
                         textColor={"black"}
                         hideText={true}
                         colors={[
-                            (0.6 > 0.0 ? '#1363DF' : '#E5E5E5'),
-                            (0.6 > 0.5 ? '#1363DF' : '#E5E5E5'),
-                            (0.6 > 0.8 ? '#1363DF' : '#E5E5E5')
+                            (dqChartVals["score"] > 0.0 ? dqChartColor : '#E5E5E5'),
+                            (dqChartVals["score"] > 0.5 ? dqChartColor : '#E5E5E5'),
+                            (dqChartVals["score"] > 0.8 ? dqChartColor : '#E5E5E5')
                         ]}
                         style={{ width: "12vw" }}
                     />
@@ -50,12 +80,12 @@ export const DataQuality = (
             </div>
             <div className="dq-score">
                 <div>
-                    Poor : 60 %
+                    {dqChartVals["quality_class"]} - {Math.round((dqChartVals["score"] * 100 + Number.EPSILON) * 10) / 10}%
                 </div>
             </div>
             <div className="dq-tag">
                 <div>
-                    The data quality is poor because of the following potential data issues.
+                    {`The data quality is ${dqChartVals.quality_class} because of the following potential data issues.`}
                 </div>
             </div>
             <div className="dq-info">

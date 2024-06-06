@@ -30,13 +30,13 @@ export const DASH = ({ user }) => {
             <NavBar user={user} />
             <div className="dash-container">
                 <div className="dash-container-left">
-                    <SystemOverview  userid={userid}/>
+                    <SystemOverview userid={userid} />
                     <DataExplorer />
-                    <DataQuality />
+                    <DataQuality userid={userid} />
                 </div>
                 <div className="dash-container-right">
-                    <AugmentationController showGDTable={showGDTable} setShowGDTable={setShowGDTable}/>
-                    <DataGenController showGDTable={showGDTable} setShowGDTable={setShowGDTable}/>
+                    <AugmentationController showGDTable={showGDTable} setShowGDTable={setShowGDTable} />
+                    <DataGenController showGDTable={showGDTable} setShowGDTable={setShowGDTable} />
                 </div>
             </div>
         </>
