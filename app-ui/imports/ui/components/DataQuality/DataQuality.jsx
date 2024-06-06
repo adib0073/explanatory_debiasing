@@ -8,7 +8,7 @@ import { UpRedArrow } from '../Icons/UpRedArrow.jsx';
 import { UpGreenArrow } from '../Icons/UpGreenArrow.jsx';
 import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import GaugeChart from 'react-gauge-chart';
-import { greenFont, redFont, BASE_API } from '../../Constants.jsx';
+import { greenFont, redFont, BASE_API, DATA_ISSUE_FRIENDLY_NAMES_Eng } from '../../Constants.jsx';
 import axios from 'axios';
 
 
@@ -85,24 +85,24 @@ export const DataQuality = (
             </div>
             <div className="dq-tag">
                 <div>
-                    {`The data quality is ${dqChartVals.quality_class} because of the following potential data issues.`}
+                    {`The data quality is ${dqChartVals.quality_class.toLowerCase()} because of the following potential data issues.`}
                 </div>
             </div>
             <div className="dq-info">
                 <div className="dq-info-left">
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{"Class Imbalance"} : <b>{3000}</b>
+                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[0]]} : <b>{- Math.round((dqChartVals.issue_val[0] / 6 + Number.EPSILON) * 10) / 10}%</b>
                     </div>
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{"Correlated Features"} : <b>{18}</b>
+                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[1]]} : <b>{- Math.round((dqChartVals.issue_val[1] / 6 + Number.EPSILON) * 10) / 10}%</b>
                     </div>
                 </div>
                 <div className='dq-info-right'>
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{"Outlier Features"} : <b>{80}</b>
+                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[2]]} : <b>{- Math.round((dqChartVals.issue_val[2] / 6 + Number.EPSILON) * 10) / 10}%</b>
                     </div>
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{"Data Drift"} : <b>{80}</b>
+                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[3]]} : <b>{- Math.round((dqChartVals.issue_val[3] / 6 + Number.EPSILON) * 10) / 10}%</b>
                     </div>
                 </div>
             </div>
