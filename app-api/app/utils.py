@@ -488,6 +488,15 @@ def data_quality_gen(user):
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
 
+def calculate_representation_bias(feature):
+    """
+    Calculates Representation Bias for a predictor variable
+    """
+    r_df = feature.value_counts().rename_axis('categories').reset_index(name='counts')
+    r_df['RR'] = (r_df['counts']/ r_df['counts'].max())*100    
+    return r_df
+
+
 def transform_data():
     pass
 
