@@ -26,7 +26,7 @@ app.add_middleware(
 
 @app.get('/')
 def get_root():
-    return {'message': 'Explanory Debiasing API'}
+    return {'message': 'Explanatory Debiasing API'}
 
 # TO-DO: Check when used
 @app.post("/validateusers", response_model=OutputwithPayloadDataModel)
@@ -57,11 +57,22 @@ async def GetSystemOverview(user: str):
 
     return response
 
-# TO-DO: To be used
 @app.get("/getdataquality/", response_model=OutputwithPayloadDataModel)
 async def GetDataQuality(user: str):
     # Call method to get data quality value for user
     code, message, output_json = data_quality_gen(user)
+
+    response = {
+        "StatusCode": code,
+        "StatusMessage": message,
+        "OutputJson": output_json
+    }
+    return response
+
+@app.get("/getdataexplorer/", response_model=OutputwithPayloadDataModel)
+async def GetDataExplorer(user: str):
+    # Call method to get data quality value for user
+    code, message, output_json = data_bias_explorer(user)
 
     response = {
         "StatusCode": code,

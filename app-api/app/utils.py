@@ -487,3 +487,51 @@ def data_quality_gen(user):
     }
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
+
+def BiasDetector(data_features, labels, model):
+    """
+    Detect Representation Bias and it's impact
+    """
+    # Copy DF for categorical data
+    transformed_data = data_features[categorical].copy()
+    transformed_data[TARGET_VARIABLE] = labels.copy()
+
+    # Define Bins and Labels for cont. data
+    # Transform cont. to binned data
+    # Calculate RR for each variable
+    # Calculate Overall RR
+
+    pass
+
+def data_bias_explorer(user):
+    """
+    Method to estimate data quality based on data issues
+    """
+    ####################################################
+    # TO-DO : Fetch user details when connected to Mongo
+    ####################################################
+    '''
+    # Load user data
+    client, user_details = fetch_user_details(user)
+    client.close()
+    if user_details is None:
+        return (False, f"Invalid username: {user}", user_details)
+    '''
+    model, train_df, test_df = load_data_model(user)
+    x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
+    y_train = train_df.filter([TARGET_VARIABLE],axis='columns') 
+    thres_rr = 80 # TO-DO Get from Mongo API
+    thres_cr = 300 # TO-DO Get from Mongo API
+    key_insights = {} # Prepare from function
+    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model)
+
+    output_json = {
+        "overall_rr" : overall_rr,
+        "threshold_rr" : thres_rr,
+        "overall_cr" : overall_cr,
+        "threshold_cr" : thres_cr,
+        "feature_info": feature_info,
+        "key_insights": key_insights
+    }
+
+    return (True, f"Successful. Data explorer information obtained for user: {user}", output_json)
