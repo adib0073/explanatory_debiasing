@@ -488,12 +488,15 @@ def data_quality_gen(user):
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
 
+def transform_data():
+    pass
+
 def BiasDetector(data_features, labels, model):
     """
     Detect Representation Bias and it's impact
     """
     # Copy DF for categorical data
-    transformed_data = data_features[categorical].copy()
+    transformed_data = data_features[CATEGORICAL].copy()
     transformed_data[TARGET_VARIABLE] = labels.copy()
 
     # Define Bins and Labels for cont. data

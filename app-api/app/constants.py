@@ -5,8 +5,63 @@ ALL_FEATURES = ["Age", "Gender", "BMI",
                 "drinking", "family_history"]
 
 # Separating Categorical and Continuous Numerical Variables
-categorical = ['Gender','smoking', 'drinking', 'family_history']
-continuous = ['Age', 'BMI', 'SBP', 'DBP', 'FPG', 'Chol', 'Tri', 'HDL', 'LDL', 'ALT', 'BUN', 'CCR', 'FFPG']
+CATEGORICAL = ['Gender','smoking', 'drinking', 'family_history']
+CONTINUOUS = ['Age', 'BMI', 'SBP', 'DBP', 'FPG', 'Chol', 'Tri', 'HDL', 'LDL', 'ALT', 'BUN', 'CCR', 'FFPG']
+
+CONT_BINS_LABELS = {
+    "Age" : {
+        "bins" : [0, 30, 45, 60, 150 ],
+        "labels" : ["Below 30", "30-45", "46-60", "Above 60"]
+    },
+    "BMI" : {
+        "bins" : [0, 18, 25, 35, 60 ],
+        "labels" : ["Below 18", "18-25", "26-35", "Above 35"]
+    },
+    "SBP" : {
+        "bins" : [0, 100, 130, 160, 250 ],
+        "labels" : ["Below 100", "100-130", "130-160", "Above 160"]
+    },
+    "DBP" : {
+        "bins" : [0, 70, 90, 120, 150 ],
+        "labels" : ["Below 70", "70-90", "90-120", "Above 120"]
+    },
+    "FPG" : {
+        "bins" : [0, 4, 6, 10, 25 ],
+        "labels" : ["Below 4", "4-6", "6-10", "Above 10"]
+    },    
+    "FFPG" : {
+        "bins" : [0, 4, 6, 10, 25 ],
+        "labels" : ["Below 4", "4-6", "6-10", "Above 10"]
+    },        
+    "Chol" : {
+        "bins" : [0, 5, 6.5, 15 ],
+        "labels" : ["Below 5", "5-6.5", "Above 6.5"]
+    },
+    "LDL" : {
+        "bins" : [0, 3, 4, 15 ],
+        "labels" : ["Below 3", "3-4", "Above 4"]
+    },
+    "HDL" : {
+        "bins" : [0, 1, 1.5, 10 ],
+        "labels" : ["Below 1", "1-1.5", "Above 1.5"]
+    },
+    "Tri" : {
+        "bins" : [0, 1.6, 2.25, 10 ],
+        "labels" : ["Below 1.6", "1.6-2.25", "Above 2.25"]
+    },
+    "ALT" : {
+        "bins" : [0, 10, 130, 200 ],
+        "labels" : ["Below 10", "10-130", "Above 130"]
+    },
+    "BUN" : {
+        "bins" : [0, 2.5, 10.5, 15.0 ],
+        "labels" : ["Below 2.5", "2.5-10.5", "Above 10.5"]
+    },
+    "CCR" : {
+        "bins" : [0, 40, 90, 150 ],
+        "labels" : ["Below 40", "40-90", "Above 90"]
+    },
+}
 
 DEFAULT_VALUES = [(0, 15), (0, 199), (0, 122), (0, 99),
                   (0, 846), (0.0, 67.1), (0.078, 2.329), (21, 81)]
