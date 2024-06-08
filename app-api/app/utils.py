@@ -488,15 +488,17 @@ def data_quality_gen(user):
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
 
-def calculate_representation_bias(feature):
+def calculate_representation_bias(feature, thres_cr):
     """
     Calculates Representation Bias for a predictor variable
     """
     r_df = feature.value_counts().rename_axis('categories').reset_index(name='counts')
     r_df['RR'] = (r_df['counts']/ r_df['counts'].max())*100    
     average_rr = r_df['RR'].mean()
+
+    cov_rate = (len(r_df[r_df['counts'] >= thres_cr])/len(r_df)) * 100
     
-    return r_df.to_dict(), average_rr
+    return r_df.to_dict(), average_rr, cov_rate
 
 
 def transform_data(data, feature, bins_labels):
@@ -511,7 +513,7 @@ def transform_data(data, feature, bins_labels):
                          right=True)
     return df
 
-def BiasDetector(data_features, labels, model):
+def BiasDetector(data_features, labels, model, thres_cr):
     """
     Detect Representation Bias and it's impact
     """
@@ -526,15 +528,19 @@ def BiasDetector(data_features, labels, model):
     # Calculate RR for each variable
     rb_dict = {}
     sum_rr = 0
+    sum_cr = 0
     for feature in ALL_FEATURES:
-        rr, rr_avg = calculate_representation_bias(transformed_data[feature])
+        rr, rr_avg, cov_rate = calculate_representation_bias(transformed_data[feature], thres_cr)
         sum_rr += rr_avg
         rb_dict[feature] = rr
         rb_dict[feature]['avg_rr'] = rr_avg
+        rb_dict[feature]['cr'] = cov_rate
+        sum_cr += cov_rate
     # Calculate Overall RR
     overall_rr = sum_rr / len(ALL_FEATURES)
+    overall_cr = sum_cr / len(ALL_FEATURES)
 
-    return rb_dict, overall_rr, 0
+    return rb_dict, overall_rr, overall_cr
 
 def data_bias_explorer(user):
     """
@@ -556,7 +562,7 @@ def data_bias_explorer(user):
     thres_rr = 80 # TO-DO Get from Mongo API
     thres_cr = 300 # TO-DO Get from Mongo API
     key_insights = {} # Prepare from function
-    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model)
+    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_cr)
 
     output_json = {
         "overall_rr" : overall_rr,
