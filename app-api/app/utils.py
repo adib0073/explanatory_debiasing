@@ -494,11 +494,22 @@ def calculate_representation_bias(feature):
     """
     r_df = feature.value_counts().rename_axis('categories').reset_index(name='counts')
     r_df['RR'] = (r_df['counts']/ r_df['counts'].max())*100    
-    return r_df
+    average_rr = r_df['RR'].mean()
+    
+    return r_df.to_dict(), average_rr
 
 
-def transform_data():
-    pass
+def transform_data(data, feature, bins_labels):
+    """
+    Bin continuous data using this functions
+    """
+    df = pd.DataFrame()
+    df[feature] = pd.cut(data[feature], 
+                         bins=bins_labels["bins"], 
+                         labels=bins_labels["labels"], 
+                         include_lowest=True,
+                         right=True)
+    return df
 
 def BiasDetector(data_features, labels, model):
     """
@@ -510,10 +521,20 @@ def BiasDetector(data_features, labels, model):
 
     # Define Bins and Labels for cont. data
     # Transform cont. to binned data
+    for feature in CONTINUOUS:
+        transformed_data[feature] = transform_data(data_features, feature, CONT_BINS_LABELS[feature])
     # Calculate RR for each variable
+    rb_dict = {}
+    sum_rr = 0
+    for feature in ALL_FEATURES:
+        rr, rr_avg = calculate_representation_bias(transformed_data[feature])
+        sum_rr += rr_avg
+        rb_dict[feature] = rr
+        rb_dict[feature]['avg_rr'] = rr_avg
     # Calculate Overall RR
+    overall_rr = sum_rr / len(ALL_FEATURES)
 
-    pass
+    return rb_dict, overall_rr, 0
 
 def data_bias_explorer(user):
     """
