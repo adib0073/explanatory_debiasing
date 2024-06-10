@@ -493,10 +493,10 @@ def calculate_representation_bias(feature, thres_cr):
     Calculates Representation Bias for a predictor variable
     """
     r_df = feature.value_counts().rename_axis('categories').reset_index(name='counts')
-    r_df['RR'] = (r_df['counts']/ r_df['counts'].max())*100    
-    average_rr = r_df['RR'].mean()
+    r_df['RR'] = np.round((r_df['counts']/ r_df['counts'].max())*100)    
+    average_rr = np.round(r_df['RR'].mean())
 
-    cov_rate = (len(r_df[r_df['counts'] >= thres_cr])/len(r_df)) * 100
+    cov_rate = np.round((len(r_df[r_df['counts'] >= thres_cr])/len(r_df)) * 100)
     
     return r_df.to_dict(), average_rr, cov_rate
 
@@ -537,8 +537,8 @@ def BiasDetector(data_features, labels, model, thres_cr):
         rb_dict[feature]['cr'] = cov_rate
         sum_cr += cov_rate
     # Calculate Overall RR
-    overall_rr = sum_rr / len(ALL_FEATURES)
-    overall_cr = sum_cr / len(ALL_FEATURES)
+    overall_rr = np.round(sum_rr / len(ALL_FEATURES))
+    overall_cr = np.round(sum_cr / len(ALL_FEATURES))
 
     return rb_dict, overall_rr, overall_cr
 
