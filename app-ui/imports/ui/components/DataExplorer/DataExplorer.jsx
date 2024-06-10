@@ -38,10 +38,10 @@ export const DataExplorer = (
     };
 
     const [deChartVals, setDeChartVals] = useState({
-        "overall_rr" : 0.0,
-        "threshold_rr" : 0.0,
-        "overall_cr" : 0.0,
-        "threshold_cr" : 0.0,
+        "overall_rr": 0.0,
+        "threshold_rr": 0.0,
+        "overall_cr": 0.0,
+        "threshold_cr": 0.0,
         "feature_info": {},
     });
 
@@ -63,10 +63,40 @@ export const DataExplorer = (
             <div className="de-container" >
                 <div className="de-metric-container" >
                     <div className='de-info'>
-                        {"Overall representation rate (RR) is"} : &nbsp; <b>{deChartVals["overall_rr"]}</b> &nbsp; <DownRedArrow /> {"-15% below threshold"}
+                        {"Overall representation rate (RR) is :"}
+                        &nbsp;<b>{deChartVals["overall_rr"]}</b>&nbsp;
+                        {
+                            ((deChartVals["overall_rr"] - deChartVals["threshold_rr"]) > 0) ?
+                                <>
+                                    <UpGreenArrow />
+                                    &nbsp;
+                                    {`${deChartVals["overall_rr"] - deChartVals["threshold_rr"]}% above threshold`}
+                                </>
+                                :
+                                <>
+                                    <DownRedArrow />
+                                    &nbsp;
+                                    {`${deChartVals["overall_rr"] - deChartVals["threshold_rr"]}% below threshold`}
+                                </>
+                        }
                     </div>
                     <div className='de-info'>
-                        {"Overall data coverage is"} : &nbsp; <b>{deChartVals["overall_cr"]}</b> &nbsp; <DownRedArrow /> {"-10% below threshold"}
+                        {"Overall data coverage is"} :
+                        &nbsp; <b>{deChartVals["overall_cr"]}</b> &nbsp;
+                        {
+                            ((deChartVals["overall_cr"] - deChartVals["threshold_cr"]) > 0) ?
+                                <>
+                                    <UpGreenArrow />
+                                    &nbsp;
+                                    {`${deChartVals["overall_cr"] - deChartVals["threshold_cr"]}% above threshold`}
+                                </>
+                                :
+                                <>
+                                    <DownRedArrow />
+                                    &nbsp;
+                                    {`${deChartVals["overall_cr"] - deChartVals["threshold_cr"]}% below threshold`}
+                                </>
+                        }
                     </div>
                     <div className='de-info'>
                         {"Low RR and coverage indicates presence of potential bias in the variables"}

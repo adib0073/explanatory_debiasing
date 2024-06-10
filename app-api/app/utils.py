@@ -618,8 +618,10 @@ def data_bias_explorer(user):
     y_test = test_df.filter([TARGET_VARIABLE],axis='columns') 
 
     thres_rr = 80 # TO-DO Get from Mongo API
-    thres_cr = 300 # TO-DO Get from Mongo API
-    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_rr, thres_cr, x_test, y_test)
+    thres_cov = 300 # TO-DO Get from Mongo API
+    thres_cr = 80 # TO-DO Get from Mongo API
+
+    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_rr, thres_cov, x_test, y_test)
 
     output_json = {
         "overall_rr" : overall_rr,
