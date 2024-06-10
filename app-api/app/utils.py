@@ -523,6 +523,27 @@ def calculate_acc_impacts(data, feature_name, model, orig_data):
 
     return d_score_list, nd_score_list
 
+def calculate_key_insights(rr, thres_rr, thres_cr, d_acc, nd_acc):
+    """
+    Function to calculate key insights
+    """
+    insights_list = []
+
+    # Min RR
+    res = {rr["categories"][key]:val for key,val in rr["RR"].items() if (val == min(rr["RR"].values())) and (val < thres_rr)}
+    insights_list.append(res)
+
+    # Min Coverage
+    res = {rr["categories"][key]:val for key,val in rr["counts"].items() if (val == min(rr["counts"].values())) and (val < thres_cr)}
+    insights_list.append(res)
+
+    # Min D_ACC
+    insights_list.append({rr["categories"][np.argmin(d_acc, axis=0)]: min(d_acc)})
+
+    # Min ND_ACC
+    insights_list.append({rr["categories"][np.argmin(nd_acc, axis=0)]: min(nd_acc)})
+
+    return insights_list
 
 def group_cont_data(data, feature, bins_labels):
     """
@@ -536,7 +557,7 @@ def group_cont_data(data, feature, bins_labels):
                          right=True)
     return df
 
-def BiasDetector(data_features, labels, model, thres_cr, test_features, test_labels):
+def BiasDetector(data_features, labels, model, thres_rr, thres_cr, test_features, test_labels):
     """
     Detect Representation Bias and it's impact
     """
@@ -567,6 +588,7 @@ def BiasDetector(data_features, labels, model, thres_cr, test_features, test_lab
         d_acc, nd_acc = calculate_acc_impacts(transformed_test_data, feature, model, test_features)
         rb_dict[feature]['d_acc'] = nd_acc
         rb_dict[feature]['nd_acc'] = d_acc
+        rb_dict[feature]['key_insights'] = calculate_key_insights(rr, thres_rr, thres_cr, d_acc, nd_acc)
 
     # Calculate Overall RR
     overall_rr = np.round(sum_rr / len(ALL_FEATURES))
@@ -597,8 +619,7 @@ def data_bias_explorer(user):
 
     thres_rr = 80 # TO-DO Get from Mongo API
     thres_cr = 300 # TO-DO Get from Mongo API
-    key_insights = {} # Prepare from function
-    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_cr, x_test, y_test)
+    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_rr, thres_cr, x_test, y_test)
 
     output_json = {
         "overall_rr" : overall_rr,
@@ -606,7 +627,6 @@ def data_bias_explorer(user):
         "overall_cr" : overall_cr,
         "threshold_cr" : thres_cr,
         "feature_info": feature_info,
-        "key_insights": key_insights
     }
 
     return (True, f"Successful. Data explorer information obtained for user: {user}", output_json)
