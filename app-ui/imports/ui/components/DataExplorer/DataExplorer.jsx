@@ -9,12 +9,13 @@ import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
 import { Select } from 'antd';
+import { BASE_API } from '../../Constants.jsx';
 import axios from 'axios';
 
 const GetDataExplorerInfo = ({ userid, setDeChartVals }) => {
     axios.get(BASE_API + '/getdataexplorer/?user=test' + userid)
         .then(function (response) {
-            //console.log(response.data["OutputJson"]);
+            console.log(response.data["OutputJson"]);
             setDeChartVals({
                 "overall_rr": response.data["OutputJson"]["overall_rr"],
                 "threshold_rr": response.data["OutputJson"]["threshold_rr"],
@@ -32,7 +33,6 @@ export const DataExplorer = (
     {
         userid,
     }) => {
-    console.log('Data Explorer');
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
@@ -63,10 +63,10 @@ export const DataExplorer = (
             <div className="de-container" >
                 <div className="de-metric-container" >
                     <div className='de-info'>
-                        {"Overall representation rate (RR) is"} : &nbsp; <b>{70}</b> &nbsp; <DownRedArrow /> {"-15% below threshold"}
+                        {"Overall representation rate (RR) is"} : &nbsp; <b>{deChartVals["overall_rr"]}</b> &nbsp; <DownRedArrow /> {"-15% below threshold"}
                     </div>
                     <div className='de-info'>
-                        {"Overall data coverage is"} : &nbsp; <b>{60}</b> &nbsp; <DownRedArrow /> {"-10% below threshold"}
+                        {"Overall data coverage is"} : &nbsp; <b>{deChartVals["overall_cr"]}</b> &nbsp; <DownRedArrow /> {"-10% below threshold"}
                     </div>
                     <div className='de-info'>
                         {"Low RR and coverage indicates presence of potential bias in the variables"}
