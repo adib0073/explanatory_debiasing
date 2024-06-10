@@ -33,10 +33,6 @@ export const DataQuality = (
         userid,
     }) => {
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    };
-
     const [dqChartVals, setDqChartVals] = useState({
         "score": 0.0,
         "quality_class": "Unknown",

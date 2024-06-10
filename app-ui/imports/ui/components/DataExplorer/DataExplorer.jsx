@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./DataExplorer.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
@@ -9,15 +9,46 @@ import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
 import { Select } from 'antd';
+import axios from 'axios';
+
+const GetDataExplorerInfo = ({ userid, setDeChartVals }) => {
+    axios.get(BASE_API + '/getdataexplorer/?user=test' + userid)
+        .then(function (response) {
+            //console.log(response.data["OutputJson"]);
+            setDeChartVals({
+                "overall_rr": response.data["OutputJson"]["overall_rr"],
+                "threshold_rr": response.data["OutputJson"]["threshold_rr"],
+                "overall_cr": response.data["OutputJson"]["overall_cr"],
+                "threshold_cr": response.data["OutputJson"]["threshold_cr"],
+                "feature_info": response.data["OutputJson"]["feature_info"],
+            });
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+}
 
 export const DataExplorer = (
     {
+        userid,
     }) => {
     console.log('Data Explorer');
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
-    
+
+    const [deChartVals, setDeChartVals] = useState({
+        "overall_rr" : 0.0,
+        "threshold_rr" : 0.0,
+        "overall_cr" : 0.0,
+        "threshold_cr" : 0.0,
+        "feature_info": {},
+    });
+
+    useEffect(() => {
+        GetDataExplorerInfo({ userid, setDeChartVals });
+    }, []);
+
     return (<div className="dash-container-data-explorer">
         <div className="chart-title-box">
             <div className="chart-title">
