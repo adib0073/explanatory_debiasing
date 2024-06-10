@@ -493,15 +493,38 @@ def calculate_representation_bias(feature, thres_cr):
     Calculates Representation Bias for a predictor variable
     """
     r_df = feature.value_counts().rename_axis('categories').reset_index(name='counts')
-    r_df['RR'] = np.round((r_df['counts']/ r_df['counts'].max())*100)    
+    r_df['RR'] = np.round((r_df['counts']/ r_df['counts'].max())*100)
+    
     average_rr = np.round(r_df['RR'].mean())
-
     cov_rate = np.round((len(r_df[r_df['counts'] >= thres_cr])/len(r_df)) * 100)
     
     return r_df.to_dict(), average_rr, cov_rate
 
 
-def transform_data(data, feature, bins_labels):
+def calculate_acc_impacts(data, feature_name, model, orig_data):
+    """
+    Calculates the category wise accuracy impacts
+    """
+    nd_score_list = []
+    d_score_list = []
+    for category in list(data[feature_name].unique()):
+        # Non-diabetic
+        df = data[(data[feature_name] == category) & (data[TARGET_VARIABLE] == 0)]
+        nd_score = 0
+        if(len(df) > 0):
+            nd_score = np.round((model.score(orig_data.loc[df.index], df[TARGET_VARIABLE]) * 100), 2)
+        nd_score_list.append(nd_score)
+        # Diabetic
+        df = data[(data[feature_name] == category) & (data[TARGET_VARIABLE] == 1)]
+        d_score = 0
+        if(len(df) > 0):
+            d_score = np.round((model.score(orig_data.loc[df.index], df[TARGET_VARIABLE]) * 100), 2)
+        d_score_list.append(d_score)
+
+    return d_score_list, nd_score_list
+
+
+def group_cont_data(data, feature, bins_labels):
     """
     Bin continuous data using this functions
     """
@@ -513,18 +536,22 @@ def transform_data(data, feature, bins_labels):
                          right=True)
     return df
 
-def BiasDetector(data_features, labels, model, thres_cr):
+def BiasDetector(data_features, labels, model, thres_cr, test_features, test_labels):
     """
     Detect Representation Bias and it's impact
     """
     # Copy DF for categorical data
     transformed_data = data_features[CATEGORICAL].copy()
     transformed_data[TARGET_VARIABLE] = labels.copy()
+    # Same for test data
+    transformed_test_data = test_features[CATEGORICAL].copy()
+    transformed_test_data[TARGET_VARIABLE] = test_labels.copy()
 
     # Define Bins and Labels for cont. data
     # Transform cont. to binned data
     for feature in CONTINUOUS:
-        transformed_data[feature] = transform_data(data_features, feature, CONT_BINS_LABELS[feature])
+        transformed_data[feature] = group_cont_data(data_features, feature, CONT_BINS_LABELS[feature])
+        transformed_test_data[feature] = group_cont_data(test_features, feature, CONT_BINS_LABELS[feature])
     # Calculate RR for each variable
     rb_dict = {}
     sum_rr = 0
@@ -536,6 +563,11 @@ def BiasDetector(data_features, labels, model, thres_cr):
         rb_dict[feature]['avg_rr'] = rr_avg
         rb_dict[feature]['cr'] = cov_rate
         sum_cr += cov_rate
+        # Measuring the accuracy impacts
+        d_acc, nd_acc = calculate_acc_impacts(transformed_test_data, feature, model, test_features)
+        rb_dict[feature]['d_acc'] = nd_acc
+        rb_dict[feature]['nd_acc'] = d_acc
+
     # Calculate Overall RR
     overall_rr = np.round(sum_rr / len(ALL_FEATURES))
     overall_cr = np.round(sum_cr / len(ALL_FEATURES))
@@ -558,11 +590,15 @@ def data_bias_explorer(user):
     '''
     model, train_df, test_df = load_data_model(user)
     x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
-    y_train = train_df.filter([TARGET_VARIABLE],axis='columns') 
+    y_train = train_df.filter([TARGET_VARIABLE],axis='columns')
+
+    x_test = test_df.drop([TARGET_VARIABLE],axis='columns')
+    y_test = test_df.filter([TARGET_VARIABLE],axis='columns') 
+
     thres_rr = 80 # TO-DO Get from Mongo API
     thres_cr = 300 # TO-DO Get from Mongo API
     key_insights = {} # Prepare from function
-    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_cr)
+    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_cr, x_test, y_test)
 
     output_json = {
         "overall_rr" : overall_rr,
