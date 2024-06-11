@@ -10,7 +10,7 @@ import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
 import { Select, Empty } from 'antd';
 const { Option } = Select;
-import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
+import { BASE_API, FRIENDLY_NAMES_ENG, greenFont, redFont } from '../../Constants.jsx';
 import axios from 'axios';
 
 const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) => {
@@ -75,43 +75,74 @@ export const DataExplorer = (
             <div className="de-container" >
                 <div className="de-metric-container" >
                     <div className='de-info'>
-                        {"Overall representation rate (RR) is :"}
-                        &nbsp;<b>{deChartVals["overall_rr"]}</b>&nbsp;
-                        {
-                            (rrDiff > 0) ?
-                                <>
-                                    <UpGreenArrow />
-                                    &nbsp;
-                                    {`${rrDiff}% above threshold`}
-                                </>
-                                :
-                                <>
-                                    <DownRedArrow />
-                                    &nbsp;
-                                    {`${rrDiff}% below threshold`}
-                                </>
-                        }
+                        <div className='de-info-left'>
+                            {"Overall representation rate (RR) is :"}
+                            &nbsp;<b>{deChartVals["overall_rr"]}%</b>&nbsp;
+                        </div>
+                        <div className='de-info-right'>
+                            {
+                                (rrDiff > 0) ?
+                                    <>
+                                        <UpGreenArrow />
+                                        &nbsp;
+                                        <span style={{ color: greenFont }}>
+                                            {`${rrDiff}% `}
+                                        </span>
+                                        &nbsp;
+                                        {` above threshold`}
+                                    </>
+                                    :
+                                    <>
+                                        <DownRedArrow />
+                                        &nbsp;
+                                        <span style={{ color: redFont }}>
+                                            {`${rrDiff}% `}
+                                        </span>
+                                        &nbsp;
+                                        {` below threshold`}
+                                    </>
+                            }
+                        </div>
                     </div>
                     <div className='de-info'>
-                        {"Overall data coverage is"} :
-                        &nbsp; <b>{deChartVals["overall_cr"]}</b> &nbsp;
-                        {
-                            (crDiff > 0) ?
-                                <>
-                                    <UpGreenArrow />
-                                    &nbsp;
-                                    {`${crDiff}% above threshold`}
-                                </>
-                                :
-                                <>
-                                    <DownRedArrow />
-                                    &nbsp;
-                                    {`${crDiff}% below threshold`}
-                                </>
-                        }
+                        <div className='de-info-left'>
+                            {"Overall data coverage rate (CR) is :"}
+                            &nbsp;<b>{deChartVals["overall_cr"]}%</b>&nbsp;
+                        </div>
+                        <div className='de-info-right'>
+                            {
+                                (crDiff > 0) ?
+                                    <>
+                                        <UpGreenArrow />
+                                        &nbsp;
+                                        <span style={{ color: greenFont }}>
+                                            {`${crDiff}% `}
+                                        </span>
+                                        &nbsp;
+                                        {` above threshold`}
+                                    </>
+                                    :
+                                    <>
+                                        <DownRedArrow />
+                                        &nbsp;
+                                        <span style={{ color: redFont }}>
+                                            {`${crDiff}% `}
+                                        </span>
+                                        &nbsp;
+                                        {` below threshold`}
+                                    </>
+                            }
+                        </div>
                     </div>
                     <div className='de-info'>
-                        {"Low RR and coverage indicates presence of potential bias in the variables"}
+                        <span style={{
+                            color: "#999999",
+                            fontSize: "1.4vh",
+                            paddingTop: "5px",
+                            paddingBottom: "5px"
+                        }}>
+                            {"Low RR and coverage indicates presence of potential bias in the variables"}
+                        </span>
                     </div>
                 </div>
                 <div className="de-chart-container" >
@@ -217,7 +248,7 @@ export const DataExplorer = (
                         ?
                         <>
                             <div className="de-insights-container" >
-                                Insights:
+                                <b>Insights:</b>
                                 <div className='chart-container-info'>
                                     <HollowBullet /> &nbsp;
                                     {"RR is lowest for sub-category:"}
