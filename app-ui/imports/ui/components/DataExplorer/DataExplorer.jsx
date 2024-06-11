@@ -9,7 +9,8 @@ import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
 import { Select } from 'antd';
-import { BASE_API } from '../../Constants.jsx';
+const { Option } = Select;
+import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
 import axios from 'axios';
 
 const GetDataExplorerInfo = ({ userid, setDeChartVals }) => {
@@ -33,9 +34,16 @@ export const DataExplorer = (
     {
         userid,
     }) => {
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
+
+    const variableFilter = (value) => {
+        varData.map((item, index) => {
+            if (item.feature == value) {
+                setVarData(item);
+            }
+        });
     };
+
+    const [varData, setVarData] = useState([{ "feature": null }]);
 
     const [deChartVals, setDeChartVals] = useState({
         "overall_rr": 0.0,
@@ -44,6 +52,7 @@ export const DataExplorer = (
         "threshold_cr": 0.0,
         "feature_info": {},
     });
+    console.log(Object.keys(deChartVals["feature_info"]).length)
 
     useEffect(() => {
         GetDataExplorerInfo({ userid, setDeChartVals });
@@ -106,25 +115,22 @@ export const DataExplorer = (
                     <div className='de-variable-selector'>
                         Variable Selected: &nbsp;
                         <Select
-                            defaultValue="both"
-                            onChange={handleChange}
-                            options={[
-                                {
-                                    value: 'age',
-                                    label: 'Age',
-                                },
-                                {
-                                    value: 'gender',
-                                    label: 'Gender',
-                                },
-                                {
-                                    value: 'bmi',
-                                    label: 'BMI',
-                                }
-                            ]}
+                            defaultValue={"Please select:"}
                             size='small'
                             style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
-                        />
+                            onChange={variableFilter}>
+                            {
+                                (Object.keys(deChartVals["feature_info"]).length > 0)
+                                    ?
+                                    Object.keys(deChartVals["feature_info"]).map((item, index) => {
+                                        return (
+                                            <Option key={index} value={item}>{FRIENDLY_NAMES_ENG[item]}</Option>
+                                        );
+                                    })
+                                    :
+                                    null
+                            }
+                        </Select>
                         &nbsp; <DownRedArrow /> &nbsp; {"RR: 61%"}
                         &nbsp; <DownRedArrow /> &nbsp; {"CR: 50%"}
                     </div>

@@ -148,13 +148,21 @@ export const DATA_ISSUE_FRIENDLY_NAMES_Eng = {
 
 // FRIENDLY NAMES
 export const FRIENDLY_NAMES_ENG = {
-  "Pregnancies": "Number of Pregnancies",
-  "Glucose": "Plasma Glucose Concentration",
-  "BloodPressure": "Diastolic Blood Pressure",
-  "SkinThickness": "Triceps skinfold thickness",
-  "Insulin": "Two-hour Serum Insulin",
-  "BMI": "Body Mass Index",
-  "DiabetesPedigreeFunction": "Diabetes Pedigree Function",
-  "Age": "Age",
-  "target": "Diabetes Status"
+  "Age" : "AGE",
+  "Gender": "GENDER",
+  "BMI" : "Body Mass Index", 
+  "SBP" : "Systolic Blood Pressure", 
+  "DBP" : "Diastolic Blood Pressure", 
+  "FPG" : "Fasting Plasma Glucose", 
+  "Chol" : "Cholesterol",
+  "Tri" : "Triglyceride", 
+  "HDL" : "HDL : High-Density Lipoprotein", 
+  "LDL" : "LDL : Low-Density Lipoprotein", 
+  "ALT" : "Alanine Aminotransferase",
+  "BUN" : "Blood urea nitrogen", 
+  "CCR" : "Creatinine Clearance", 
+  "FFPG" : "Final Fasting Plasma Glucose", 
+  "smoking" : "Smoking Status", 
+  "drinking" : "Drinking Status", 
+  "family_history" : "Family History of Diabetes"
 }
