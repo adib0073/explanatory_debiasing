@@ -13,7 +13,7 @@ const { Option } = Select;
 import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
 import axios from 'axios';
 
-const GetDataExplorerInfo = ({ userid, setDeChartVals }) => {
+const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) => {
     axios.get(BASE_API + '/getdataexplorer/?user=test' + userid)
         .then(function (response) {
             console.log(response.data["OutputJson"]);
@@ -24,6 +24,8 @@ const GetDataExplorerInfo = ({ userid, setDeChartVals }) => {
                 "threshold_cr": response.data["OutputJson"]["threshold_cr"],
                 "feature_info": response.data["OutputJson"]["feature_info"],
             });
+            setRRDiff(response.data["OutputJson"]["overall_rr"] - response.data["OutputJson"]["threshold_rr"]);
+            setCRDiff(response.data["OutputJson"]["overall_cr"] - response.data["OutputJson"]["threshold_cr"]);
 
         }).catch(function (error) {
             console.log(error);
@@ -36,14 +38,12 @@ export const DataExplorer = (
     }) => {
 
     const variableFilter = (value) => {
-        varData.map((item, index) => {
-            if (item.feature == value) {
-                setVarData(item);
-            }
-        });
+        setVarName(value)
     };
 
-    const [varData, setVarData] = useState([{ "feature": null }]);
+    const [varName, setVarName] = useState(null);
+    const [rrDiff, setRRDiff] = useState(0.0);
+    const [crDiff, setCRDiff] = useState(0.0);
 
     const [deChartVals, setDeChartVals] = useState({
         "overall_rr": 0.0,
@@ -52,10 +52,9 @@ export const DataExplorer = (
         "threshold_cr": 0.0,
         "feature_info": {},
     });
-    console.log(Object.keys(deChartVals["feature_info"]).length)
 
     useEffect(() => {
-        GetDataExplorerInfo({ userid, setDeChartVals });
+        GetDataExplorerInfo({ userid, setDeChartVals, setRRDiff, setCRDiff });
     }, []);
 
     return (<div className="dash-container-data-explorer">
@@ -75,17 +74,17 @@ export const DataExplorer = (
                         {"Overall representation rate (RR) is :"}
                         &nbsp;<b>{deChartVals["overall_rr"]}</b>&nbsp;
                         {
-                            ((deChartVals["overall_rr"] - deChartVals["threshold_rr"]) > 0) ?
+                            (rrDiff > 0) ?
                                 <>
                                     <UpGreenArrow />
                                     &nbsp;
-                                    {`${deChartVals["overall_rr"] - deChartVals["threshold_rr"]}% above threshold`}
+                                    {`${rrDiff}% above threshold`}
                                 </>
                                 :
                                 <>
                                     <DownRedArrow />
                                     &nbsp;
-                                    {`${deChartVals["overall_rr"] - deChartVals["threshold_rr"]}% below threshold`}
+                                    {`${rrDiff}% below threshold`}
                                 </>
                         }
                     </div>
@@ -93,17 +92,17 @@ export const DataExplorer = (
                         {"Overall data coverage is"} :
                         &nbsp; <b>{deChartVals["overall_cr"]}</b> &nbsp;
                         {
-                            ((deChartVals["overall_cr"] - deChartVals["threshold_cr"]) > 0) ?
+                            (crDiff > 0) ?
                                 <>
                                     <UpGreenArrow />
                                     &nbsp;
-                                    {`${deChartVals["overall_cr"] - deChartVals["threshold_cr"]}% above threshold`}
+                                    {`${crDiff}% above threshold`}
                                 </>
                                 :
                                 <>
                                     <DownRedArrow />
                                     &nbsp;
-                                    {`${deChartVals["overall_cr"] - deChartVals["threshold_cr"]}% below threshold`}
+                                    {`${crDiff}% below threshold`}
                                 </>
                         }
                     </div>
@@ -131,8 +130,38 @@ export const DataExplorer = (
                                     null
                             }
                         </Select>
-                        &nbsp; <DownRedArrow /> &nbsp; {"RR: 61%"}
-                        &nbsp; <DownRedArrow /> &nbsp; {"CR: 50%"}
+                        {
+                            (rrDiff > 0) ?
+                                <>
+                                    &nbsp;
+                                    <UpGreenArrow />
+                                    &nbsp;
+                                    {`RR: ${rrDiff}%`}
+                                </>
+                                :
+                                <>
+                                    &nbsp;
+                                    <DownRedArrow />
+                                    &nbsp;
+                                    {`RR: ${rrDiff}%`}
+                                </>
+                        }
+                        {
+                            (crDiff > 0) ?
+                                <>
+                                    &nbsp;
+                                    <UpGreenArrow />
+                                    &nbsp;
+                                    {`CR: ${crDiff}%`}
+                                </>
+                                :
+                                <>
+                                    &nbsp;
+                                    <DownRedArrow />
+                                    &nbsp;
+                                    {`CR: ${crDiff}%`}
+                                </>
+                        }
                     </div>
                     <div className='de-charts'>
                         <div className='de-charts-sc'>
