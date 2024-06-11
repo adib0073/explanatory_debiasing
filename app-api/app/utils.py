@@ -620,6 +620,7 @@ def data_bias_explorer(user):
     thres_rr = 80 # TO-DO Get from Mongo API
     thres_cov = 300 # TO-DO Get from Mongo API
     thres_cr = 80 # TO-DO Get from Mongo API
+    thres_acc = 80 # TO-DO Get from Mongo API
 
     feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_rr, thres_cov, x_test, y_test)
 
@@ -630,6 +631,7 @@ def data_bias_explorer(user):
         "threshold_cr" : thres_cr,
         "feature_info": feature_info,
         "threshold_cov" : thres_cov,
+        "acc_threshold" : thres_acc,
     }
 
     return (True, f"Successful. Data explorer information obtained for user: {user}", output_json)

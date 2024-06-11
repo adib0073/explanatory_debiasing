@@ -8,7 +8,7 @@ import { UpGreenArrow } from '../Icons/UpGreenArrow.jsx';
 import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
-import { Select } from 'antd';
+import { Select, Empty } from 'antd';
 const { Option } = Select;
 import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
 import axios from 'axios';
@@ -23,6 +23,7 @@ const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) =
                 "overall_cr": response.data["OutputJson"]["overall_cr"],
                 "threshold_cr": response.data["OutputJson"]["threshold_cr"],
                 "threshold_cov": response.data["OutputJson"]["threshold_cov"],
+                "acc_threshold": response.data["OutputJson"]["acc_threshold"],
                 "feature_info": response.data["OutputJson"]["feature_info"],
             });
             setRRDiff(response.data["OutputJson"]["overall_rr"] - response.data["OutputJson"]["threshold_rr"]);
@@ -52,6 +53,7 @@ export const DataExplorer = (
         "overall_cr": 0.0,
         "threshold_cr": 0.0,
         "threshold_cov": 0.0,
+        "acc_threshold" : 0.0,
         "feature_info": {},
     });
 
@@ -168,31 +170,40 @@ export const DataExplorer = (
                     <div className='de-charts'>
                         <div className='de-charts-sc'>
                             {(varName == null)
-                            ?
-                            <BiasCountPlots x_values={[]}
-                                y_values={[]}
-                                coverage={[]}
-                                rr={[]}
-                                cov_thres={0} />
-                            :
-                            <BiasCountPlots x_values={Object.values(deChartVals.feature_info[varName]['categories'])}
-                                y_values={Object.values(deChartVals.feature_info[varName]['counts'])}
-                                coverage={Object.values(deChartVals.feature_info[varName]['counts'])}
-                                rr={Object.values(deChartVals.feature_info[varName]['RR'])}
-                                cov_thres={deChartVals.threshold_cov} />
+                                ?
+                                <Empty description={"Please select a variable."} image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                :
+                                <>
+                                    <BiasCountPlots x_values={Object.values(deChartVals.feature_info[varName]['categories'])}
+                                        y_values={Object.values(deChartVals.feature_info[varName]['counts'])}
+                                        coverage={Object.values(deChartVals.feature_info[varName]['counts'])}
+                                        rr={Object.values(deChartVals.feature_info[varName]['RR'])}
+                                        cov_thres={deChartVals.threshold_cov} />
+
+                                    <div className='de-charts-sc-legend'>
+                                        <div className="de-charts-sc-ltext">
+                                            RR: 100%
+                                        </div>
+                                        <div className="de-charts-sc-colorbar"></div>
+                                        <div className="de-charts-sc-ltext">
+                                            RR: 0%
+                                        </div>
+                                    </div>
+                                </>
                             }
-                            <div className='de-charts-sc-legend'>
-                                <div className="de-charts-sc-ltext">
-                                    RR: 100%
-                                </div>
-                                <div className="de-charts-sc-colorbar"></div>
-                                <div className="de-charts-sc-ltext">
-                                    RR: 0%
-                                </div>
-                            </div>
                         </div>
                         <div className='de-charts-acc'>
-                            <BiasAccPlots x_values={['High', 'Medium', 'Low']} y_values={[[75, 10, 81], [45, 35, 85]]} acc_thres={80} />
+                            {(varName == null)
+                                ?
+                                <Empty description={"Please select a variable."} image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                :
+                                <BiasAccPlots
+                                    x_values={Object.values(deChartVals.feature_info[varName]['categories'])}
+                                    y_values={
+                                        [Object.values(deChartVals.feature_info[varName]['d_acc']),
+                                        Object.values(deChartVals.feature_info[varName]['nd_acc'])]}
+                                    acc_thres={deChartVals.acc_threshold} />
+                            }
                         </div>
                     </div>
                     <div className="de-insights-container" >

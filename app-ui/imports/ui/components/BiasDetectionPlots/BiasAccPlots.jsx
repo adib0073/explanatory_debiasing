@@ -8,10 +8,15 @@ import './BiasPlots.css'
 
 const labelWrapper = (value) => {
     let wrappedArray = []
-    for (let i = 0; i < value.length; i++) {
-        wrappedArray.push(value[i].split(" "));
+    if (typeof (value) === typeof ("string")) {
+        for (let i = 0; i < value.length; i++) {
+            wrappedArray.push(value[i].split(" "));
+        }
+        return wrappedArray;
     }
-    return wrappedArray;
+    else {
+        return value
+    }
 };
 
 
