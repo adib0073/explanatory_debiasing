@@ -34,7 +34,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
                 backgroundColor: "#67A3FF",
                 borderColor: "#67A3FF",
                 barPercentage: 1,
-                categoryPercentage: 0.6,
+                categoryPercentage: 0.5,
                 //maxBarThickness: 20,
                 datalabels: {
                     anchor: 'end',
@@ -51,7 +51,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
                 backgroundColor: "#999999",
                 borderColor: "#999999",
                 barPercentage: 1,
-                categoryPercentage: 0.6,
+                categoryPercentage: 0.5,
                 //maxBarThickness: 20,
                 datalabels: {
                     anchor: 'end',
@@ -166,7 +166,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
                     padding: 1,
                     color: "#000000",
                     font: {
-                        size: "12vh"
+                        size: "10vh"
                     }
                 },
                 text: "Features",
@@ -181,7 +181,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
             const { ctx, chartArea: { top, right, bottom, left, width, height }, scales: { x, y } } = chart;
             ctx.save();
             const fontHeight = 0.25 * height;
-            ctx.font = `${fontHeight / 2}px Roboto`;
+            ctx.font = `bold ${fontHeight / 2}px Helvetica`;
             ctx.fillStyle = '#D64242';
             ctx.textAlign = 'right';
             ctx.fillText(`Overall accuracy: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)

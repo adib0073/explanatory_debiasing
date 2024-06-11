@@ -147,63 +147,67 @@ export const DataExplorer = (
                 </div>
                 <div className="de-chart-container" >
                     <div className='de-variable-selector'>
-                        Variable Selected: &nbsp;
-                        <Select
-                            defaultValue={"Please select:"}
-                            size='small'
-                            style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
-                            onChange={variableFilter}>
-                            {
-                                (Object.keys(deChartVals["feature_info"]).length > 0)
-                                    ?
-                                    Object.keys(deChartVals["feature_info"]).map((item, index) => {
-                                        return (
-                                            <Option key={index} value={item}>{FRIENDLY_NAMES_ENG[item]}</Option>
-                                        );
-                                    })
-                                    :
-                                    null
+                        <div className='de-info-left'>
+                            Variable Selected: &nbsp;
+                            <Select
+                                defaultValue={"Please select:"}
+                                size='small'
+                                style={{ width: '10vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                                onChange={variableFilter}>
+                                {
+                                    (Object.keys(deChartVals["feature_info"]).length > 0)
+                                        ?
+                                        Object.keys(deChartVals["feature_info"]).map((item, index) => {
+                                            return (
+                                                <Option key={index} value={item}>{FRIENDLY_NAMES_ENG[item]}</Option>
+                                            );
+                                        })
+                                        :
+                                        null
+                                }
+                            </Select>
+                        </div>
+                        <div className='de-info-right'>
+                            {(varName != null)
+                                ?
+                                <>
+                                    {
+                                        (deChartVals["feature_info"][varName]["avg_rr"] > deChartVals["threshold_rr"]) ?
+                                            <>
+                                                &nbsp;
+                                                <UpGreenArrow />
+                                                &nbsp;
+                                                {`RR: ${deChartVals["feature_info"][varName]["avg_rr"]}%`}
+                                            </>
+                                            :
+                                            <>
+                                                &nbsp;
+                                                <DownRedArrow />
+                                                &nbsp;
+                                                {`RR: ${deChartVals["feature_info"][varName]["avg_rr"]}%`}
+                                            </>
+                                    }
+                                    {
+                                        (deChartVals["feature_info"][varName]["cr"] > deChartVals["threshold_cr"]) ?
+                                            <>
+                                                &nbsp;
+                                                <UpGreenArrow />
+                                                &nbsp;
+                                                {`CR: ${deChartVals["feature_info"][varName]["cr"]}%`}
+                                            </>
+                                            :
+                                            <>
+                                                &nbsp;
+                                                <DownRedArrow />
+                                                &nbsp;
+                                                {`CR: ${deChartVals["feature_info"][varName]["cr"]}%`}
+                                            </>
+                                    }
+                                </>
+                                :
+                                null
                             }
-                        </Select>
-                        {(varName != null)
-                            ?
-                            <>
-                                {
-                                    (deChartVals["feature_info"][varName]["avg_rr"] > deChartVals["threshold_rr"]) ?
-                                        <>
-                                            &nbsp;
-                                            <UpGreenArrow />
-                                            &nbsp;
-                                            {`RR: ${deChartVals["feature_info"][varName]["avg_rr"]}%`}
-                                        </>
-                                        :
-                                        <>
-                                            &nbsp;
-                                            <DownRedArrow />
-                                            &nbsp;
-                                            {`RR: ${deChartVals["feature_info"][varName]["avg_rr"]}%`}
-                                        </>
-                                }
-                                {
-                                    (deChartVals["feature_info"][varName]["cr"] > deChartVals["threshold_cr"]) ?
-                                        <>
-                                            &nbsp;
-                                            <UpGreenArrow />
-                                            &nbsp;
-                                            {`CR: ${deChartVals["feature_info"][varName]["cr"]}%`}
-                                        </>
-                                        :
-                                        <>
-                                            &nbsp;
-                                            <DownRedArrow />
-                                            &nbsp;
-                                            {`CR: ${deChartVals["feature_info"][varName]["cr"]}%`}
-                                        </>
-                                }
-                            </>
-                            :
-                            null
-                        }
+                        </div>
                     </div>
                     <div className='de-charts'>
                         <div className='de-charts-sc'>
@@ -248,7 +252,7 @@ export const DataExplorer = (
                         ?
                         <>
                             <div className="de-insights-container" >
-                                <b>Insights:</b>
+                                <b>Quick Insights:</b>
                                 <div className='chart-container-info'>
                                     <HollowBullet /> &nbsp;
                                     {"RR is lowest for sub-category:"}
@@ -269,7 +273,7 @@ export const DataExplorer = (
                                     <HollowBullet /> &nbsp;
                                     {
                                         (Object.values(deChartVals.feature_info[varName]['key_insights'][2])
-                                            >=
+                                            <
                                             Object.values(deChartVals.feature_info[varName]['key_insights'][3])
                                         )
                                             ?

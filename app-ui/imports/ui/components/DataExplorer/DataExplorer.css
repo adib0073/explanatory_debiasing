@@ -63,6 +63,8 @@
     align-items: center;
     border-bottom: 1px solid #D9D9D9;
     padding: 5px;
+    margin-left: 10px;
+    font-size: 1.7vh;
 }
 
 .de-charts {

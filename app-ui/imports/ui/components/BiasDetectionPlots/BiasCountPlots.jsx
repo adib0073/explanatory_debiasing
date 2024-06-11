@@ -45,7 +45,7 @@ function handleMouseMove(chart, mousemove, cov_thres) {
         ctx.fillStyle = '#D64242';
         ctx.fillText('Low Coverage', width / 6, y.getPixelForValue(0) - top)
         ctx.fillStyle = 'rgba(200, 0, 0, 0.2)';
-        ctx.fillRect(left, y.getPixelForValue(cov_thres), width, height / 2)
+        ctx.fillRect(left, y.getPixelForValue(cov_thres), width, y.getPixelForValue(0))
         ctx.restore();
     }
 
@@ -69,8 +69,8 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
                 fill: true,
                 backgroundColor: ["#244CB1", "#67A3FF"],
                 borderColor: ["#244CB1", "#67A3FF"],
-                barPercentage: 0.6,
-                categoryPercentage: 0.8,
+                barPercentage: 0.5,
+                categoryPercentage: 0.6,
                 //maxBarThickness: 20,
                 datalabels: {
                     anchor: 'end',
@@ -106,7 +106,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
                 displayColors: false,
                 callbacks: {
                     label: function (context) {
-                        let label = "Proportion " || '';
+                        let label = "Coverage " || '';
 
                         if (label) {
                             label += ': ';
@@ -114,7 +114,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
                         if (context.parsed.y !== null) {
                             label += context.parsed.y;
                         }
-                        return label + "%";
+                        return label;
                     },
                     title: function (context) {
                         let label = "";
@@ -171,7 +171,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
                     padding: 1,
                     color: "#000000",
                     font: {
-                        size: "12vh"
+                        size: "10vh"
                     }
                 },
                 text: "Features",
@@ -204,11 +204,11 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
             const { ctx, chartArea: { top, right, bottom, left, width, height }, scales: { x, y } } = chart;
             ctx.save();
             const fontHeight = 0.25 * height;
-            ctx.font = `bolder ${fontHeight / 2}px Roboto`;
+            ctx.font = `bold ${fontHeight / 2}px Helvetica`;
             ctx.fillStyle = '#D64242';
             ctx.textAlign = 'right';
-            ctx.fillText('Threshold:', right, y.getPixelForValue(cov_thres) - top - (0.1 * height))
-            ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - top)
+            ctx.fillText('Coverage Threshold:', right, y.getPixelForValue(cov_thres) - (0.7* height))
+            ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.55* height))
             // Threshold Line   
             ctx.strokeStyle = "#D64242";
             //ctx.setLineDash([5, 10]);
@@ -253,9 +253,9 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
             options={options}
             ref={chartRef}
             redraw={true}
-            onMouseMove={onMove}
-            onMouseLeave={onOut}
-            onMouseOut={onOut}
+            //onMouseMove={onMove}
+            //onMouseLeave={onOut}
+            //onMouseOut={onOut}
             plugins={[ChartDataLabels, thresholdLine]}
         />
     </div>);
