@@ -629,6 +629,7 @@ def data_bias_explorer(user):
         "overall_cr" : overall_cr,
         "threshold_cr" : thres_cr,
         "feature_info": feature_info,
+        "threshold_cov" : thres_cov,
     }
 
     return (True, f"Successful. Data explorer information obtained for user: {user}", output_json)

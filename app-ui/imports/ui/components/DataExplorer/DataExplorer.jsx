@@ -22,6 +22,7 @@ const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) =
                 "threshold_rr": response.data["OutputJson"]["threshold_rr"],
                 "overall_cr": response.data["OutputJson"]["overall_cr"],
                 "threshold_cr": response.data["OutputJson"]["threshold_cr"],
+                "threshold_cov": response.data["OutputJson"]["threshold_cov"],
                 "feature_info": response.data["OutputJson"]["feature_info"],
             });
             setRRDiff(response.data["OutputJson"]["overall_rr"] - response.data["OutputJson"]["threshold_rr"]);
@@ -50,6 +51,7 @@ export const DataExplorer = (
         "threshold_rr": 0.0,
         "overall_cr": 0.0,
         "threshold_cr": 0.0,
+        "threshold_cov": 0.0,
         "feature_info": {},
     });
 
@@ -165,7 +167,20 @@ export const DataExplorer = (
                     </div>
                     <div className='de-charts'>
                         <div className='de-charts-sc'>
-                            <BiasCountPlots x_values={['High', 'Low']} y_values={[2500, 1500]} coverage={[2500, 1500]} rr={[60, 40]} cov_thres={2000} />
+                            {(varName == null)
+                            ?
+                            <BiasCountPlots x_values={[]}
+                                y_values={[]}
+                                coverage={[]}
+                                rr={[]}
+                                cov_thres={0} />
+                            :
+                            <BiasCountPlots x_values={Object.values(deChartVals.feature_info[varName]['categories'])}
+                                y_values={Object.values(deChartVals.feature_info[varName]['counts'])}
+                                coverage={Object.values(deChartVals.feature_info[varName]['counts'])}
+                                rr={Object.values(deChartVals.feature_info[varName]['RR'])}
+                                cov_thres={deChartVals.threshold_cov} />
+                            }
                             <div className='de-charts-sc-legend'>
                                 <div className="de-charts-sc-ltext">
                                     RR: 100%
