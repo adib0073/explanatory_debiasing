@@ -8,15 +8,19 @@ import './BiasPlots.css'
 
 const labelWrapper = (value) => {
     let wrappedArray = []
-    if (typeof (value) === typeof ("string")) {
-        for (let i = 0; i < value.length; i++) {
+    console.log(value)
+
+    for (let i = 0; i < value.length; i++) {
+        console.log(value[i])
+        if (typeof (value[i]) === typeof ("string")) {
             wrappedArray.push(value[i].split(" "));
+
         }
-        return wrappedArray;
+        else {
+            wrappedArray.push(value[i]);
+        }
     }
-    else {
-        return value
-    }
+    return wrappedArray;
 };
 
 // only active function for mouse move

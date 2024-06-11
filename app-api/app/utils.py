@@ -557,17 +557,28 @@ def group_cont_data(data, feature, bins_labels):
                          right=True)
     return df
 
+def inv_label_encoding(encoded_list, label_encoding_dict):
+    """
+    Function to convert integer encodings to string
+    """
+    # Create a reverse dictionary to map encoded values to original labels
+    reverse_encoding_dict = {v: k for k, v in label_encoding_dict.items()}
+    # Use the reverse dictionary to decode the labels
+    original_labels = [reverse_encoding_dict[encoded_label] for encoded_label in encoded_list]
+    return original_labels
+
 def BiasDetector(data_features, labels, model, thres_rr, thres_cr, test_features, test_labels):
     """
     Detect Representation Bias and it's impact
     """
-    # Copy DF for categorical data
-    transformed_data = data_features[CATEGORICAL].copy()
-    transformed_data[TARGET_VARIABLE] = labels.copy()
-    # Same for test data
-    transformed_test_data = test_features[CATEGORICAL].copy()
-    transformed_test_data[TARGET_VARIABLE] = test_labels.copy()
 
+    transformed_data = labels.copy()
+    transformed_test_data = test_labels.copy()
+
+    # Perform Inverse Label Encoding for Categorical values
+    for feature in CATEGORICAL:
+        transformed_data[feature] = inv_label_encoding(list(data_features[feature].values), INV_LABEL_ENCODING_DICT[feature])
+        transformed_test_data[feature] = inv_label_encoding(list(test_features[feature].values), INV_LABEL_ENCODING_DICT[feature])        
     # Define Bins and Labels for cont. data
     # Transform cont. to binned data
     for feature in CONTINUOUS:

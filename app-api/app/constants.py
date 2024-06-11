@@ -63,6 +63,27 @@ CONT_BINS_LABELS = {
     },
 }
 
+INV_LABEL_ENCODING_DICT = {
+    "Gender" : {
+        "Male" : 1,
+        "Female" : 2
+    },
+    "smoking" : {
+        "Current Smoker" : 1,
+        "Ever Smoker" : 2,
+        "Never Smoker" : 3
+    },
+    "drinking" : {
+        "Current Drinker" : 1,
+        "Ever Drinker" : 2,
+        "Never Drinker" : 3
+    },
+    "family_history" : {
+        "Yes" : 1,
+        "No" : 0
+    }
+}
+
 DEFAULT_VALUES = [(0, 15), (0, 199), (0, 122), (0, 99),
                   (0, 846), (0.0, 67.1), (0.078, 2.329), (21, 81)]
 # Provide the mongodb atlas url to connect python to mongodb using pymongo

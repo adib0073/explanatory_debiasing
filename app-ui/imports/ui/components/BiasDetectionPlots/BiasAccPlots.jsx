@@ -8,17 +8,17 @@ import './BiasPlots.css'
 
 const labelWrapper = (value) => {
     let wrappedArray = []
-    if (typeof (value) === typeof ("string")) {
-        for (let i = 0; i < value.length; i++) {
+    for (let i = 0; i < value.length; i++) {
+        if (typeof (value[i]) === typeof ("string")) {
             wrappedArray.push(value[i].split(" "));
-        }
-        return wrappedArray;
-    }
-    else {
-        return value
-    }
-};
 
+        }
+        else {
+            wrappedArray.push(value[i]);
+        }
+    }
+    return wrappedArray;
+};
 
 export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
 
