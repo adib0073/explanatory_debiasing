@@ -31,7 +31,7 @@ export const DASH = ({ user }) => {
             <div className="dash-container">
                 <div className="dash-container-left">
                     <SystemOverview userid={userid} />
-                    <DataExplorer />
+                    <DataExplorer userid={userid}/>
                     <DataQuality userid={userid} />
                 </div>
                 <div className="dash-container-right">

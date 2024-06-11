@@ -145,30 +145,70 @@ export const AugmentationController = (
             </div>
             <div className="ac-info-label">
                 <div className='ac-info-label-sub'>
-                    Number of samples: &nbsp; <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', fontSize: '1.8vh' }} />
+                    <div className='label-sub-left'>
+                        Number of samples: &nbsp; <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', fontSize: '1.8vh' }} />
+                    </div>
+                    <div className='label-sub-right'>
+                        Prediction category: &nbsp;
+                        <Select
+                            defaultValue="both"
+                            onChange={handleChange}
+                            options={[
+                                {
+                                    value: 'both',
+                                    label: 'Both',
+                                },
+                                {
+                                    value: 'diabetic',
+                                    label: 'Diabetic',
+                                },
+                                {
+                                    value: 'non-diabetic',
+                                    label: 'Non-diabetic',
+                                }
+                            ]}
+                            size='small'
+                            style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="ac-info-label">
+                <div className='ac-info-label-sub'>
+                    <div>
+                        Representation Rate Threshold: &nbsp;
+                        <InputNumber
+                            min={0}
+                            max={100}
+                            defaultValue={80}
+                            size='small'
+                            formatter={(value) => `${value}%`}
+                            parser={(value) => value?.replace('%', '')}
+                            style={{ width: '4vw', fontSize: '1.8vh' }} />
+                    </div>
                 </div>
                 <div className='ac-info-label-sub'>
-                    Prediction category: &nbsp;
-                    <Select
-                        defaultValue="both"
-                        onChange={handleChange}
-                        options={[
-                            {
-                                value: 'both',
-                                label: 'Both',
-                            },
-                            {
-                                value: 'diabetic',
-                                label: 'Diabetic',
-                            },
-                            {
-                                value: 'non-diabetic',
-                                label: 'Non-diabetic',
-                            }
-                        ]}
-                        size='small'
-                        style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
-                    />
+                    <div>
+                        Coverage Threshold: &nbsp;
+                        <InputNumber
+                            min={0}
+                            defaultValue={300}
+                            size='small'
+                            style={{ width: '4vw', fontSize: '1.8vh' }} />
+                    </div>
+                </div>
+                <div className='ac-info-label-sub'>
+                    <div>
+                        Coverage Rate Threshold: &nbsp;
+                        <InputNumber
+                            min={0}
+                            max={100}
+                            defaultValue={80}
+                            size='small'
+                            formatter={(value) => `${value}%`}
+                            parser={(value) => value?.replace('%', '')}
+                            style={{ width: '4vw', fontSize: '1.8vh' }} />
+                    </div>
                 </div>
             </div>
             <div className='ac-feature-table'>
