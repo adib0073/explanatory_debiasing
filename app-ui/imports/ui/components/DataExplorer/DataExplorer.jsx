@@ -53,7 +53,7 @@ export const DataExplorer = (
         "overall_cr": 0.0,
         "threshold_cr": 0.0,
         "threshold_cov": 0.0,
-        "acc_threshold" : 0.0,
+        "acc_threshold": 0.0,
         "feature_info": {},
     });
 
@@ -134,37 +134,44 @@ export const DataExplorer = (
                                     null
                             }
                         </Select>
-                        {
-                            (rrDiff > 0) ?
-                                <>
-                                    &nbsp;
-                                    <UpGreenArrow />
-                                    &nbsp;
-                                    {`RR: ${rrDiff}%`}
-                                </>
-                                :
-                                <>
-                                    &nbsp;
-                                    <DownRedArrow />
-                                    &nbsp;
-                                    {`RR: ${rrDiff}%`}
-                                </>
-                        }
-                        {
-                            (crDiff > 0) ?
-                                <>
-                                    &nbsp;
-                                    <UpGreenArrow />
-                                    &nbsp;
-                                    {`CR: ${crDiff}%`}
-                                </>
-                                :
-                                <>
-                                    &nbsp;
-                                    <DownRedArrow />
-                                    &nbsp;
-                                    {`CR: ${crDiff}%`}
-                                </>
+                        {(varName != null)
+                            ?
+                            <>
+                                {
+                                    (deChartVals["feature_info"][varName]["avg_rr"] > deChartVals["threshold_rr"]) ?
+                                        <>
+                                            &nbsp;
+                                            <UpGreenArrow />
+                                            &nbsp;
+                                            {`RR: ${deChartVals["feature_info"][varName]["avg_rr"]}%`}
+                                        </>
+                                        :
+                                        <>
+                                            &nbsp;
+                                            <DownRedArrow />
+                                            &nbsp;
+                                            {`RR: ${deChartVals["feature_info"][varName]["avg_rr"]}%`}
+                                        </>
+                                }
+                                {
+                                    (deChartVals["feature_info"][varName]["cr"] > deChartVals["threshold_cr"]) ?
+                                        <>
+                                            &nbsp;
+                                            <UpGreenArrow />
+                                            &nbsp;
+                                            {`CR: ${deChartVals["feature_info"][varName]["cr"]}%`}
+                                        </>
+                                        :
+                                        <>
+                                            &nbsp;
+                                            <DownRedArrow />
+                                            &nbsp;
+                                            {`CR: ${deChartVals["feature_info"][varName]["cr"]}%`}
+                                        </>
+                                }
+                            </>
+                            :
+                            null
                         }
                     </div>
                     <div className='de-charts'>
@@ -206,18 +213,64 @@ export const DataExplorer = (
                             }
                         </div>
                     </div>
-                    <div className="de-insights-container" >
-                        Insights:
-                        <div className='chart-container-info'>
-                            <HollowBullet /> &nbsp;{"No. of records"} : <b>{3000}</b>
-                        </div>
-                        <div className='chart-container-info'>
-                            <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{18}</b>
-                        </div>
-                        <div className='chart-container-info'>
-                            <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{80}</b>
-                        </div>
-                    </div>
+                    {(varName != null)
+                        ?
+                        <>
+                            <div className="de-insights-container" >
+                                Insights:
+                                <div className='chart-container-info'>
+                                    <HollowBullet /> &nbsp;
+                                    {"RR is lowest for sub-category:"}
+                                    &nbsp;
+                                    <b>
+                                        {Object.keys(deChartVals.feature_info[varName]['key_insights'][0])}
+                                    </b>
+                                </div>
+                                <div className='chart-container-info'>
+                                    <HollowBullet /> &nbsp;
+                                    {"CR is lowest for sub-category:"}
+                                    &nbsp;
+                                    <b>
+                                        {Object.keys(deChartVals.feature_info[varName]['key_insights'][1])}
+                                    </b>
+                                </div>
+                                <div className='chart-container-info'>
+                                    <HollowBullet /> &nbsp;
+                                    {
+                                        (Object.values(deChartVals.feature_info[varName]['key_insights'][2])
+                                            >=
+                                            Object.values(deChartVals.feature_info[varName]['key_insights'][3])
+                                        )
+                                            ?
+                                            <>
+                                                {"Accuracy is lowest for "} <b>{"diabetic patients "}</b>
+                                                {"with sub-category"}
+                                                &nbsp;
+                                                <b>
+                                                    {Object.keys(deChartVals.feature_info[varName]['key_insights'][2])}
+                                                </b>
+                                                &nbsp;
+                                                {`for variable ${FRIENDLY_NAMES_ENG[varName]}`}
+                                            </>
+                                            :
+                                            <>
+                                                {"Accuracy is lowest for "} <b>{"non-diabetic patients "}</b>
+                                                {"with sub-category"}
+                                                &nbsp;
+                                                <b>
+                                                    {Object.keys(deChartVals.feature_info[varName]['key_insights'][3])}
+                                                </b>
+                                                &nbsp;
+                                                {`for variable ${FRIENDLY_NAMES_ENG[varName]}`}
+                                            </>
+                                    }
+
+                                </div>
+                            </div>
+                        </>
+                        :
+                        null
+                    }
                 </div>
             </div>
         </div>
