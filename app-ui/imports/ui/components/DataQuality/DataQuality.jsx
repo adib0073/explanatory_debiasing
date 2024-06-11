@@ -44,7 +44,7 @@ export const DataQuality = (
         GetDataQuality({ userid, setDqChartVals });
     }, []);
     // Data Quality Gauage Chart Color
-    const dqChartColor = dqChartVals["score"] > 0.8 ? "#1363DF" : dqChartVals["score"] > 0.5 ? "#67A3FF" : "#FFB1C1"
+    const dqChartColor = dqChartVals["score"] > 0.8 ? "#244CB1" : dqChartVals["score"] > 0.5 ? "#1363DF" : "#67A3FF"
 
     return (<div className="dash-container-quality">
         <div className="chart-title-box">

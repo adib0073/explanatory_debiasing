@@ -58,6 +58,19 @@ function handleMouseOut(chart, event) {
 }
 
 export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) => {
+    let bdColor = [];
+
+    for (let i = 0; i < rr.length; i++) {
+        if (rr[i] < 50) {
+            bdColor.push("#67A3FF");
+        }
+        else if (rr[i] < 80) {
+            bdColor.push("#1363DF");
+        }
+        else {
+            bdColor.push("#244CB1");
+        }
+    };
 
     let data = {
         labels: labelWrapper(x_values),
@@ -67,8 +80,8 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
                 data: y_values,
                 pointRadius: 0,
                 fill: true,
-                backgroundColor: ["#244CB1", "#67A3FF"],
-                borderColor: ["#244CB1", "#67A3FF"],
+                backgroundColor: bdColor,
+                borderColor: bdColor,
                 barPercentage: 0.5,
                 categoryPercentage: 0.6,
                 //maxBarThickness: 20,
@@ -207,8 +220,8 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
             ctx.font = `bold ${fontHeight / 2}px Helvetica`;
             ctx.fillStyle = '#D64242';
             ctx.textAlign = 'right';
-            ctx.fillText('Coverage Threshold:', right, y.getPixelForValue(cov_thres) - (0.7* height))
-            ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.55* height))
+            ctx.fillText('Coverage Threshold:', right, y.getPixelForValue(cov_thres) - (0.7 * height))
+            ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.55 * height))
             // Threshold Line   
             ctx.strokeStyle = "#D64242";
             //ctx.setLineDash([5, 10]);

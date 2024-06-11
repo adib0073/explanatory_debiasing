@@ -26,8 +26,8 @@ CONT_BINS_LABELS = {
         "labels" : ["Below 70", "70-90", "90-120", "Above 120"]
     },
     "FPG" : {
-        "bins" : [0, 4, 6, 10, 25 ],
-        "labels" : ["Below 4", "4-6", "6-10", "Above 10"]
+        "bins" : [0, 4, 6, 10 ],
+        "labels" : ["Below 4", "4-6", "6-10"]
     },    
     "FFPG" : {
         "bins" : [0, 4, 6, 10, 25 ],
