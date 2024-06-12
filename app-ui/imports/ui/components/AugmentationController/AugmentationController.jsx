@@ -41,6 +41,7 @@ const PostAugmentData = ({ userid, augControllerSettings }) => {
             // TO-DO: Navigate to Error Screen.
         }
     })
+    .then(() => message.loading('Generating new data...', 3))
     .then(() => message.success('New data generated with selected settings', 1))
     .catch(function (error) {
         console.log(error);
