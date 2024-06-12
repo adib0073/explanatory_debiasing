@@ -21,6 +21,77 @@ export const AugmentationController = (
         "covRateThres": 80
     })
 
+    const [augTable, setAugTable] = useState({
+        "Age": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "Gender": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+        "BMI": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "SBP": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "DBP": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "FPG": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "Chol": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "Tri": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "HDL": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "LDL": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "ALT": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "BUN": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "CCR": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "FFPG": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "smoking": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+        "drinking": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+        "family_history": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+    })
+
     const handleAugSetting = (settingType, value) => {
         setAugSettings({
             ...augSettings,
@@ -28,9 +99,19 @@ export const AugmentationController = (
         });
     }
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
+    const handleAugTableChange = (feature, value) => {
+        const updatedFeature = {
+            ...augTable[feature],
+            "selectedOptions": value
+        }
+
+        setAugTable({
+            ...augTable,
+            [feature]: updatedFeature
+        });
     };
+
+    console.log(augTable)
 
     const handleGenButton = (value) => {
         console.log(showGDTable);
@@ -80,7 +161,9 @@ export const AugmentationController = (
                                         width: '16vw',
                                     }}
                                     placeholder="Please select from the following:"
-                                    onChange={handleChange}
+                                    onChange={(value) => {
+                                        handleAugTableChange(feature = record.key, value = value)
+                                    }}
                                     options={record.values.map((item) => ({
                                         value: item,
                                         label: item,
@@ -109,12 +192,11 @@ export const AugmentationController = (
 
     const ac_data = []
     for (const [key, value] of Object.entries(AUGMENT_VARIABLES)) {
-        console.log(`${key}: ${value}`);
         ac_data.push({
-            "key" : key,
-            "feature" : FRIENDLY_NAMES_ENG[key],
-            "type" : 'categorical',
-            "values" : value["options"]
+            "key": key,
+            "feature": FRIENDLY_NAMES_ENG[key],
+            "type": 'categorical',
+            "values": value["options"]
         })
     }
 
