@@ -85,8 +85,7 @@ async def GetDataExplorer(user: str):
 @app.post("/postaugmentationsettings", response_model=OutputwithPayloadDataModel)
 async def PostAugSettings(augcontroller_data: AugControllerDataModel):
     # Call method to restore default configurations
-    # code, message, output_json = save_interaction_data(config_data)
-    code, message, output_json = (1, "dummy", {})
+    code, message, output_json = generated_new_data(augcontroller_data)
 
     response = {
         "StatusCode": code,

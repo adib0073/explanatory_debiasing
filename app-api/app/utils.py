@@ -17,6 +17,10 @@ from evidently.report import Report
 import json
 import joblib
 import lightgbm as lgb
+import sdv
+from sdv.metadata import SingleTableMetadata
+from sdv.lite import SingleTablePreset
+from sdv.sampling import Condition
 
 
 def login_service(user_name, cohort, language):
@@ -437,3 +441,107 @@ def data_bias_explorer(user):
     }
 
     return (True, f"Successful. Data explorer information obtained for user: {user}", output_json)
+
+
+def numerical_sampling_conditions(condition_list, key):
+    """
+    Function to generate constraints for numerical variables
+    """
+    processed_conditions = []
+    for item in condition_list:
+        processed_conditions.append(list(range(INV_CONT_BIN_DICT[key][item]["low"], INV_CONT_BIN_DICT[key][item]["up"])))
+    return processed_conditions 
+
+
+def categorical_sampling_conditions(condition_list, key):
+    """
+    # Define function to generate constraints for categorical variables
+    """
+    processed_conditions = []
+    for item in condition_list:
+        processed_conditions.append(INV_LABEL_ENCODING_DICT[key][item])
+        
+    return processed_conditions
+
+def generate_new_conditions(conds_dict):
+    """
+    Generate Conditions Dictionary based on constraints
+    """
+    set_conditions = {}
+    for key, val in conds_dict.items():
+        if(len(val) == 0):
+            continue
+        if all(isinstance(i, list) for i in val):
+            flattened_array = np.array([item for sublist in val for item in sublist])
+            set_conditions[key] = np.random.choice(flattened_array)
+        else:
+            set_conditions[key] = np.random.choice(val)  
+    
+    return set_conditions
+
+def new_sythetic_data(training_data, metadata, GROUP_SIZE, set_condiions):
+    synthesizer = SingleTablePreset(metadata, name='FAST_ML')
+    synthesizer.fit(training_data)
+    
+    conditions = Condition(
+        num_rows= GROUP_SIZE,
+        column_values= set_condiions #right now generating with a range of values is not permitted
+    )
+
+
+    synthetic_data = synthesizer.sample_from_conditions(
+        conditions=[conditions],
+    )
+    
+    return synthetic_data
+
+def generated_new_data(augcontroller_data):
+    """
+    Method to generate new data based on controller settings
+    """
+    # Update Threshold scores if need
+    # TO-DO
+
+    # Prepare for generating data
+    model, train_df, test_df = load_data_model(augcontroller_data.UserId)
+    aug_cont_dict = augcontroller_data["JsonData"]
+
+    metadata = SingleTableMetadata()
+    metadata.detect_from_dataframe(train_df)
+
+    # Get constraint values
+    # Find total number of conditions
+    num_conds = 0
+    conds_dict = {}
+    for key, val in aug_cont_dict["features"].items():
+        num_conds += len(val["selectedOptions"])
+        if val['type'] == 'categorical':
+            conds_dict[key] = categorical_sampling_conditions(val['selectedOptions'], key)
+        if val['type'] == 'numerical':
+            conds_dict[key] = numerical_sampling_conditions(val['selectedOptions'], key)
+
+    # Get number of samples
+
+    # Generate Data with constraints
+    GROUP_SIZE = 50
+    NUM_ROWS = aug_cont_dict["numSamples"]
+    num_iters = int(NUM_ROWS / GROUP_SIZE)
+    num_remains = NUM_ROWS % GROUP_SIZE
+
+    gen_data_df = pd.DataFrame()
+
+    for i in range(num_iters):
+        set_conditions = generate_new_conditions(conds_dict)
+        subset_gen_df = new_sythetic_data(train_df, metadata, GROUP_SIZE, set_conditions)
+        gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+
+    if(num_remains > 0):
+        set_conditions = generate_new_conditions(conds_dict)
+        subset_gen_df = new_sythetic_data(train_df, metadata, num_remains, set_conditions)
+        gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True) 
+
+    # Convert DataFrame to Dict?
+
+    generated_data = gen_data_df.to_dict()
+    #insert_interaction_data(interaction_detail) -- Disabling interaction logs
+    return (True, f"Successful. Interaction data inserted for user: {augcontroller_data.UserId}", generated_data)

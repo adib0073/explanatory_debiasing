@@ -7,6 +7,7 @@ scikit-learn==1.2.2
 evidently==0.2.8
 joblib==1.2.0
 lightgbm==4.3.0
+sdv==1.11.0
 pymongo
 pymongo[srv]
 uvicorn[standard]
