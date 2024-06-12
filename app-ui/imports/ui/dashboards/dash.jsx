@@ -25,6 +25,11 @@ export const DASH = ({ user }) => {
 
     const [showGDTable, setShowGDTable] = useState(false)
 
+    const [seed, setSeed] = useState(1);
+    const reset = () => {
+         setSeed(Math.random());
+     }
+
     return (
         <>
             <NavBar user={user} />
@@ -38,7 +43,10 @@ export const DASH = ({ user }) => {
                     <AugmentationController
                         showGDTable={showGDTable}
                         setShowGDTable={setShowGDTable}
-                        userid={userid} />
+                        userid={userid} 
+                        key = {seed}
+                        resetFunc = {reset}
+                        />
                     <DataGenController showGDTable={showGDTable} setShowGDTable={setShowGDTable} />
                 </div>
             </div>

@@ -1,16 +1,18 @@
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
-import { Select, Table, InputNumber } from 'antd';
+import { Select, Table, InputNumber, message } from 'antd';
 import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
 
 export const AugmentationController = (
     {
         showGDTable,
         setShowGDTable,
-        userid
+        userid,
+        seed,
+        resetFunc,
     }) => {
 
     const [augSettings, setAugSettings] = useState({
@@ -111,7 +113,104 @@ export const AugmentationController = (
         });
     };
 
-    console.log(augTable)
+    const handleCancelButton = () => {
+        // If yes - revert unsaved changes
+        if (window.confirm("Do you want to revert unsaved changes?")) {
+
+            setAugSettings({
+                "numSamples": 100,
+                "predCategory": "Both",
+                "repThres": 80,
+                "covThres": 300,
+                "covRateThres": 80
+            });
+
+            setAugTable({
+                "Age": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "Gender": {
+                    "type": "categorical",
+                    "selectedOptions": []
+                },
+                "BMI": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "SBP": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "DBP": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "FPG": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "Chol": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "Tri": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "HDL": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "LDL": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "ALT": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "BUN": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "CCR": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "FFPG": {
+                    "type": "numerical",
+                    "selectedOptions": []
+                },
+                "smoking": {
+                    "type": "categorical",
+                    "selectedOptions": []
+                },
+                "drinking": {
+                    "type": "categorical",
+                    "selectedOptions": []
+                },
+                "family_history": {
+                    "type": "categorical",
+                    "selectedOptions": []
+                },
+            });
+
+            success();
+        }
+    };
+
+    const [messageApi, contextHolder] = message.useMessage();
+    const success = () => {
+        messageApi
+            .open({
+                type: 'loading',
+                content: 'Removing unsaved data...',
+                duration: 0.5,
+            })
+            .then(() => resetFunc())
+            .then(() => message.success('Cleared unsaved data', 1));
+    };
 
     const handleGenButton = (value) => {
         console.log(showGDTable);
@@ -316,12 +415,16 @@ export const AugmentationController = (
                 />
             </div>
             <div className='ac-buttons'>
-                <button
-                    className="reset-button"
-                    type="submit"
-                >
-                    Cancel
-                </button>
+                <>
+                    {contextHolder}
+                    <button
+                        className="reset-button"
+                        type="submit"
+                        onClick={handleCancelButton}
+                    >
+                        Cancel
+                    </button>
+                </>
 
                 <button
                     className="train-button"
