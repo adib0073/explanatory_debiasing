@@ -4,14 +4,55 @@ import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { Select, Table, InputNumber, message } from 'antd';
-import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
+import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API } from '../../Constants.jsx';
+import axios from 'axios';
+
+const PostAugmentData = ({ userid, augControllerSettings }) => {
+    axios.post(BASE_API + '/postaugmentationsettings', {
+        UserId: userid,
+        JsonData: augControllerSettings
+    }, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            /*"Access-Control-Allow-Origin": "*",*/
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
+        }
+    }).then(function (response) {
+        //console.log(response.data["OutputJson"]);
+        if (response.data["StatusCode"]) {
+            /*
+            setFeatureConfig({
+                "Pregnancies": response.data["OutputJson"]["Pregnancies"],
+                "Glucose": response.data["OutputJson"]["Glucose"],
+                "BloodPressure": response.data["OutputJson"]["BloodPressure"],
+                "SkinThickness": response.data["OutputJson"]["SkinThickness"],
+                "Insulin": response.data["OutputJson"]["Insulin"],
+                "BMI": response.data["OutputJson"]["BMI"],
+                "DiabetesPedigreeFunction": response.data["OutputJson"]["DiabetesPedigreeFunction"],
+                "Age": response.data["OutputJson"]["Age"],
+                "target": response.data["OutputJson"]["target"]
+            });*/
+            console.log('data generation complete ...');
+        }
+        else {
+            console.log("Error reported. Login failed.")
+            // TO-DO: Navigate to Error Screen.
+        }
+    })
+    .then(() => message.success('New data generated with selected settings', 1))
+    .catch(function (error) {
+        console.log(error);
+    });
+};
+
 
 export const AugmentationController = (
     {
         showGDTable,
         setShowGDTable,
         userid,
-        seed,
         resetFunc,
     }) => {
 
@@ -213,7 +254,16 @@ export const AugmentationController = (
     };
 
     const handleGenButton = (value) => {
-        console.log(showGDTable);
+        // Merge setting objects
+        let augControllerSettings = { ...augSettings }
+        augControllerSettings["features"] = { ...augTable }
+        // call Post API
+        // If yes - revert unsaved changes
+        if (window.confirm("Please confirm again to proceed.")) {
+            PostAugmentData({ userid, augControllerSettings })
+        }
+
+        // Display Data
         setShowGDTable(!showGDTable); // #TO-DO: Temporary Toggle Set
     };
 

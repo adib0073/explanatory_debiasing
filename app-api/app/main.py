@@ -81,20 +81,23 @@ async def GetDataExplorer(user: str):
     }
     return response
 
-# TO-DO: Check when used in DE
-@app.get("/getkeyinsights/", response_model=OutputwithPayloadDataModel)
-async def GetKeyInsights(user: str):
-    # Call method to get data quality value for user
-    code, message, output_json = key_insights_gen(user)
+# TO-DO: Check when used
+@app.post("/postaugmentationsettings", response_model=OutputwithPayloadDataModel)
+async def PostAugSettings(augcontroller_data: AugControllerDataModel):
+    # Call method to restore default configurations
+    # code, message, output_json = save_interaction_data(config_data)
+    code, message, output_json = (1, "dummy", {})
 
     response = {
         "StatusCode": code,
         "StatusMessage": message,
-        "OutputJson": output_json
+        "OutputJson": output_json,
     }
     return response
 
+
 # TO-DO: Check when used
+"""
 @app.post("/trackinteractions", response_model=OutputwithPayloadDataModel)
 async def track_interaction(config_data: ConfigDataModel):
     # Call method to restore default configurations
@@ -106,3 +109,4 @@ async def track_interaction(config_data: ConfigDataModel):
         "OutputJson": output_json,
     }
     return response
+"""

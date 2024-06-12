@@ -11,9 +11,8 @@ class OutputwithPayloadDataModel(BaseModel):
     StatusMessage: str    
     OutputJson: dict = None
 
-class ConfigDataModel(BaseModel):
+class AugControllerDataModel(BaseModel):
     UserId: str
-    Cohort: str
     JsonData: dict = None
 
 class ValidateUserModel(BaseModel):
