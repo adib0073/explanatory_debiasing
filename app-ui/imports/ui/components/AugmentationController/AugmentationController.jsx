@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { Select, Table, InputNumber } from 'antd';
+import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
 
 export const AugmentationController = (
     {
@@ -106,44 +107,16 @@ export const AugmentationController = (
         },
     ].filter(item => !item.hidden);
 
-    const ac_data = [
-        {
-            key: '1',
-            feature: 'Age',
-            type: 'continuous',
-            values: [0, 100],
-        },
-        {
-            key: '2',
-            feature: 'BMI',
-            type: 'continuous',
-            values: [10, 50],
-        },
-        {
-            key: '3',
-            feature: 'Gender',
-            type: 'categorical',
-            values: ['Male', 'Female'],
-        },
-        {
-            key: '4',
-            feature: 'Cholesterol',
-            type: 'continuous',
-            values: [1, 12],
-        },
-        {
-            key: '5',
-            feature: 'Family history of diabetes',
-            type: 'categorical',
-            values: ['Yes', 'No'],
-        },
-        {
-            key: '6',
-            feature: 'Blood Pressure',
-            type: 'continuous',
-            values: [100, 200],
-        },
-    ];
+    const ac_data = []
+    for (const [key, value] of Object.entries(AUGMENT_VARIABLES)) {
+        console.log(`${key}: ${value}`);
+        ac_data.push({
+            "key" : key,
+            "feature" : FRIENDLY_NAMES_ENG[key],
+            "type" : 'categorical',
+            "values" : value["options"]
+        })
+    }
 
     return (<div className="dash-container-aug-controller">
         <div className="chart-title-box">

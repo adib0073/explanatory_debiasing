@@ -6,134 +6,76 @@ export const greenFont = "#449231";
 export const redFont = "#D64242";
 
 // DATA SUMMARY VIZ DEFAULT MODEL
-export const DATA_SUMMARY_DEFAULT_MODEL = {
-  "Pregnancies": {
-    "name": "Pregnancies",
-    "description": "Number of times pregnant in the past",
-    "unit": null,
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 15,
-    "lowerLimit": 0,
-    "defaultUpperLimit": 15,
-    "defaultLowerLimit": 0,
-    "average": 3.8,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
+export const AUGMENT_VARIABLES = {
+  "Age": {
+    "type": "numerical",
+    "options": ["Below 30", "30-45", "46-60", "Above 60"]
   },
-  "Glucose": {
-    "name": "Glucose",
-    "description": "Plasma glucose concentration in saliva after 2 hours of eating in an oral glucose tolerance test. It is measured in mg/dl",
-    "unit": "mg/dl",
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 199,
-    "lowerLimit": 0,
-    "defaultUpperLimit": 199,
-    "defaultLowerLimit": 0,
-    "average": 121,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
-  },
-  "BloodPressure": {
-    "name": "Blood Pressure",
-    "description": "Diastolic blood pressure of patients measured in mm Hg",
-    "unit": "mm Hg",
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 122,
-    "lowerLimit": 0,
-    "defaultUpperLimit": 122,
-    "defaultLowerLimit": 0,
-    "average": 68.8,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
-  },
-  "SkinThickness": {
-    "name": "Skin Thickness",
-    "description": "Triceps skin fold thickness of patients",
-    "unit": "mm",
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 99,
-    "lowerLimit": 0,
-    "defaultUpperLimit": 99,
-    "defaultLowerLimit": 0,
-    "average": 20.7,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
-  },
-  "Insulin": {
-    "name": "Insulin",
-    "description": "Two-hour serum insulin that is measured in mu U/ml",
-    "unit": "mu U/ml",
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 846,
-    "lowerLimit": 0,
-    "defaultUpperLimit": 846,
-    "defaultLowerLimit": 0,
-    "average": 81,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
+  "Gender": {
+    "type": "categorical",
+    "options": ["Male", "Female"]
   },
   "BMI": {
-    "name": "Body mass index",
-    "description": "Body mass index of patients",
-    "unit": "kg/m^2",
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 67.1,
-    "lowerLimit": 0,
-    "defaultUpperLimit": 67.1,
-    "defaultLowerLimit": 0,
-    "average": 32,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
+    "type": "numerical",
+    "options": ["Below 18", "18-25", "26-35", "Above 35"]
   },
-  "DiabetesPedigreeFunction": {
-    "name": "Diabetes Pedigree Function",
-    "description": "Diabetes pedigree function is a function which scores likelihood of diabetes based on family history",
-    "unit": null,
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 2.39,
-    "lowerLimit": 0.07,
-    "defaultUpperLimit": 2.39,
-    "defaultLowerLimit": 0.07,
-    "average": 0.5,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
+  "SBP": {
+    "type": "numerical",
+    "options": ["Below 100", "100-130", "130-160", "Above 160"]
   },
-  "Age": {
-    "name": "Age",
-    "description": "Age of patients in years",
-    "unit": "years",
-    "ydata": [0],
-    "xdata": [0],
-    "upperLimit": 85,
-    "lowerLimit": 20,
-    "defaultUpperLimit": 85,
-    "defaultLowerLimit": 20,
-    "average": 33.1,
-    "q1": 0,
-    "q3": 0,
-    "isSelected": true
+  "DBP": {
+    "type": "numerical",
+    "options": ["Below 70", "70-90", "90-120", "Above 120"]
   },
-  "target": {
-    "name": "Diabetes Status",
-    "categories": ["Diabetic", "Non-diabetic"],
-    "category_ratio": [0, 0],
-    "isSelected": true
-  }
-};
+  "FPG": {
+    "type": "numerical",
+    "options": ["Below 4", "4-6", "6-10"]
+  },
+  "Chol": {
+    "type": "numerical",
+    "options": ["Below 5", "5-6.5", "Above 6.5"]
+  },
+  "Tri": {
+    "type": "numerical",
+    "options": ["Below 1.6", "1.6-2.25", "Above 2.25"]
+  },
+  "HDL": {
+    "type": "numerical",
+    "options": ["Below 1", "1-1.5", "Above 1.5"]
+  },
+  "LDL": {
+    "type": "numerical",
+    "options": ["Below 3", "3-4", "Above 4"]
+  },
+  "ALT": {
+    "type": "numerical",
+    "options": ["Below 10", "10-130", "Above 130"]
+  },
+  "BUN": {
+    "type": "numerical",
+    "options": ["Below 2.5", "2.5-10.5", "Above 10.5"]
+  },
+  "CCR": {
+    "type": "numerical",
+    "options": ["Below 40", "40-90", "Above 90"]
+  },
+  "FFPG": {
+    "type": "numerical",
+    "options": ["Below 4", "4-6", "6-10", "Above 10"]
+  },
+  "smoking": {
+    "type": "categorical",
+    "options": ["Current Smoker", "Ever Smoker", "Never Smoker"]
+  },
+  "drinking": {
+    "type": "categorical",
+    "options": ["Current Drinker", "Ever Drinker", "Never Drinker"]
+  },
+  "family_history": {
+    "type": "categorical",
+    "options": ["Yes", "No"]
+  },
+}
 
 // DATA ISSUE FRIENDLY NAMES ENG
 export const DATA_ISSUE_FRIENDLY_NAMES_Eng = {
@@ -148,21 +90,21 @@ export const DATA_ISSUE_FRIENDLY_NAMES_Eng = {
 
 // FRIENDLY NAMES
 export const FRIENDLY_NAMES_ENG = {
-  "Age" : "AGE",
+  "Age": "AGE",
   "Gender": "GENDER",
-  "BMI" : "Body Mass Index", 
-  "SBP" : "Systolic Blood Pressure", 
-  "DBP" : "Diastolic Blood Pressure", 
-  "FPG" : "Fasting Plasma Glucose", 
-  "Chol" : "Cholesterol",
-  "Tri" : "Triglyceride", 
-  "HDL" : "HDL : High-Density Lipoprotein", 
-  "LDL" : "LDL : Low-Density Lipoprotein", 
-  "ALT" : "Alanine Aminotransferase",
-  "BUN" : "Blood urea nitrogen", 
-  "CCR" : "Creatinine Clearance", 
-  "FFPG" : "Final Fasting Plasma Glucose", 
-  "smoking" : "Smoking Status", 
-  "drinking" : "Drinking Status", 
-  "family_history" : "Family History of Diabetes"
+  "BMI": "Body Mass Index",
+  "SBP": "Systolic Blood Pressure",
+  "DBP": "Diastolic Blood Pressure",
+  "FPG": "Fasting Plasma Glucose",
+  "Chol": "Cholesterol",
+  "Tri": "Triglyceride",
+  "HDL": "HDL : High-Density Lipoprotein",
+  "LDL": "LDL : Low-Density Lipoprotein",
+  "ALT": "Alanine Aminotransferase",
+  "BUN": "Blood urea nitrogen",
+  "CCR": "Creatinine Clearance",
+  "FFPG": "Final Fasting Plasma Glucose",
+  "smoking": "Smoking Status",
+  "drinking": "Drinking Status",
+  "family_history": "Family History of Diabetes"
 }
