@@ -84,6 +84,60 @@ INV_LABEL_ENCODING_DICT = {
     }
 }
 
+SORTING_ORDER = {
+    "Age" : {
+        "labels" : ["Below 30", "30-45", "46-60", "Above 60"]
+    },
+    "BMI" : {
+        "labels" : ["Below 18", "18-25", "26-35", "Above 35"]
+    },
+    "SBP" : {
+        "labels" : ["Below 100", "100-130", "130-160", "Above 160"]
+    },
+    "DBP" : {
+        "labels" : ["Below 70", "70-90", "90-120", "Above 120"]
+    },
+    "FPG" : {
+        "labels" : ["Below 4", "4-6", "6-10"]
+    },    
+    "FFPG" : {
+        "labels" : ["Below 4", "4-6", "6-10", "Above 10"]
+    },        
+    "Chol" : {
+        "labels" : ["Below 5", "5-6.5", "Above 6.5"]
+    },
+    "LDL" : {
+        "labels" : ["Below 3", "3-4", "Above 4"]
+    },
+    "HDL" : {
+        "labels" : ["Below 1", "1-1.5", "Above 1.5"]
+    },
+    "Tri" : {
+        "labels" : ["Below 1.6", "1.6-2.25", "Above 2.25"]
+    },
+    "ALT" : {
+        "labels" : ["Below 10", "10-130", "Above 130"]
+    },
+    "BUN" : {
+        "labels" : ["Below 2.5", "2.5-10.5", "Above 10.5"]
+    },
+    "CCR" : {
+        "labels" : ["Below 40", "40-90", "Above 90"]
+    },
+    "Gender" : {
+        "labels": ["Male", "Female"]
+    },
+    "smoking" : {
+        "labels": ["Current Smoker", "Ever Smoker", "Never Smoker"]
+    },
+    "drinking" : {
+        "labels": ["Current Drinker", "Ever Drinker", "Never Drinker"]
+    },
+    "family_history" : {
+        "labels": ["Yes", "No"]
+    }
+}
+
 DEFAULT_VALUES = [(0, 15), (0, 199), (0, 122), (0, 99),
                   (0, 846), (0.0, 67.1), (0.078, 2.329), (21, 81)]
 # Provide the mongodb atlas url to connect python to mongodb using pymongo

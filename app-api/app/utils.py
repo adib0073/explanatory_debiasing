@@ -488,11 +488,11 @@ def data_quality_gen(user):
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
 
-def calculate_representation_bias(feature, thres_cr):
+def calculate_representation_bias(feature, sorting_order, thres_cr):
     """
     Calculates Representation Bias for a predictor variable
     """
-    r_df = feature.value_counts().rename_axis('categories').reset_index(name='counts')
+    r_df = feature.value_counts()[sorting_order].rename_axis('categories').reset_index(name='counts')
     r_df['RR'] = np.round((r_df['counts']/ r_df['counts'].max())*100)
     
     average_rr = np.round(r_df['RR'].mean())
@@ -554,7 +554,8 @@ def group_cont_data(data, feature, bins_labels):
                          bins=bins_labels["bins"], 
                          labels=bins_labels["labels"], 
                          include_lowest=True,
-                         right=True)
+                         right=True,
+                         ordered=False)
     return df
 
 def inv_label_encoding(encoded_list, label_encoding_dict):
@@ -589,7 +590,10 @@ def BiasDetector(data_features, labels, model, thres_rr, thres_cr, test_features
     sum_rr = 0
     sum_cr = 0
     for feature in ALL_FEATURES:
-        rr, rr_avg, cov_rate = calculate_representation_bias(transformed_data[feature], thres_cr)
+        rr, rr_avg, cov_rate = calculate_representation_bias(
+            transformed_data[feature], 
+            SORTING_ORDER[feature]['labels'], 
+            thres_cr)
         sum_rr += rr_avg
         rb_dict[feature] = rr
         rb_dict[feature]['avg_rr'] = rr_avg
