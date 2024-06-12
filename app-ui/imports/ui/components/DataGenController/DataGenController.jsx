@@ -36,7 +36,7 @@ export const DataGenController = (
                 {
                     (showGDTable)
                         ? <GenDataTable gen_acc={85} gen_dq={90} default_acc={80} default_dq={80} />
-                        : <BiasAwareness />
+                        : <EmptyDataGenController/>
                 }
             </div>
         </div>

@@ -7,7 +7,7 @@ import { Select, Table, InputNumber, message } from 'antd';
 import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API } from '../../Constants.jsx';
 import axios from 'axios';
 
-const PostAugmentData = ({ userid, augControllerSettings }) => {
+const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable }) => {
     axios.post(BASE_API + '/postaugmentationsettings', {
         UserId: userid,
         JsonData: augControllerSettings
@@ -41,11 +41,12 @@ const PostAugmentData = ({ userid, augControllerSettings }) => {
             // TO-DO: Navigate to Error Screen.
         }
     })
-    .then(() => message.loading('Generating new data...', 3))
-    .then(() => message.success('New data generated with selected settings', 1))
-    .catch(function (error) {
-        console.log(error);
-    });
+        .then(() => message.loading('Generating new data...', 3))
+        .then(() => message.success('New data generated with selected settings', 1))
+        .then(() => setShowGDTable(true))
+        .catch(function (error) {
+            console.log(error);
+        });
 };
 
 
@@ -261,11 +262,10 @@ export const AugmentationController = (
         // call Post API
         // If yes - revert unsaved changes
         if (window.confirm("Please confirm again to proceed.")) {
-            PostAugmentData({ userid, augControllerSettings })
+            PostAugmentData({ userid, augControllerSettings, setShowGDTable })
         }
-
         // Display Data
-        setShowGDTable(!showGDTable); // #TO-DO: Temporary Toggle Set
+        //setShowGDTable(!showGDTable); // #TO-DO: Temporary Toggle Set
     };
 
     const ac_columns = [
