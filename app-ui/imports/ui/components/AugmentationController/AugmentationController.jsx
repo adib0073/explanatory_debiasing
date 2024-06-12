@@ -8,9 +8,25 @@ import { Select, Table, InputNumber } from 'antd';
 export const AugmentationController = (
     {
         showGDTable,
-        setShowGDTable
+        setShowGDTable,
+        userid
     }) => {
-    console.log('Augmentation Controller');
+
+    const [augSettings, setAugSettings] = useState({
+        "numSamples": 100,
+        "predCategory": "Both",
+        "repThres": 80,
+        "covThres": 300,
+        "covRateThres": 80
+    })
+
+    const handleAugSetting = (settingType, value) => {
+        setAugSettings({
+            ...augSettings,
+            [settingType]: value
+        });
+    }
+
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
@@ -146,13 +162,23 @@ export const AugmentationController = (
             <div className="ac-info-label">
                 <div className='ac-info-label-sub'>
                     <div className='label-sub-left'>
-                        Number of samples: &nbsp; <InputNumber min={0} defaultValue={100} size='small' style={{ width: '4vw', fontSize: '1.8vh' }} />
+                        Number of samples: &nbsp;
+                        <InputNumber
+                            min={0}
+                            defaultValue={augSettings.numSamples}
+                            onChange={(value) => {
+                                handleAugSetting(settingType = "numSamples", value = value)
+                            }}
+                            size='small'
+                            style={{ width: '4vw', fontSize: '1.8vh' }} />
                     </div>
                     <div className='label-sub-right'>
                         Prediction category: &nbsp;
                         <Select
-                            defaultValue="both"
-                            onChange={handleChange}
+                            defaultValue={augSettings.predCategory}
+                            onChange={(value) => {
+                                handleAugSetting(settingType = "predCategory", value = value)
+                            }}
                             options={[
                                 {
                                     value: 'both',
@@ -180,7 +206,10 @@ export const AugmentationController = (
                         <InputNumber
                             min={0}
                             max={100}
-                            defaultValue={80}
+                            defaultValue={augSettings.repThres}
+                            onChange={(value) => {
+                                handleAugSetting(settingType = "repThres", value = value)
+                            }}
                             size='small'
                             formatter={(value) => `${value}%`}
                             parser={(value) => value?.replace('%', '')}
@@ -192,7 +221,10 @@ export const AugmentationController = (
                         Coverage Threshold: &nbsp;
                         <InputNumber
                             min={0}
-                            defaultValue={300}
+                            defaultValue={augSettings.covThres}
+                            onChange={(value) => {
+                                handleAugSetting(settingType = "covThres", value = value)
+                            }}
                             size='small'
                             style={{ width: '4vw', fontSize: '1.8vh' }} />
                     </div>
@@ -203,7 +235,10 @@ export const AugmentationController = (
                         <InputNumber
                             min={0}
                             max={100}
-                            defaultValue={80}
+                            defaultValue={augSettings.covRateThres}
+                            onChange={(value) => {
+                                handleAugSetting(settingType = "covRateThres", value = value)
+                            }}
                             size='small'
                             formatter={(value) => `${value}%`}
                             parser={(value) => value?.replace('%', '')}

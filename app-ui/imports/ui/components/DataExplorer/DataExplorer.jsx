@@ -16,7 +16,6 @@ import axios from 'axios';
 const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) => {
     axios.get(BASE_API + '/getdataexplorer/?user=test' + userid)
         .then(function (response) {
-            console.log(response.data["OutputJson"]);
             setDeChartVals({
                 "overall_rr": response.data["OutputJson"]["overall_rr"],
                 "threshold_rr": response.data["OutputJson"]["threshold_rr"],
