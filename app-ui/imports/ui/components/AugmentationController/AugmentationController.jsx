@@ -34,6 +34,7 @@ const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable }) => {
                 "Age": response.data["OutputJson"]["Age"],
                 "target": response.data["OutputJson"]["target"]
             });*/
+            console.log(response.data['OutputJson']);
             console.log('data generation complete ...');
         }
         else {

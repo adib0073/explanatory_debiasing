@@ -504,8 +504,9 @@ def generated_new_data(augcontroller_data):
 
     # Prepare for generating data
     model, train_df, test_df = load_data_model(augcontroller_data.UserId)
-    aug_cont_dict = augcontroller_data["JsonData"]
+    aug_cont_dict = augcontroller_data.JsonData
 
+    #TO-DO: Save metadata to json file
     metadata = SingleTableMetadata()
     metadata.detect_from_dataframe(train_df)
 
