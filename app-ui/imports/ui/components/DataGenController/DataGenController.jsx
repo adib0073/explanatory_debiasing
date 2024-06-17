@@ -12,17 +12,13 @@ export const DataGenController = (
         showGDTable,
         setShowGDTable,
         genData,
-        setGenData
+        setGenData,
+        genDataAcc
     }) => {
     console.log('Empty Data Gen Controller');
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
-
-
-
-
-
     return (<div className="dash-container-gen-controller">
         <div className="chart-title-box">
             <div className="chart-title">
@@ -38,7 +34,7 @@ export const DataGenController = (
                 {
                     (showGDTable)
                         ? <GenDataTable
-                            gen_acc={85}
+                            gen_acc={genDataAcc}
                             gen_dq={90}
                             default_acc={80}
                             default_dq={80}

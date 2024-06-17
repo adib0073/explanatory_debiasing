@@ -28,7 +28,12 @@ const FillGenDataTable = (responseData, setGenData) => {
     setGenData(genData);
 };
 
-const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable, setGenData }) => {
+const PostAugmentData = ({
+    userid,
+    augControllerSettings,
+    setShowGDTable,
+    setGenData,
+    setGenDataAcc }) => {
     message.loading('Generating new data...', 5)
     axios.post(BASE_API + '/postaugmentationsettings', {
         UserId: userid,
@@ -42,10 +47,11 @@ const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable, setGen
             "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
         }
     }).then(function (response) {
-        //console.log(response.data["OutputJson"]);
+        console.log(response.data["OutputJson"]);
         if (response.data["StatusCode"]) {
             console.log('data generation complete ...');
             FillGenDataTable(response.data['OutputJson']['GenDataList'], setGenData)
+            setGenDataAcc(response.data['OutputJson']['PredAcc']);
         }
         else {
             console.log("Error reported. Login failed.")
@@ -66,7 +72,8 @@ export const AugmentationController = (
         setShowGDTable,
         userid,
         resetFunc,
-        setGenData
+        setGenData,
+        setGenDataAcc
     }) => {
 
     const [augSettings, setAugSettings] = useState({
@@ -273,7 +280,13 @@ export const AugmentationController = (
         // call Post API
         // If yes - revert unsaved changes
         if (window.confirm("Please confirm again to proceed.")) {
-            PostAugmentData({ userid, augControllerSettings, setShowGDTable, setGenData })
+            PostAugmentData({
+                userid,
+                augControllerSettings,
+                setShowGDTable,
+                setGenData,
+                setGenDataAcc
+            })
         }
         // Display Data
         //setShowGDTable(!showGDTable); // #TO-DO: Temporary Toggle Set

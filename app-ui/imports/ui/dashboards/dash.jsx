@@ -25,6 +25,7 @@ export const DASH = ({ user }) => {
 
     const [showGDTable, setShowGDTable] = useState(false);
     const [genData, setGenData] = useState([]);
+    const [genDataAcc, setGenDataAcc] = useState(0.0);
 
     const [seed, setSeed] = useState(1);
     const reset = () => {
@@ -48,12 +49,14 @@ export const DASH = ({ user }) => {
                         key={seed}
                         resetFunc={reset}
                         setGenData={setGenData}
+                        setGenDataAcc={setGenDataAcc}
                     />
                     <DataGenController
                         showGDTable={showGDTable}
                         setShowGDTable={setShowGDTable}
                         genData={genData}
                         setGenData={setGenData}
+                        genDataAcc={genDataAcc}
                     />
                 </div>
             </div>

@@ -8,6 +8,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 import pandas as pd
 import numpy as np
 from constants import *
@@ -509,6 +510,7 @@ def generated_new_data(augcontroller_data):
     original_data = pd.DataFrame()
     dia_data = pd.DataFrame()
     non_dia_data = pd.DataFrame()
+    expected_preds = []
 
     # Sample based on selection
     # Do not use prediction class for generation
@@ -554,6 +556,7 @@ def generated_new_data(augcontroller_data):
                 subset_gen_df["pred"] = predictions
                 # generate confidence level
                 subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+                expected_preds += [1] * len(predictions) 
             except Exception as e:
                 print(f"!!Error: {e}")
                 subset_gen_df = pd.DataFrame()
@@ -570,6 +573,7 @@ def generated_new_data(augcontroller_data):
                 subset_gen_df["pred"] = predictions
                 # generate confidence level
                 subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+                expected_preds += [0] * len(predictions)
             except Exception as e:
                 print(f"!!Error: {e}")
                 subset_gen_df = pd.DataFrame()
@@ -586,6 +590,7 @@ def generated_new_data(augcontroller_data):
                 subset_gen_df["pred"] = predictions
                 # generate confidence level
                 subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+                expected_preds += [1] * len(predictions)
             except Exception as e:
                 print(f"!!Error: {e}")
                 subset_gen_df = pd.DataFrame()
@@ -602,6 +607,7 @@ def generated_new_data(augcontroller_data):
                 subset_gen_df["pred"] = predictions
                 # generate confidence level
                 subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+                expected_preds += [0] * len(predictions)
             except Exception as e:
                 print(f"!!Error: {e}")
                 subset_gen_df = pd.DataFrame()
@@ -621,6 +627,10 @@ def generated_new_data(augcontroller_data):
                 subset_gen_df["pred"] = predictions
                 # generate confidence level
                 subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+                if(aug_cont_dict["predCategory"] == "diabetic"):
+                    expected_preds += [1] * len(predictions)
+                else:
+                    expected_preds += [0] * len(predictions)
             except Exception as e:
                 print(f"!!Error: {e}")
                 subset_gen_df = pd.DataFrame()
@@ -636,6 +646,10 @@ def generated_new_data(augcontroller_data):
                 subset_gen_df["pred"] = predictions
                 # generate confidence level
                 subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+                if(aug_cont_dict["predCategory"] == "diabetic"):
+                    expected_preds += [1] * len(predictions)
+                else:
+                    expected_preds += [0] * len(predictions)
             except Exception as e:
                 print(f"!!Error: {e}")
                 subset_gen_df = pd.DataFrame()
@@ -656,7 +670,8 @@ def generated_new_data(augcontroller_data):
 
     # Convert DataFrame to Dict
     generated_data = {
-        "GenDataList" : gen_data_df.to_dict('records')
+        "GenDataList" : gen_data_df.to_dict('records'),
+        "PredAcc" : 100* accuracy_score(list(gen_data_df["pred"].values), expected_preds)
         
     }
     #print(generated_data)
