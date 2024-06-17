@@ -662,6 +662,17 @@ def generated_new_data(augcontroller_data):
     #################################################
 
     #################################################
+    quality_check_data = gen_data_df[ALL_FEATURES].copy()
+    quality_check_labels = gen_data_df.filter(["pred"],axis='columns')
+    quality_check_labels.rename(columns = {"pred": TARGET_VARIABLE}, inplace=True)
+
+    ref_data = train_df[ALL_FEATURES].copy()
+    ref_labels = train_df.filter([TARGET_VARIABLE],axis='columns')
+    quality_score, _ = ComputeDataIssues(quality_check_data, 
+                                         quality_check_labels, 
+                                         ref_data, 
+                                         ref_labels)
+
 
     # Convert Categorical Data to Human Friendly Form
     for feature in CATEGORICAL:
@@ -671,8 +682,8 @@ def generated_new_data(augcontroller_data):
     # Convert DataFrame to Dict
     generated_data = {
         "GenDataList" : gen_data_df.to_dict('records'),
-        "PredAcc" : 100* accuracy_score(list(gen_data_df["pred"].values), expected_preds)
-        
+        "PredAcc" : 100* accuracy_score(list(gen_data_df["pred"].values), expected_preds),
+        "DataQuality" : 100 * quality_score 
     }
     #print(generated_data)
     #insert_interaction_data(interaction_detail) -- Disabling interaction logs

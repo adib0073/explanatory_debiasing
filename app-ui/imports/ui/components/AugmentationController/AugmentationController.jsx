@@ -33,7 +33,9 @@ const PostAugmentData = ({
     augControllerSettings,
     setShowGDTable,
     setGenData,
-    setGenDataAcc }) => {
+    setGenDataAcc,
+    setGenDataQuality
+}) => {
     message.loading('Generating new data...', 5)
     axios.post(BASE_API + '/postaugmentationsettings', {
         UserId: userid,
@@ -52,6 +54,7 @@ const PostAugmentData = ({
             console.log('data generation complete ...');
             FillGenDataTable(response.data['OutputJson']['GenDataList'], setGenData)
             setGenDataAcc(response.data['OutputJson']['PredAcc']);
+            setGenDataQuality(response.data['OutputJson']['DataQuality']);
         }
         else {
             console.log("Error reported. Login failed.")
@@ -73,7 +76,8 @@ export const AugmentationController = (
         userid,
         resetFunc,
         setGenData,
-        setGenDataAcc
+        setGenDataAcc,
+        setGenDataQuality
     }) => {
 
     const [augSettings, setAugSettings] = useState({
@@ -285,7 +289,8 @@ export const AugmentationController = (
                 augControllerSettings,
                 setShowGDTable,
                 setGenData,
-                setGenDataAcc
+                setGenDataAcc,
+                setGenDataQuality
             })
         }
         // Display Data

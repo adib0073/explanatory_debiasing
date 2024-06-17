@@ -26,6 +26,7 @@ export const DASH = ({ user }) => {
     const [showGDTable, setShowGDTable] = useState(false);
     const [genData, setGenData] = useState([]);
     const [genDataAcc, setGenDataAcc] = useState(0.0);
+    const [genDataQuality, setGenDataQuality] = useState(0.0);
 
     const [seed, setSeed] = useState(1);
     const reset = () => {
@@ -50,6 +51,7 @@ export const DASH = ({ user }) => {
                         resetFunc={reset}
                         setGenData={setGenData}
                         setGenDataAcc={setGenDataAcc}
+                        setGenDataQuality={setGenDataQuality}
                     />
                     <DataGenController
                         showGDTable={showGDTable}
@@ -57,6 +59,7 @@ export const DASH = ({ user }) => {
                         genData={genData}
                         setGenData={setGenData}
                         genDataAcc={genDataAcc}
+                        genDataQuality={genDataQuality}
                     />
                 </div>
             </div>

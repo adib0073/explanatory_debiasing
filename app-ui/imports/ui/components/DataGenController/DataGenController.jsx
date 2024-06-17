@@ -13,7 +13,8 @@ export const DataGenController = (
         setShowGDTable,
         genData,
         setGenData,
-        genDataAcc
+        genDataAcc,
+        genDataQuality
     }) => {
     console.log('Empty Data Gen Controller');
     const handleChange = (value) => {
@@ -35,7 +36,7 @@ export const DataGenController = (
                     (showGDTable)
                         ? <GenDataTable
                             gen_acc={genDataAcc}
-                            gen_dq={90}
+                            gen_dq={genDataQuality}
                             default_acc={80}
                             default_dq={80}
                             data={genData}
