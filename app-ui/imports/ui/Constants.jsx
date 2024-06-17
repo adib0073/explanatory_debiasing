@@ -5,7 +5,15 @@ export const BASE_API = "http://127.0.0.1:8000";
 export const greenFont = "#449231";
 export const redFont = "#D64242";
 
-// DATA SUMMARY VIZ DEFAULT MODEL
+// ALL FEATURES
+export const ALL_FEATURES = ["Age", "Gender", "BMI",
+  "SBP", "DBP", "FPG", "Chol",
+  "Tri", "HDL", "LDL", "ALT",
+  "BUN", "CCR", "FFPG", "smoking",
+  "drinking", "family_history"];
+
+
+// AUGMENTATION VARIABLES DEFAULT MODEL
 export const AUGMENT_VARIABLES = {
   "Age": {
     "type": "numerical",

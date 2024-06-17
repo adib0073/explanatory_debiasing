@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
-import { redFont } from '../../Constants';
+import { ALL_FEATURES, FRIENDLY_NAMES_ENG, redFont } from '../../Constants';
 
 const originData = [];
 for (let i = 0; i < 99; i++) {
@@ -139,6 +139,7 @@ export const CustomTableComponent = (
         {
             title: 'Confidence',
             dataIndex: 'conf',
+            width: "8vw",
             ellipsis: true,
             editable: false,
             filters: (isFilter) ? [
@@ -196,54 +197,35 @@ export const CustomTableComponent = (
                     </span >)
             }
         },
-        {
-            title: 'Var1',
-            dataIndex: 'name',
-            editable: true,
-            ellipsis: true,
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-            editable: true,
-            ellipsis: true,
-        },
-        {
-            title: 'Var2',
-            dataIndex: 'address',
-            editable: true,
-            ellipsis: true,
-        },
-        {
-            title: 'Var3',
-            dataIndex: 'address',
-            editable: true,
-            ellipsis: true,
-        },
-        {
-            title: 'Var4',
-            dataIndex: 'address',
-            editable: true,
-            ellipsis: true,
-        },
-        {
-            title: 'Remove',
-            dataIndex: 'remove',
-            width: "6vw",
-            fixed: 'right',
-            render: (_, record) =>
-                data.length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-                        <a>
-                            <span style={{ color: redFont, fontSize: "1.5vh", textDecoration: "underline" }}>
-                                Remove
-                            </span>
-                        </a>
-                    </Popconfirm>
-                ) : null,
-        }
-
     ];
+
+    for (let i = 0; i < ALL_FEATURES.length; i++) {
+        columns.push({
+            title: FRIENDLY_NAMES_ENG[ALL_FEATURES[i]],
+            dataIndex: ALL_FEATURES[i],
+            editable: true,
+            ellipsis: true,
+            width: "10vw",
+        })
+    }
+    // Add Remove Option
+    columns.push({
+        title: 'Remove',
+        dataIndex: 'remove',
+        width: "6vw",
+        fixed: 'right',
+        render: (_, record) =>
+            data.length >= 1 ? (
+                <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+                    <a>
+                        <span style={{ color: redFont, fontSize: "1.5vh", textDecoration: "underline" }}>
+                            Remove
+                        </span>
+                    </a>
+                </Popconfirm>
+            ) : null,
+    });
+   
     const mergedColumns = columns.map((col) => {
         if (!col.editable) {
             return col;
