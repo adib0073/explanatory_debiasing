@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
-import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, redFont } from '../../Constants';
+import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, INV_CONT_BIN_DICT, redFont } from '../../Constants';
 
 function titleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
@@ -180,6 +180,20 @@ export const CustomTableComponent = (
             dataIndex: 'pred',
             editable: false,
             ellipsis: true,
+            filters: (isFilter) ? [
+                {
+                    text: 'Diabetic',
+                    value: 'Diabetic',
+                },
+                {
+                    text: 'Non-diabetic',
+                    value: 'Non-diabetic',
+                }
+            ] : null,
+            showSorterTooltip: {
+                target: 'full-header',
+            },
+            onFilter: (value, record) => record.pred.indexOf(value) === 0,
             sorter: (isSort) ? (a, b) => a.pred.length - b.pred.length : null,
             render: (_, record) => {
                 let color = 'black'
@@ -212,6 +226,20 @@ export const CustomTableComponent = (
                     :
                     (a, b) => a[ALL_FEATURES[i]] - b[ALL_FEATURES[i]]
                 : null,
+
+            filters: (isFilter)
+                ?
+                AUGMENT_VARIABLES[ALL_FEATURES[i]].options.map(item => ({ text: item, value: item }))
+                : null,
+            showSorterTooltip: {
+                target: 'full-header',
+            },
+            onFilter: (value, record) =>
+                (AUGMENT_VARIABLES[ALL_FEATURES[i]].type == "categorical")
+                    ? record[ALL_FEATURES[i]].indexOf(value) === 0
+                    : (record[ALL_FEATURES[i]] >= INV_CONT_BIN_DICT[ALL_FEATURES[i]][value]["low"]
+                        && record[ALL_FEATURES[i]] <= INV_CONT_BIN_DICT[ALL_FEATURES[i]][value]["up"])
+            ,
         })
     }
     // Add Remove Option
