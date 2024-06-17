@@ -1,0 +1,56 @@
+{
+    "columns": {
+        "Age": {
+            "sdtype": "numerical"
+        },
+        "Gender": {
+            "sdtype": "categorical"
+        },
+        "BMI": {
+            "sdtype": "numerical"
+        },
+        "SBP": {
+            "sdtype": "numerical"
+        },
+        "DBP": {
+            "sdtype": "numerical"
+        },
+        "FPG": {
+            "sdtype": "numerical"
+        },
+        "Chol": {
+            "sdtype": "numerical"
+        },
+        "Tri": {
+            "sdtype": "numerical"
+        },
+        "HDL": {
+            "sdtype": "numerical"
+        },
+        "LDL": {
+            "sdtype": "numerical"
+        },
+        "ALT": {
+            "sdtype": "numerical"
+        },
+        "BUN": {
+            "sdtype": "numerical"
+        },
+        "CCR": {
+            "sdtype": "numerical"
+        },
+        "FFPG": {
+            "sdtype": "numerical"
+        },
+        "smoking": {
+            "sdtype": "categorical"
+        },
+        "drinking": {
+            "sdtype": "categorical"
+        },
+        "family_history": {
+            "sdtype": "categorical"
+        }
+    },
+    "METADATA_SPEC_VERSION": "SINGLE_TABLE_V1"
+}

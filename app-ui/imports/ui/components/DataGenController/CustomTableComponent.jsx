@@ -338,7 +338,7 @@ export const CustomTableComponent = (
         }}
     />
     */
-    console.log(data);
+   
     return (
         <>
             <Form form={form} component={false}>

@@ -487,8 +487,6 @@ def new_sythetic_data(training_data, metadata, GROUP_SIZE, set_condiions):
         num_rows= GROUP_SIZE,
         column_values= set_condiions #right now generating with a range of values is not permitted
     )
-
-
     synthetic_data = synthesizer.sample_from_conditions(
         conditions=[conditions],
     )
@@ -506,9 +504,22 @@ def generated_new_data(augcontroller_data):
     model, train_df, test_df = load_data_model(augcontroller_data.UserId)
     aug_cont_dict = augcontroller_data.JsonData
 
-    #TO-DO: Save metadata to json file
-    metadata = SingleTableMetadata()
-    metadata.detect_from_dataframe(train_df)
+    # Load metadata from json file
+    metadata = SingleTableMetadata.load_from_json(filepath='data/metadata_v1.json')
+    original_data = pd.DataFrame()
+    dia_data = pd.DataFrame()
+    non_dia_data = pd.DataFrame()
+
+    # Sample based on selection
+    # Do not use prediction class for generation
+    # For category both generate a balanced but separate sample for both categories
+    if(aug_cont_dict["predCategory"] == "diabetic"):
+        original_data = train_df[train_df[TARGET_VARIABLE] == 1][ALL_FEATURES].copy()
+    elif(aug_cont_dict["predCategory"] == "non-diabetic"):
+        original_data = train_df[train_df[TARGET_VARIABLE] == 0][ALL_FEATURES].copy()
+    else:
+        dia_data = train_df[train_df[TARGET_VARIABLE] == 1][ALL_FEATURES].copy()
+        non_dia_data = train_df[train_df[TARGET_VARIABLE] == 0][ALL_FEATURES].copy()
 
     # Get constraint values
     # Find total number of conditions
@@ -521,25 +532,115 @@ def generated_new_data(augcontroller_data):
         if val['type'] == 'numerical':
             conds_dict[key] = numerical_sampling_conditions(val['selectedOptions'], key)
 
-    # Get number of samples
-
-    # Generate Data with constraints
+    # Generate for either diabetic or non-diabetic category or both
     GROUP_SIZE = 50
     NUM_ROWS = aug_cont_dict["numSamples"]
-    num_iters = int(NUM_ROWS / GROUP_SIZE)
-    num_remains = NUM_ROWS % GROUP_SIZE
-
     gen_data_df = pd.DataFrame()
 
-    for i in range(num_iters):
-        set_conditions = generate_new_conditions(conds_dict)
-        subset_gen_df = new_sythetic_data(train_df, metadata, GROUP_SIZE, set_conditions)
-        gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+    if(aug_cont_dict["predCategory"] == "both" or aug_cont_dict["predCategory"] == "Both"):
+        GROUP_SIZE = GROUP_SIZE//2
+        NUM_ROWS = NUM_ROWS//2
+        num_iters = int(NUM_ROWS / GROUP_SIZE)
+        num_remains = NUM_ROWS % GROUP_SIZE
+        
+        for i in range(num_iters):
+            ## For diabetics group
+            set_conditions = generate_new_conditions(conds_dict)
+            try:
+                # generate new data
+                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions)
+                # generate predictions
+                predictions = model.predict(subset_gen_df[ALL_FEATURES])
+                subset_gen_df["pred"] = predictions
+                # generate confidence level
+                subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+            except Exception as e:
+                print(f"!!Error: {e}")
+                subset_gen_df = pd.DataFrame()
+            gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
 
-    if(num_remains > 0):
-        set_conditions = generate_new_conditions(conds_dict)
-        subset_gen_df = new_sythetic_data(train_df, metadata, num_remains, set_conditions)
-        gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True) 
+
+            ## For non-diabetics group
+            set_conditions = generate_new_conditions(conds_dict)
+            try:
+                # generate new data
+                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions)
+                # generate predictions
+                predictions = model.predict(subset_gen_df[ALL_FEATURES])
+                subset_gen_df["pred"] = predictions
+                # generate confidence level
+                subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+            except Exception as e:
+                print(f"!!Error: {e}")
+                subset_gen_df = pd.DataFrame()
+            gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+
+        if(num_remains > 0):
+            ## For diabetics group
+            set_conditions = generate_new_conditions(conds_dict)
+            try:
+                # generate new data
+                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions)
+                # generate predictions
+                predictions = model.predict(subset_gen_df[ALL_FEATURES])
+                subset_gen_df["pred"] = predictions
+                # generate confidence level
+                subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+            except Exception as e:
+                print(f"!!Error: {e}")
+                subset_gen_df = pd.DataFrame()
+            gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+
+
+            ## For non-diabetics group
+            set_conditions = generate_new_conditions(conds_dict)
+            try:
+                # generate new data
+                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions)
+                # generate predictions
+                predictions = model.predict(subset_gen_df[ALL_FEATURES])
+                subset_gen_df["pred"] = predictions
+                # generate confidence level
+                subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+            except Exception as e:
+                print(f"!!Error: {e}")
+                subset_gen_df = pd.DataFrame()
+            gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+
+    else: 
+        # Generate Data with constraints
+        num_iters = int(NUM_ROWS / GROUP_SIZE)
+        num_remains = NUM_ROWS % GROUP_SIZE
+        for i in range(num_iters):
+            set_conditions = generate_new_conditions(conds_dict)
+            try:
+                # generate new data
+                subset_gen_df = new_sythetic_data(original_data, metadata, GROUP_SIZE, set_conditions)
+                # generate predictions
+                predictions = model.predict(subset_gen_df[ALL_FEATURES])
+                subset_gen_df["pred"] = predictions
+                # generate confidence level
+                subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+            except Exception as e:
+                print(f"!!Error: {e}")
+                subset_gen_df = pd.DataFrame()
+            gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+
+        if(num_remains > 0):
+            set_conditions = generate_new_conditions(conds_dict)
+            try:
+                # generate new data
+                subset_gen_df = new_sythetic_data(original_data, metadata, num_remains, set_conditions)
+                # generate predictions
+                predictions = model.predict(subset_gen_df[ALL_FEATURES])
+                subset_gen_df["pred"] = predictions
+                # generate confidence level
+                subset_gen_df["conf"] = np.amax(model.predict_proba(subset_gen_df[ALL_FEATURES]), axis=1)
+            except Exception as e:
+                print(f"!!Error: {e}")
+                subset_gen_df = pd.DataFrame()
+            gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
+     
 
     gen_data_df = gen_data_df.round(2)
 
@@ -558,5 +659,6 @@ def generated_new_data(augcontroller_data):
         "GenDataList" : gen_data_df.to_dict('records')
         
     }
+    #print(generated_data)
     #insert_interaction_data(interaction_detail) -- Disabling interaction logs
     return (True, f"Successful. Interaction data inserted for user: {augcontroller_data.UserId}", generated_data)

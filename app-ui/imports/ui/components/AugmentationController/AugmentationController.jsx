@@ -8,20 +8,23 @@ import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES } from '.
 import axios from 'axios';
 
 const FillGenDataTable = (responseData, setGenData) => {
-    console.log(typeof (responseData));
+    console.log(responseData);
     let genData = [];
     for (let i = 0; i < responseData.length; i++) {
         /* Fixed Data Structure - modify if this needs to be dynamic */
         let rowdata = {}
         rowdata["key"] = i.toString();
-        rowdata["conf"] = (i % 2 == 0) ? 'High' : 'Low';
-        rowdata["pred"] = (i % 3 == 0) ? 'Diabetic' : 'Non-diabetic';
+        rowdata["conf"] = (responseData[i]["conf"] >= 0.8)
+            ? 'High'
+            : (responseData[i]["conf"] >= 0.65)
+                ? 'Medium'
+                : 'Low';
+        rowdata["pred"] = (responseData[i]["pred"] == 1) ? 'Diabetic' : 'Non-diabetic';
         for (let j = 0; j < ALL_FEATURES.length; j++) {
             rowdata[ALL_FEATURES[j]] = responseData[i][ALL_FEATURES[j]]
         }
         genData.push(rowdata);
     }
-    console.log(genData)
     setGenData(genData);
 };
 

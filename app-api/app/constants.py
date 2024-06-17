@@ -66,7 +66,7 @@ CONT_BINS_LABELS = {
 INV_CONT_BIN_DICT = {
     "Age" : {
         "Below 30" : {
-            "low": 20,
+            "low": 22,
             "up" : 29
         }, 
         "30-45": {
