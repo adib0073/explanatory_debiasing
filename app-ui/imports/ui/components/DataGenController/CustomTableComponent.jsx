@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
-import { ALL_FEATURES, FRIENDLY_NAMES_ENG, redFont } from '../../Constants';
+import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, redFont } from '../../Constants';
 
 
 const EditableCell = ({
@@ -197,7 +197,14 @@ export const CustomTableComponent = (
             editable: true,
             ellipsis: true,
             width: "10vw",
-            sorter: (isSort) ? (a, b) => a[ALL_FEATURES[i]] - b[ALL_FEATURES[i]]: null,
+            sorter: (isSort)
+                ?
+                (AUGMENT_VARIABLES[ALL_FEATURES[i]].type == "categorical")
+                    ?
+                    (a, b) => a[ALL_FEATURES[i]].length - b[ALL_FEATURES[i]].length
+                    :
+                    (a, b) => a[ALL_FEATURES[i]] - b[ALL_FEATURES[i]]
+                : null,
         })
     }
     // Add Remove Option
@@ -217,7 +224,7 @@ export const CustomTableComponent = (
                 </Popconfirm>
             ) : null,
     });
-   
+
     const mergedColumns = columns.map((col) => {
         if (!col.editable) {
             return col;

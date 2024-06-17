@@ -542,7 +542,18 @@ def generated_new_data(augcontroller_data):
         gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True) 
 
     gen_data_df = gen_data_df.round(2)
-    # Convert DataFrame to Dict?
+
+    # TO-DO: Save/Cache generated data that is not added with default data
+    #################################################
+
+    #################################################
+
+    # Convert Categorical Data to Human Friendly Form
+    for feature in CATEGORICAL:
+        inverse_encodings = {v: k for k, v in INV_LABEL_ENCODING_DICT[feature].items()}
+        gen_data_df[feature] = gen_data_df[feature].replace(inverse_encodings)
+
+    # Convert DataFrame to Dict
     generated_data = {
         "GenDataList" : gen_data_df.to_dict('records')
         
