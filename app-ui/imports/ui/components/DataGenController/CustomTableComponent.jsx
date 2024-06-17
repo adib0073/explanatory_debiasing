@@ -197,6 +197,7 @@ export const CustomTableComponent = (
             editable: true,
             ellipsis: true,
             width: "10vw",
+            sorter: (isSort) ? (a, b) => a[ALL_FEATURES[i]] - b[ALL_FEATURES[i]]: null,
         })
     }
     // Add Remove Option
