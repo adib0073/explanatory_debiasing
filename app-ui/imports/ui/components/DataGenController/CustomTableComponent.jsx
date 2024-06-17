@@ -5,6 +5,11 @@ import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
 import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, redFont } from '../../Constants';
 
+function titleCase(str) {
+    return str.toLowerCase().split(' ').map(function (word) {
+        return (word.charAt(0).toUpperCase() + word.slice(1));
+    }).join(' ');
+}
 
 const EditableCell = ({
     editing,
@@ -16,7 +21,9 @@ const EditableCell = ({
     children,
     ...restProps
 }) => {
-    const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+    const inputNode = inputType === 'number'
+        ? <InputNumber />
+        : <Input onInput={e => e.target.value = titleCase(e.target.value)} />;
     return (
         <td {...restProps}>
             {editing ? (
