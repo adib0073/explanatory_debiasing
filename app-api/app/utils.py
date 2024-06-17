@@ -541,8 +541,8 @@ def generated_new_data(augcontroller_data):
         subset_gen_df = new_sythetic_data(train_df, metadata, num_remains, set_conditions)
         gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True) 
 
+    gen_data_df = gen_data_df.round(2)
     # Convert DataFrame to Dict?
-
     generated_data = {
         "GenDataList" : gen_data_df.to_dict('records')
         
