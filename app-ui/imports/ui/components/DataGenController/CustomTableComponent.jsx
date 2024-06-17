@@ -233,8 +233,9 @@ export const CustomTableComponent = (
             ...col,
             onCell: (record) => ({
                 record,
-                //inputType: col.dataIndex === 'age' ? 'number' : 'text',
-                inputType: col.dataIndex === 'text',
+                inputType:
+                    ["Gender", "smoking", "drinking", "family_history"].includes(col.dataIndex)
+                        ? 'text' : 'number',
                 dataIndex: col.dataIndex,
                 title: col.title,
                 editing: isEditing(record),
@@ -302,6 +303,7 @@ export const CustomTableComponent = (
         }}
     />
     */
+    console.log(data);
     return (
         <>
             <Form form={form} component={false}>
