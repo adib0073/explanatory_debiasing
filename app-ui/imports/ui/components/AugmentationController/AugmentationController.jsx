@@ -29,6 +29,7 @@ const FillGenDataTable = (responseData, setGenData) => {
 };
 
 const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable, setGenData }) => {
+    message.loading('Generating new data...', 5)
     axios.post(BASE_API + '/postaugmentationsettings', {
         UserId: userid,
         JsonData: augControllerSettings
@@ -51,7 +52,6 @@ const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable, setGen
             // TO-DO: Navigate to Error Screen.
         }
     })
-        .then(() => message.loading('Generating new data...', 3))
         .then(() => message.success('New data generated with selected settings', 1))
         .then(() => setShowGDTable(true))
         .catch(function (error) {
