@@ -12,7 +12,9 @@ export const GenDataTable = (
         gen_acc,
         default_acc,
         gen_dq,
-        default_dq
+        default_dq,
+        data,
+        setData
     }) => {
 
     const onChangeSortSwitch = (checked) => {
@@ -64,7 +66,12 @@ export const GenDataTable = (
             </div>
             <div className='generated-data-holder'>
                 <div className='datagen-holder'>
-                    <CustomTableComponent isSort={sortSwitch} isFilter={filterSwitch} />
+                    <CustomTableComponent
+                        isSort={sortSwitch}
+                        isFilter={filterSwitch}
+                        data={data}
+                        setData={setData}
+                    />
                 </div>
             </div>
             <div className='gd-buttons'>

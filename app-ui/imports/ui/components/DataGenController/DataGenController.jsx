@@ -10,7 +10,9 @@ import { BiasAwareness } from './BiasAwareness.jsx';
 export const DataGenController = (
     {
         showGDTable,
-        setShowGDTable
+        setShowGDTable,
+        genData,
+        setGenData
     }) => {
     console.log('Empty Data Gen Controller');
     const handleChange = (value) => {
@@ -35,8 +37,15 @@ export const DataGenController = (
             <div className="gd-container" >
                 {
                     (showGDTable)
-                        ? <GenDataTable gen_acc={85} gen_dq={90} default_acc={80} default_dq={80} />
-                        : <EmptyDataGenController/>
+                        ? <GenDataTable
+                            gen_acc={85}
+                            gen_dq={90}
+                            default_acc={80}
+                            default_dq={80}
+                            data={genData}
+                            setData={setGenData}
+                        />
+                        : <EmptyDataGenController />
                 }
             </div>
         </div>

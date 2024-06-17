@@ -5,17 +5,7 @@ import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
 import { ALL_FEATURES, FRIENDLY_NAMES_ENG, redFont } from '../../Constants';
 
-const originData = [];
-for (let i = 0; i < 99; i++) {
-    originData.push({
-        key: i.toString(),
-        conf: (i % 2 == 0) ? 'High' : 'Low',
-        pred: (i % 3 == 0) ? 'Diabetic' : 'Non-diabetic',
-        name: `Edward ${i}`,
-        age: 32,
-        address: `Value. ${i}`,
-    });
-}
+
 const EditableCell = ({
     editing,
     dataIndex,
@@ -54,13 +44,14 @@ const EditableCell = ({
 export const CustomTableComponent = (
     {
         isSort,
-        isFilter
+        isFilter,
+        data,
+        setData
     }) => {
 
 
 
     const [form] = Form.useForm();
-    const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
     const isEditing = (record) => record.key === editingKey;
     const handleDelete = (key) => {
@@ -313,7 +304,7 @@ export const CustomTableComponent = (
                             cell: EditableCell,
                         },
                     }}
-                    bordered
+                    bordered={true}
                     dataSource={data}
                     columns={mergedColumns}
                     rowClassName="editable-row"

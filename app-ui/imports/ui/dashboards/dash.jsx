@@ -23,12 +23,13 @@ export const DASH = ({ user }) => {
         console.log(`selected ${value}`);
     };
 
-    const [showGDTable, setShowGDTable] = useState(false)
+    const [showGDTable, setShowGDTable] = useState(false);
+    const [genData, setGenData] = useState([]);
 
     const [seed, setSeed] = useState(1);
     const reset = () => {
-         setSeed(Math.random());
-     }
+        setSeed(Math.random());
+    }
 
     return (
         <>
@@ -43,11 +44,17 @@ export const DASH = ({ user }) => {
                     <AugmentationController
                         showGDTable={showGDTable}
                         setShowGDTable={setShowGDTable}
-                        userid={userid} 
-                        key = {seed}
-                        resetFunc = {reset}
-                        />
-                    <DataGenController showGDTable={showGDTable} setShowGDTable={setShowGDTable} />
+                        userid={userid}
+                        key={seed}
+                        resetFunc={reset}
+                        setGenData={setGenData}
+                    />
+                    <DataGenController
+                        showGDTable={showGDTable}
+                        setShowGDTable={setShowGDTable}
+                        genData={genData}
+                        setGenData={setGenData}
+                    />
                 </div>
             </div>
         </>

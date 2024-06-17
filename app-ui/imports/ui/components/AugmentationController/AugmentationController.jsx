@@ -4,10 +4,28 @@ import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { Select, Table, InputNumber, message } from 'antd';
-import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API } from '../../Constants.jsx';
+import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES } from '../../Constants.jsx';
 import axios from 'axios';
 
-const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable }) => {
+const FillGenDataTable = (responseData, setGenData) => {
+    console.log(typeof (responseData));
+    let genData = [];
+    for (let i = 0; i < responseData.length; i++) {
+        /* Fixed Data Structure - modify if this needs to be dynamic */
+        let rowdata = {}
+        rowdata["key"] = i.toString();
+        rowdata["conf"] = (i % 2 == 0) ? 'High' : 'Low';
+        rowdata["pred"] = (i % 3 == 0) ? 'Diabetic' : 'Non-diabetic';
+        for (let j = 0; j < ALL_FEATURES.length; j++) {
+            rowdata[ALL_FEATURES[j]] = responseData[i][ALL_FEATURES[j]]
+        }
+        genData.push(rowdata);
+    }
+    console.log(genData)
+    setGenData(genData);
+};
+
+const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable, setGenData }) => {
     axios.post(BASE_API + '/postaugmentationsettings', {
         UserId: userid,
         JsonData: augControllerSettings
@@ -22,20 +40,8 @@ const PostAugmentData = ({ userid, augControllerSettings, setShowGDTable }) => {
     }).then(function (response) {
         //console.log(response.data["OutputJson"]);
         if (response.data["StatusCode"]) {
-            /*
-            setFeatureConfig({
-                "Pregnancies": response.data["OutputJson"]["Pregnancies"],
-                "Glucose": response.data["OutputJson"]["Glucose"],
-                "BloodPressure": response.data["OutputJson"]["BloodPressure"],
-                "SkinThickness": response.data["OutputJson"]["SkinThickness"],
-                "Insulin": response.data["OutputJson"]["Insulin"],
-                "BMI": response.data["OutputJson"]["BMI"],
-                "DiabetesPedigreeFunction": response.data["OutputJson"]["DiabetesPedigreeFunction"],
-                "Age": response.data["OutputJson"]["Age"],
-                "target": response.data["OutputJson"]["target"]
-            });*/
-            console.log(response.data['OutputJson']);
             console.log('data generation complete ...');
+            FillGenDataTable(response.data['OutputJson']['GenDataList'], setGenData)
         }
         else {
             console.log("Error reported. Login failed.")
@@ -57,6 +63,7 @@ export const AugmentationController = (
         setShowGDTable,
         userid,
         resetFunc,
+        setGenData
     }) => {
 
     const [augSettings, setAugSettings] = useState({
@@ -263,7 +270,7 @@ export const AugmentationController = (
         // call Post API
         // If yes - revert unsaved changes
         if (window.confirm("Please confirm again to proceed.")) {
-            PostAugmentData({ userid, augControllerSettings, setShowGDTable })
+            PostAugmentData({ userid, augControllerSettings, setShowGDTable, setGenData })
         }
         // Display Data
         //setShowGDTable(!showGDTable); // #TO-DO: Temporary Toggle Set

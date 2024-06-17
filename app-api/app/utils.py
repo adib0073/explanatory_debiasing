@@ -543,6 +543,9 @@ def generated_new_data(augcontroller_data):
 
     # Convert DataFrame to Dict?
 
-    generated_data = gen_data_df.to_dict()
+    generated_data = {
+        "GenDataList" : gen_data_df.to_dict('records')
+        
+    }
     #insert_interaction_data(interaction_detail) -- Disabling interaction logs
     return (True, f"Successful. Interaction data inserted for user: {augcontroller_data.UserId}", generated_data)
