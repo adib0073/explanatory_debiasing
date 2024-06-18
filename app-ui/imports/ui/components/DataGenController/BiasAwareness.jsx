@@ -10,10 +10,17 @@ const { Panel } = Collapse;
 
 export const BiasAwareness = (
     {
-
+        setShowGDTable,
+        setShowBiasScreen,
     }) => {
     const handleChange = (value) => {
         console.log(`selected ${value}`);
+    };
+
+    const handleCancelButton = (value) => {
+        // Return to previous screen
+        setShowGDTable(true);
+        setShowBiasScreen(false);
     };
 
     return (
@@ -102,6 +109,7 @@ export const BiasAwareness = (
                 <button
                     className="ba-cancel-button"
                     type="submit"
+                    onClick={handleCancelButton}
                 >
                     Go Back
                 </button>

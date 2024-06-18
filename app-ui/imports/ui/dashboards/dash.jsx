@@ -24,6 +24,7 @@ export const DASH = ({ user }) => {
     };
 
     const [showGDTable, setShowGDTable] = useState(false);
+    const [showBiasScreen, setShowBiasScreen] = useState(false);
     const [genData, setGenData] = useState([]);
     const [genDataAcc, setGenDataAcc] = useState(0.0);
     const [genDataQuality, setGenDataQuality] = useState(0.0);
@@ -60,6 +61,8 @@ export const DASH = ({ user }) => {
                         setGenData={setGenData}
                         genDataAcc={genDataAcc}
                         genDataQuality={genDataQuality}
+                        showBiasScreen={showBiasScreen}
+                        setShowBiasScreen={setShowBiasScreen}
                     />
                 </div>
             </div>

@@ -14,7 +14,9 @@ export const DataGenController = (
         genData,
         setGenData,
         genDataAcc,
-        genDataQuality
+        genDataQuality,
+        showBiasScreen,
+        setShowBiasScreen
     }) => {
     console.log('Empty Data Gen Controller');
     const handleChange = (value) => {
@@ -33,7 +35,7 @@ export const DataGenController = (
         <div className='chart-container'>
             <div className="gd-container" >
                 {
-                    (showGDTable)
+                    (showGDTable == true && showBiasScreen == false)
                         ? <GenDataTable
                             gen_acc={genDataAcc}
                             gen_dq={genDataQuality}
@@ -41,8 +43,18 @@ export const DataGenController = (
                             default_dq={80}
                             data={genData}
                             setData={setGenData}
+                            setShowGDTable={setShowGDTable}
+                            setShowBiasScreen={setShowBiasScreen}
                         />
-                        : <EmptyDataGenController />
+                        :
+                        (showGDTable == false && showBiasScreen == true)
+                            ?
+                            <BiasAwareness
+                                setShowGDTable={setShowGDTable}
+                                setShowBiasScreen={setShowBiasScreen}
+                            />
+                            :
+                            <EmptyDataGenController />
                 }
             </div>
         </div>

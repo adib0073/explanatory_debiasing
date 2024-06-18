@@ -14,7 +14,9 @@ export const GenDataTable = (
         gen_dq,
         default_dq,
         data,
-        setData
+        setData,
+        setShowGDTable,
+        setShowBiasScreen,
     }) => {
 
     const onChangeSortSwitch = (checked) => {
@@ -27,6 +29,14 @@ export const GenDataTable = (
 
     const [sortSwitch, setSortSwitch] = useState(false);
     const [filterSwitch, setFilterSwitch] = useState(false);
+
+    const handleTrainButton = (value) => {
+        // Show Bias Awareness Screen First
+        if (window.confirm("Are you ready to proceed?")) {
+            setShowGDTable(false);
+            setShowBiasScreen(true);
+        }
+    };
 
     return (
         <>
@@ -90,6 +100,7 @@ export const GenDataTable = (
                 <button
                     className="train-button"
                     type="submit"
+                    onClick={handleTrainButton}
                 >
                     Save and Re-train
                 </button>
