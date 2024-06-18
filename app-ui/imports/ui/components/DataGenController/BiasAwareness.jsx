@@ -2,14 +2,52 @@ import React from 'react';
 import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
-import { Collapse, Select } from 'antd';
+import { Collapse, Select, message } from 'antd';
 import { redFont } from '../../Constants';
 import { SelectionBiasPlots } from './SelectionBiasPlots';
 
 const { Panel } = Collapse;
 
+
+const PostGenerateAndRetrain = ({
+    userid,
+    setShowGDTable,
+    setShowBiasScreen
+}) => {
+    message.loading('Adding generated data and retraining the system', 5)
+        .then(() => setShowGDTable(false))
+        .then(() => setShowBiasScreen(false))
+    /*
+    axios.post(BASE_API + '/postgenerateandretrain', {
+        UserId: userid,
+        JsonData: augControllerSettings
+    }, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
+        }
+    }).then(function (response) {
+        if (response.data["StatusCode"]) {
+            // Initiate System Refresh
+        }
+        else {
+            console.log("Error reported. Login failed.")
+            // TO-DO: Navigate to Error Screen.
+        }
+    })
+        .then(() => message.success('New data generated with selected settings', 1))
+        .then(() => setShowGDTable(true))
+        .catch(function (error) {
+            console.log(error);
+        });
+    */
+};
+
 export const BiasAwareness = (
     {
+        userid,
         setShowGDTable,
         setShowBiasScreen,
     }) => {
@@ -21,6 +59,15 @@ export const BiasAwareness = (
         // Return to previous screen
         setShowGDTable(true);
         setShowBiasScreen(false);
+    };
+
+    const handleConfirmButton = (value) => {
+        // API call to re-train model and fetch everything
+        PostGenerateAndRetrain({
+            userid,
+            setShowGDTable,
+            setShowBiasScreen
+        });
     };
 
     return (
@@ -116,6 +163,7 @@ export const BiasAwareness = (
                 <button
                     className="ba-train-button"
                     type="submit"
+                    onClick={handleConfirmButton}
                 >
                     Confirm
                 </button>

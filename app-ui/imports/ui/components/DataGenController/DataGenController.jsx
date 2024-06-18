@@ -9,6 +9,7 @@ import { BiasAwareness } from './BiasAwareness.jsx';
 
 export const DataGenController = (
     {
+        userid,
         showGDTable,
         setShowGDTable,
         genData,
