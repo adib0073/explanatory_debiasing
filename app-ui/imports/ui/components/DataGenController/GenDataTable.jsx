@@ -38,6 +38,14 @@ export const GenDataTable = (
         }
     };
 
+    const handleCancelButton = (value) => {
+        // Show Bias Awareness Screen First
+        if (window.confirm("Are you sure to discard the generated data? You have to generate new data again using the augmentation controller if you press ok.")) {
+            setShowGDTable(false);
+            setShowBiasScreen(false);
+        }
+    };
+
     return (
         <>
             <div className='gd-subtitle'>
@@ -94,6 +102,7 @@ export const GenDataTable = (
                 <button
                     className="cancel-button"
                     type="submit"
+                    onClick={handleCancelButton}
                 >
                     Cancel changes
                 </button>
