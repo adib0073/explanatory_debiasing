@@ -22,6 +22,7 @@ import sdv
 from sdv.metadata import SingleTableMetadata
 from sdv.lite import SingleTablePreset
 from sdv.sampling import Condition
+import os
 
 
 def login_service(user_name, cohort, language):
@@ -498,7 +499,7 @@ def generated_new_data(augcontroller_data):
     """
     Method to generate new data based on controller settings
     """
-    # Update Threshold scores if need
+    # Update Threshold scores if needed
     # TO-DO
 
     # Prepare for generating data
@@ -658,10 +659,23 @@ def generated_new_data(augcontroller_data):
 
     gen_data_df = gen_data_df.round(2)
 
-    # TO-DO: Save/Cache generated data that is not added with default data
-    #################################################
+    pred_acc = 100* accuracy_score(list(gen_data_df["pred"].values), expected_preds)
+    # Drop Duplicates
+    gen_data_df.drop_duplicates(inplace=True)
 
-    #################################################
+    ######################################################################
+    # Save/Cache generated data that is not added with default data
+    ######################################################################
+    # create temporary saved file
+    # update this whenever new data is generated
+    # Later: when cancelled this file tmp.csv should be deleted
+    # Later: when saved this data should be appended to train 
+    #        and file tmp.csv should be deleted
+    ######################################################################
+    if not os.path.exists(f"data/{augcontroller_data.UserId}"):
+        os.makedirs(f"data/{augcontroller_data.UserId}")
+    gen_data_df.to_csv(f"data/{augcontroller_data.UserId}/tmp.csv", index=False)
+    #####################################################################
     quality_check_data = gen_data_df[ALL_FEATURES].copy()
     quality_check_labels = gen_data_df.filter(["pred"],axis='columns')
     quality_check_labels.rename(columns = {"pred": TARGET_VARIABLE}, inplace=True)
@@ -682,7 +696,7 @@ def generated_new_data(augcontroller_data):
     # Convert DataFrame to Dict
     generated_data = {
         "GenDataList" : gen_data_df.to_dict('records'),
-        "PredAcc" : 100* accuracy_score(list(gen_data_df["pred"].values), expected_preds),
+        "PredAcc" : pred_acc,
         "DataQuality" : 100 * quality_score 
     }
     #print(generated_data)
