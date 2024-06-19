@@ -5,32 +5,45 @@ import "./DataGenController.css";
 import { Collapse, Select, message } from 'antd';
 import { redFont } from '../../Constants';
 import { SelectionBiasPlots } from './SelectionBiasPlots';
+import axios from 'axios';
+import { BASE_API } from '../../Constants.jsx';
 
 const { Panel } = Collapse;
-
 
 const PostGenerateAndRetrain = ({
     userid,
     setShowGDTable,
-    setShowBiasScreen
+    setShowBiasScreen,
+    genData
 }) => {
     message.loading('Adding generated data and retraining the system', 5)
         .then(() => setShowGDTable(false))
         .then(() => setShowBiasScreen(false))
-    /*
+
+    let payload = {
+        "GenDataList" : genData
+    }
+
+    console.log(userid)
+    console.log(payload)
+    console.log(typeof(payload))
+
     axios.post(BASE_API + '/postgenerateandretrain', {
         UserId: userid,
-        JsonData: augControllerSettings
+        JsonData: payload
     }, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
+            //"Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
             "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
         }
     }).then(function (response) {
         if (response.data["StatusCode"]) {
             // Initiate System Refresh
+            // # TO-DO
+            console.log('completed retraining')
         }
         else {
             console.log("Error reported. Login failed.")
@@ -38,11 +51,10 @@ const PostGenerateAndRetrain = ({
         }
     })
         .then(() => message.success('New data generated with selected settings', 1))
-        .then(() => setShowGDTable(true))
+        //.then(() => setShowGDTable(true))
         .catch(function (error) {
             console.log(error);
         });
-    */
 };
 
 export const BiasAwareness = (
@@ -50,6 +62,7 @@ export const BiasAwareness = (
         userid,
         setShowGDTable,
         setShowBiasScreen,
+        genData
     }) => {
     const handleChange = (value) => {
         console.log(`selected ${value}`);
@@ -61,12 +74,15 @@ export const BiasAwareness = (
         setShowBiasScreen(false);
     };
 
+    console.log(userid);
+
     const handleConfirmButton = (value) => {
         // API call to re-train model and fetch everything
         PostGenerateAndRetrain({
             userid,
             setShowGDTable,
-            setShowBiasScreen
+            setShowBiasScreen,
+            genData
         });
     };
 

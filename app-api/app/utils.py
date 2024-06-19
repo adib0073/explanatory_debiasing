@@ -88,14 +88,20 @@ def load_data_model(user):
     """
     Function to load default data and models
     """
-
+    test_df = pd.read_csv('data/test_data.csv')
     # Return default values 
     # if new model or data not-available for the user
-    default_model = joblib.load('model/default_model.joblib')
-    default_train_df = pd.read_csv('data/training_data.csv')
-    default_test_df = pd.read_csv('data/test_data.csv')
+    if os.path.exists(f"model/{user}/model.joblib"):
+        model = joblib.load(f"model/{user}/model.joblib")
+    else:
+        model = joblib.load('model/default_model.joblib')
+    
+    if os.path.exists(f"data/{user}/new_training_data.csv"):
+        train_df = pd.read_csv(f"data/{user}/new_training_data.csv")
+    else:
+        train_df = pd.read_csv('data/training_data.csv')        
 
-    return default_model, default_train_df, default_test_df
+    return model, train_df, test_df
 
 def get_system_overview(user):
     """
@@ -701,4 +707,52 @@ def generated_new_data(augcontroller_data):
     }
     #print(generated_data)
     #insert_interaction_data(interaction_detail) -- Disabling interaction logs
-    return (True, f"Successful. Interaction data inserted for user: {augcontroller_data.UserId}", generated_data)
+    return (True, f"Successful. New data generated for user: {augcontroller_data.UserId}", generated_data)
+
+def generate_and_retrain(gen_data):
+    """
+    Add generated data and retrain
+    """
+    # Prepare for generating data
+    model, train_df, test_df = load_data_model(gen_data.UserId)
+    gen_data_records = gen_data.JsonData["GenDataList"]
+
+    # Convert gen data records to dataframe
+    gendata_df = pd.DataFrame(gen_data_records)
+    gendata_df.rename(columns = {"pred": TARGET_VARIABLE}, inplace=True)
+
+    # Parse categorical encoding of features
+    for feature in CATEGORICAL:
+        inverse_encodings = {k: v for k, v in INV_LABEL_ENCODING_DICT[feature].items()}
+        gendata_df[feature] = gendata_df[feature].replace(inverse_encodings)
+    # Do the same for the Target Variable
+    inverse_encodings = {k: v for k, v in INV_LABEL_ENCODING_DICT[TARGET_VARIABLE].items()}
+    gendata_df[TARGET_VARIABLE] = gendata_df[TARGET_VARIABLE].replace(inverse_encodings)
+
+    # Add gen_df to train_df
+    x_train = train_df[ALL_FEATURES].copy()
+    new_x_train = gendata_df[ALL_FEATURES].copy()
+    x_train = pd.concat([x_train, new_x_train], ignore_index=True)
+
+    y_train = train_df[TARGET_VARIABLE].copy()
+    new_y_train = gendata_df[TARGET_VARIABLE].copy()
+    y_train = pd.concat([y_train, new_y_train], ignore_index=True)
+
+    # Save new data to new path
+    new_train_df = x_train.copy()
+    new_train_df[TARGET_VARIABLE] = y_train.copy()
+    if not os.path.exists(f"data/{gen_data.UserId}"):
+        os.makedirs(f"data/{gen_data.UserId}")
+    new_train_df.to_csv(f"data/{gen_data.UserId}/new_training_data.csv", index=False)    
+    # Fit model again
+    model.fit(x_train, y_train)
+    # Save re-trained model to new location
+    if not os.path.exists(f"model/{gen_data.UserId}"):
+        os.makedirs(f"model/{gen_data.UserId}")
+    joblib.dump(model, f"model/{gen_data.UserId}/model.joblib")
+
+    return_dict = {
+        "generated" : True
+    }
+
+    return (True, f"Successful. New data and model available: {gen_data.UserId}", return_dict)

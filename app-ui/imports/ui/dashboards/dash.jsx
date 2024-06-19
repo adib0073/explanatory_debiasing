@@ -33,6 +33,7 @@ export const DASH = ({ user }) => {
     const reset = () => {
         setSeed(Math.random());
     }
+    console.log(userid)
 
     return (
         <>
@@ -55,6 +56,7 @@ export const DASH = ({ user }) => {
                         setGenDataQuality={setGenDataQuality}
                     />
                     <DataGenController
+                        userid={userid}
                         showGDTable={showGDTable}
                         setShowGDTable={setShowGDTable}
                         genData={genData}

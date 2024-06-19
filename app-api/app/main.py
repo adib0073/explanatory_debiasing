@@ -81,11 +81,22 @@ async def GetDataExplorer(user: str):
     }
     return response
 
-# TO-DO: Check when used
 @app.post("/postaugmentationsettings", response_model=OutputwithPayloadDataModel)
 async def PostAugSettings(augcontroller_data: AugControllerDataModel):
     # Call method to restore default configurations
     code, message, output_json = generated_new_data(augcontroller_data)
+
+    response = {
+        "StatusCode": code,
+        "StatusMessage": message,
+        "OutputJson": output_json,
+    }
+    return response
+
+@app.post("/postgenerateandretrain", response_model=OutputwithPayloadDataModel)
+async def PostGenerateAndRetrain(gen_data: AugControllerDataModel):
+    # Call method to restore default configurations
+    code, message, output_json = generate_and_retrain(gen_data)
 
     response = {
         "StatusCode": code,

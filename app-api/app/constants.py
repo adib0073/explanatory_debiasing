@@ -7,6 +7,8 @@ ALL_FEATURES = ["Age", "Gender", "BMI",
 # Separating Categorical and Continuous Numerical Variables
 CATEGORICAL = ['Gender','smoking', 'drinking', 'family_history']
 CONTINUOUS = ['Age', 'BMI', 'SBP', 'DBP', 'FPG', 'Chol', 'Tri', 'HDL', 'LDL', 'ALT', 'BUN', 'CCR', 'FFPG']
+# target variable
+TARGET_VARIABLE = "Diabetes"
 
 CONT_BINS_LABELS = {
     "Age" : {
@@ -286,6 +288,10 @@ INV_LABEL_ENCODING_DICT = {
     "family_history" : {
         "Yes" : 1,
         "No" : 0
+    },
+    TARGET_VARIABLE : {
+        "Non-diabetic" : 0,
+        "Diabetic" : 1
     }
 }
 
@@ -477,5 +483,3 @@ FRIENDLY_NAMES = {
     "Age": "Age"
 }
 
-# target variable
-TARGET_VARIABLE = "Diabetes"

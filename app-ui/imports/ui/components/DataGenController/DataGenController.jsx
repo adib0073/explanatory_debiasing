@@ -19,6 +19,7 @@ export const DataGenController = (
         showBiasScreen,
         setShowBiasScreen
     }) => {
+    console.log(userid);
     console.log('Empty Data Gen Controller');
     const handleChange = (value) => {
         console.log(`selected ${value}`);
@@ -51,8 +52,10 @@ export const DataGenController = (
                         (showGDTable == false && showBiasScreen == true)
                             ?
                             <BiasAwareness
+                                userid={userid}
                                 setShowGDTable={setShowGDTable}
                                 setShowBiasScreen={setShowBiasScreen}
+                                genData={genData}
                             />
                             :
                             <EmptyDataGenController />

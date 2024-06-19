@@ -277,67 +277,6 @@ export const CustomTableComponent = (
             }),
         };
     });
-
-    /*
-    <Form form={form} component={false}>
-
-        <Table
-            components={{
-                body: {
-                    cell: EditableCell,
-                },
-            }}
-            bordered
-            dataSource={data}
-            columns={mergedColumns}
-            rowClassName="editable-row"
-            style={
-                { fontSize: "1.0vh" }
-            }
-            scroll={{
-                x: "max-content",
-                y: "30vh"
-            }}
-            pagination={{
-                position: ["bottomLeft"],
-                size: 'small',
-                pageSize: 5,
-
-            }}
-        />
-    </Form>
-    */
-    /*
-    const col = []
-    const colN = 15
-    for (let i = 0; i < colN; i++) {
-        col.push({
-            title: `Col ${i + 1}`,
-            dataIndex: `Col_${i + 1}`,
-            fixed: (i < 2) ? 'left' : (i === colN - 1) ? 'right' : null
-        })
-    }
-
-    const dataS = []
-    const dsN = 20
-    for (let i = 0; i < dsN; i++) {
-        const rowdata = {}
-        for (let colIndex = 0; colIndex < colN; colIndex++) {
-            rowdata[`Col_${colIndex + 1}`] = `R${i + 1}C${colIndex + 1}`
-        }
-        dataS.push(rowdata)
-    }
-    <Table
-        style={{ maxWidth: "45vw" }}
-        bordered={true}
-        columns={col}
-        dataSource={dataS}
-        scroll={{
-            x: true,
-            y: "30vh"
-        }}
-    />
-    */
    
     return (
         <>

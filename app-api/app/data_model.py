@@ -15,6 +15,10 @@ class AugControllerDataModel(BaseModel):
     UserId: str
     JsonData: dict = None
 
+class GenDataModel(BaseModel):
+    UserId: str
+    ListData: list[dict] = None
+
 class ValidateUserModel(BaseModel):
     UserId: str
     Cohort: str
