@@ -14,7 +14,7 @@ import { BASE_API, FRIENDLY_NAMES_ENG, greenFont, redFont } from '../../Constant
 import axios from 'axios';
 
 const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) => {
-    axios.get(BASE_API + '/getdataexplorer/?user=test' + userid)
+    axios.get(BASE_API + '/getdataexplorer/?user=' + userid)
         .then(function (response) {
             setDeChartVals({
                 "overall_rr": response.data["OutputJson"]["overall_rr"],

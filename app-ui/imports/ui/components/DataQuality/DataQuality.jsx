@@ -13,7 +13,7 @@ import axios from 'axios';
 
 
 const GetDataQuality = ({ userid, setDqChartVals }) => {
-    axios.get(BASE_API + '/getdataquality/?user=test' + userid)
+    axios.get(BASE_API + '/getdataquality/?user=' + userid)
         .then(function (response) {
             //console.log(response.data["OutputJson"]);
             setDqChartVals({
