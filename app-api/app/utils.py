@@ -23,6 +23,7 @@ from sdv.metadata import SingleTableMetadata
 from sdv.lite import SingleTablePreset
 from sdv.sampling import Condition
 import os
+import shutil
 
 
 def login_service(user_name, cohort, language):
@@ -756,3 +757,37 @@ def generate_and_retrain(gen_data):
     }
 
     return (True, f"Successful. New data and model available: {gen_data.UserId}", return_dict)
+
+def restore_system(user):
+    """
+    Check and delete new training data and model if exists
+    """
+    ####################################################
+    # TO-DO : Fetch user details when connected to Mongo
+    ####################################################
+    '''
+    # Load user data
+    client, user_details = fetch_user_details(user)
+    client.close()
+    if user_details is None:
+        return (False, f"Invalid username: {user}", user_details)
+    '''
+    if os.path.exists(f"data/{user}"):
+        # Remove the directory and all its contents
+        shutil.rmtree(f"data/{user}")
+        print(f"data/{user} has been removed.")
+    else:
+        print(f"model/{user} doesn't exist")       
+
+    if os.path.exists(f"model/{user}"):
+        # Remove the directory and all its contents
+        shutil.rmtree(f"model/{user}")
+        print(f"model/{user} has been removed.")
+    else:
+        print(f"model/{user} doesn't exist")
+    
+    output_json = {
+        "status": "successful",
+    }
+
+    return (True, f"Successful. Data and model restored for user: {user}", output_json)

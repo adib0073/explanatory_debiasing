@@ -105,6 +105,17 @@ async def PostGenerateAndRetrain(gen_data: AugControllerDataModel):
     }
     return response
 
+@app.get("/restoretodefaults/", response_model=OutputwithPayloadDataModel)
+async def RestoreSystem(user: str):
+    # Call method to get data quality value for user
+    code, message, output_json = restore_system(user)
+
+    response = {
+        "StatusCode": code,
+        "StatusMessage": message,
+        "OutputJson": output_json
+    }
+    return response
 
 # TO-DO: Check when used
 """

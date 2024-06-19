@@ -3,12 +3,32 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { Table, Switch, Tag, Space } from 'antd';
+import { Table, Switch, Tag, Space, message } from 'antd';
 import { greenFont, redFont } from '../../Constants.jsx';
 import { CustomTableComponent } from './CustomTableComponent.jsx';
+import axios from 'axios';
+import { BASE_API } from '../../Constants.jsx';
+
+const GetRestoreData = ({ userid, setShowGDTable, setShowBiasScreen }) => {
+    message.loading('Restoring to defaults', 2)
+        .then(() => setShowGDTable(false))
+        .then(() => setShowBiasScreen(false))
+    axios.get(BASE_API + '/restoretodefaults/?user=' + userid)
+        .then(function (response) {
+            //console.log(response.data["OutputJson"]);
+            console.log("Default data and model restored");
+
+        })
+        .then(() => window.location.reload())
+        .then(() => message.success('System restored to defaults', 3))        
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
 export const GenDataTable = (
     {
+        userid,
         gen_acc,
         default_acc,
         gen_dq,
@@ -43,6 +63,13 @@ export const GenDataTable = (
         if (window.confirm("Are you sure to discard the generated data? You have to generate new data again using the augmentation controller if you press ok.")) {
             setShowGDTable(false);
             setShowBiasScreen(false);
+        }
+    };
+
+    const handleRestoreButton = (value) => {
+        if (window.confirm("Are you sure to restore to default settings?")) {
+            // API call to restore and fetch everything
+            GetRestoreData({ userid, setShowGDTable, setShowBiasScreen });
         }
     };
 
@@ -96,6 +123,7 @@ export const GenDataTable = (
                 <button
                     className="reset-button"
                     type="submit"
+                    onClick={handleRestoreButton}
                 >
                     Restore to defaults
                 </button>

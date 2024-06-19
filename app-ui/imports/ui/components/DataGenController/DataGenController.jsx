@@ -36,6 +36,7 @@ export const DataGenController = (
                 {
                     (showGDTable == true && showBiasScreen == false)
                         ? <GenDataTable
+                            userid={userid}
                             gen_acc={genDataAcc}
                             gen_dq={genDataQuality}
                             default_acc={80}
@@ -55,7 +56,11 @@ export const DataGenController = (
                                 genData={genData}
                             />
                             :
-                            <EmptyDataGenController />
+                            <EmptyDataGenController
+                                userid={userid}
+                                setShowGDTable={setShowGDTable}
+                                setShowBiasScreen={setShowBiasScreen}
+                            />
                 }
             </div>
         </div>
