@@ -19,11 +19,8 @@ export const DataGenController = (
         showBiasScreen,
         setShowBiasScreen
     }) => {
-    console.log(userid);
-    console.log('Empty Data Gen Controller');
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    };
+
+
     return (<div className="dash-container-gen-controller">
         <div className="chart-title-box">
             <div className="chart-title">

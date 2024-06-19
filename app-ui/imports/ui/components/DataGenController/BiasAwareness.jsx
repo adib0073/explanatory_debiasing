@@ -24,10 +24,6 @@ const PostGenerateAndRetrain = ({
         "GenDataList" : genData
     }
 
-    console.log(userid)
-    console.log(payload)
-    console.log(typeof(payload))
-
     axios.post(BASE_API + '/postgenerateandretrain', {
         UserId: userid,
         JsonData: payload
@@ -35,7 +31,6 @@ const PostGenerateAndRetrain = ({
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            //"Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
             "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
         }
@@ -51,7 +46,7 @@ const PostGenerateAndRetrain = ({
         }
     })
         .then(() => message.success('New data generated with selected settings', 1))
-        //.then(() => setShowGDTable(true))
+        .then(() => window.location.reload())
         .catch(function (error) {
             console.log(error);
         });

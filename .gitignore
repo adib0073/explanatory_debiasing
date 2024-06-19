@@ -132,3 +132,5 @@ dmypy.json
 # meteor node modules
 app-ui/node_modules/
 app-api/app/data/test4/tmp.csv
+app-api/app/data/test4/new_training_data.csv
+app-api/app/model/test4/model.joblib

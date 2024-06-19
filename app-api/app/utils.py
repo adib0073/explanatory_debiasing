@@ -481,9 +481,9 @@ def generate_new_conditions(conds_dict):
             continue
         if all(isinstance(i, list) for i in val):
             flattened_array = np.array([item for sublist in val for item in sublist])
-            set_conditions[key] = np.random.choice(flattened_array)
+            set_conditions[key] = np.random.choice(flattened_array, replace=False)
         else:
-            set_conditions[key] = np.random.choice(val)  
+            set_conditions[key] = np.random.choice(val, replace=False)  
     
     return set_conditions
 
@@ -665,7 +665,7 @@ def generated_new_data(augcontroller_data):
 
     gen_data_df = gen_data_df.round(2)
 
-    pred_acc = 100* accuracy_score(list(gen_data_df["pred"].values), expected_preds)
+    pred_acc = np.round(100* accuracy_score(list(gen_data_df["pred"].values), expected_preds), 2)
     # Drop Duplicates
     gen_data_df.drop_duplicates(inplace=True)
 
@@ -703,7 +703,7 @@ def generated_new_data(augcontroller_data):
     generated_data = {
         "GenDataList" : gen_data_df.to_dict('records'),
         "PredAcc" : pred_acc,
-        "DataQuality" : 100 * quality_score 
+        "DataQuality" : np.round(100 * quality_score, 2)
     }
     #print(generated_data)
     #insert_interaction_data(interaction_detail) -- Disabling interaction logs

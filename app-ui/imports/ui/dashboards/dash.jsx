@@ -33,7 +33,6 @@ export const DASH = ({ user }) => {
     const reset = () => {
         setSeed(Math.random());
     }
-    console.log(userid)
 
     return (
         <>

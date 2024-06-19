@@ -80,7 +80,7 @@ export const DataExplorer = (
                         </div>
                         <div className='de-info-right'>
                             {
-                                (rrDiff > 0) ?
+                                (rrDiff >= 0) ?
                                     <>
                                         <UpGreenArrow />
                                         &nbsp;
@@ -110,7 +110,7 @@ export const DataExplorer = (
                         </div>
                         <div className='de-info-right'>
                             {
-                                (crDiff > 0) ?
+                                (crDiff >= 0) ?
                                     <>
                                         <UpGreenArrow />
                                         &nbsp;
@@ -171,7 +171,7 @@ export const DataExplorer = (
                                 ?
                                 <>
                                     {
-                                        (deChartVals["feature_info"][varName]["avg_rr"] > deChartVals["threshold_rr"]) ?
+                                        (deChartVals["feature_info"][varName]["avg_rr"] >= deChartVals["threshold_rr"]) ?
                                             <>
                                                 &nbsp;
                                                 <UpGreenArrow />
@@ -187,7 +187,7 @@ export const DataExplorer = (
                                             </>
                                     }
                                     {
-                                        (deChartVals["feature_info"][varName]["cr"] > deChartVals["threshold_cr"]) ?
+                                        (deChartVals["feature_info"][varName]["cr"] >= deChartVals["threshold_cr"]) ?
                                             <>
                                                 &nbsp;
                                                 <UpGreenArrow />
