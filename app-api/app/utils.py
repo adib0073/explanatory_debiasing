@@ -509,6 +509,19 @@ def new_sythetic_data(training_data, metadata, GROUP_SIZE, set_condiions, num_co
     
     return synthetic_data
 
+def post_gen_replace(conds_dict, gend_df):
+    """
+    Replace from list to decrease duplication problem
+    """
+    for key, val in conds_dict.items():
+        if(len(val) == 0):
+            continue
+        for val_list in val:
+            if(type(val_list) == type([])):
+                mask = gend_df[key].isin(val_list)
+                gend_df.loc[mask, key] = np.random.choice(val_list, size=mask.sum())
+    return gend_df
+
 def generated_new_data(augcontroller_data):
     """
     Method to generate new data based on controller settings
@@ -676,7 +689,8 @@ def generated_new_data(augcontroller_data):
      
 
     gen_data_df = gen_data_df.round(2)
-
+    gen_data_df = post_gen_replace(conds_dict, gen_data_df)
+ 
     pred_acc = np.round(100* accuracy_score(list(gen_data_df["pred"].values), expected_preds), 2)
 
     print(f"### With duplicates: {len(gen_data_df)}")
