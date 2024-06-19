@@ -488,9 +488,16 @@ def generate_new_conditions(conds_dict):
     
     return set_conditions
 
-def new_sythetic_data(training_data, metadata, GROUP_SIZE, set_condiions):
+def new_sythetic_data(training_data, metadata, GROUP_SIZE, set_condiions, num_conds):
+    """
+    Generate new data with or without conditions using SDV
+    """
     synthesizer = SingleTablePreset(metadata, name='FAST_ML')
     synthesizer.fit(training_data)
+    
+    if(num_conds == 0):
+        synthetic_data = synthesizer.sample(num_rows=GROUP_SIZE)
+        return synthetic_data
     
     conditions = Condition(
         num_rows= GROUP_SIZE,
@@ -558,7 +565,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions)
+                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -575,7 +582,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions)
+                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -592,7 +599,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions)
+                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -609,7 +616,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions)
+                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -629,7 +636,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(original_data, metadata, GROUP_SIZE, set_conditions)
+                subset_gen_df = new_sythetic_data(original_data, metadata, GROUP_SIZE, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -648,7 +655,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(original_data, metadata, num_remains, set_conditions)
+                subset_gen_df = new_sythetic_data(original_data, metadata, num_remains, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -664,11 +671,14 @@ def generated_new_data(augcontroller_data):
             gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
      
 
-    gen_data_df = gen_data_df.round(2)
+    gen_data_df = gen_data_df.round(4)
 
     pred_acc = np.round(100* accuracy_score(list(gen_data_df["pred"].values), expected_preds), 2)
+
+    print(f"### With duplicates: {len(gen_data_df)}")
     # Drop Duplicates
     gen_data_df.drop_duplicates(inplace=True)
+    print(f"**** Without duplicates: {len(gen_data_df)}")
 
     ######################################################################
     # Save/Cache generated data that is not added with default data
