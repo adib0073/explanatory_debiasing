@@ -494,7 +494,7 @@ def new_sythetic_data(training_data, metadata, GROUP_SIZE, set_condiions, num_co
     """
     synthesizer = SingleTablePreset(metadata, name='FAST_ML')
     synthesizer.fit(training_data)
-    
+
     if(num_conds == 0):
         synthetic_data = synthesizer.sample(num_rows=GROUP_SIZE)
         return synthetic_data
@@ -550,7 +550,7 @@ def generated_new_data(augcontroller_data):
             conds_dict[key] = numerical_sampling_conditions(val['selectedOptions'], key)
 
     # Generate for either diabetic or non-diabetic category or both
-    GROUP_SIZE = 50
+    GROUP_SIZE = aug_cont_dict["numSamples"]
     NUM_ROWS = aug_cont_dict["numSamples"]
     gen_data_df = pd.DataFrame()
 
@@ -559,8 +559,11 @@ def generated_new_data(augcontroller_data):
         NUM_ROWS = NUM_ROWS//2
         num_iters = int(NUM_ROWS / GROUP_SIZE)
         num_remains = NUM_ROWS % GROUP_SIZE
+
+        print(f"Group Size, Num Rows, N, N_r: {GROUP_SIZE, NUM_ROWS, num_iters, num_remains}")
         
         for i in range(num_iters):
+            print(f"Iter No-{i}")
             ## For diabetics group
             set_conditions = generate_new_conditions(conds_dict)
             try:
@@ -599,7 +602,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(dia_data, metadata, GROUP_SIZE, set_conditions, num_conds)
+                subset_gen_df = new_sythetic_data(dia_data, metadata, num_remains, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -616,7 +619,7 @@ def generated_new_data(augcontroller_data):
             set_conditions = generate_new_conditions(conds_dict)
             try:
                 # generate new data
-                subset_gen_df = new_sythetic_data(non_dia_data, metadata, GROUP_SIZE, set_conditions, num_conds)
+                subset_gen_df = new_sythetic_data(non_dia_data, metadata, num_remains, set_conditions, num_conds)
                 # generate predictions
                 predictions = model.predict(subset_gen_df[ALL_FEATURES])
                 subset_gen_df["pred"] = predictions
@@ -632,6 +635,7 @@ def generated_new_data(augcontroller_data):
         # Generate Data with constraints
         num_iters = int(NUM_ROWS / GROUP_SIZE)
         num_remains = NUM_ROWS % GROUP_SIZE
+        print(f"Group Size, Num Rows, N, N_r: {GROUP_SIZE, NUM_ROWS, num_iters, num_remains}")
         for i in range(num_iters):
             set_conditions = generate_new_conditions(conds_dict)
             try:
@@ -671,7 +675,7 @@ def generated_new_data(augcontroller_data):
             gen_data_df = pd.concat([gen_data_df, subset_gen_df], ignore_index=True)
      
 
-    gen_data_df = gen_data_df.round(4)
+    gen_data_df = gen_data_df.round(2)
 
     pred_acc = np.round(100* accuracy_score(list(gen_data_df["pred"].values), expected_preds), 2)
 
