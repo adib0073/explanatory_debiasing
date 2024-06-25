@@ -871,6 +871,7 @@ def bias_awareness_info(settings_data):
                 else:
                     selected_vals_dict[feature].append(False)
         
+
     return_dict = {
         "gen_data_vals" : gd_rb_dict,
         "train_data_vals" : td_rb_dict,

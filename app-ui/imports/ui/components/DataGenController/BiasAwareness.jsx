@@ -56,7 +56,10 @@ const PostGenerateAndRetrain = ({
 const GetBiasAwarenessData = ({
     userid,
     genData,
-    augTable
+    augTable,
+    setCategorySelections,
+    setOdVals,
+    setGdVals
 }) => {
 
     let payload = {
@@ -79,6 +82,9 @@ const GetBiasAwarenessData = ({
             // Initiate System Refresh
             // # TO-DO
             console.log(response.data['OutputJson'])
+            setCategorySelections(response.data['OutputJson']['selected_vals']);
+            setOdVals(response.data['OutputJson']['train_data_vals']);
+            setGdVals(response.data['OutputJson']['gen_data_vals'])
         }
         else {
             console.log("Error reported. Login failed.")
@@ -98,7 +104,6 @@ export const BiasAwareness = (
         augTable
     }) => {
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
         setVarName(value)
     };
 
@@ -121,6 +126,9 @@ export const BiasAwareness = (
     };
 
     const [selectBiasList, setSelectBiasList] = useState([]);
+    const [categorySelections, setCategorySelections] = useState(null);
+    const [gdVals, setGdVals] = useState(null);
+    const [odVals, setOdVals] = useState(null);
     const [varName, setVarName] = useState(null);
 
     useEffect(() => {
@@ -131,7 +139,14 @@ export const BiasAwareness = (
             );
         console.log(selectionBiasvariables)
         setSelectBiasList(selectionBiasvariables);
-        GetBiasAwarenessData({ userid, genData, augTable });
+        GetBiasAwarenessData({
+            userid,
+            genData,
+            augTable,
+            setCategorySelections,
+            setOdVals,
+            setGdVals
+        });
     }, []);
 
 
@@ -182,14 +197,14 @@ export const BiasAwareness = (
                                 {
                                     (selectBiasList.length > 0)
                                         ?
-                                        (varName != null)
+                                        (varName != null && odVals != null)
                                             ?
                                             <SelectionBiasPlots
                                                 x_values={AUGMENT_VARIABLES[varName]["options"]}
-                                                y_values={[2500, 1500]}
-                                                coverage={[2500, 1500]}
-                                                rr={[60, 40]}
-                                                cov_thres={2000} />
+                                                orig_data={Object.values(odVals[varName]["counts"])}
+                                                gen_data={Object.values(gdVals[varName]["counts"])}
+                                                selectedStatus={categorySelections[varName]}
+                                            />
                                             :
                                             <Empty description={"Please select a variable."} />
                                         :

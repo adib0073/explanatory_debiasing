@@ -14,44 +14,46 @@ const labelWrapper = (value) => {
     return wrappedArray;
 };
 
-// only active function for mouse move
-function handleMouseMove(chart, mousemove, cov_thres) {
-    chart.update('none');
-
-    const { ctx, chartArea: { top, bottom, left, right, width, height }, scales: { x, y } } = chart;
-
-    let xVal = x.getValueForPixel(mousemove.offsetX);
-    let yVal = y.getValueForPixel(mousemove.offsetY);
-
-    const fontHeight = 0.25 * height;
-    ctx.font = `bolder ${fontHeight / 2}px Roboto`;
-
-    if (yVal > cov_thres) {
-        chart.update('none');
-        ctx.fillStyle = '#449231';
-        ctx.fillText('High Coverage', width / 6, y.getPixelForValue(cov_thres) - top)
-        ctx.fillStyle = 'rgba(0, 200, 0, 0.2)';
-        ctx.fillRect(left, top, width, y.getPixelForValue(cov_thres) - top)
-        ctx.restore();
-    }
-    else {
-        chart.update('none');
-        ctx.fillStyle = '#D64242';
-        ctx.fillText('Low Coverage', width / 6, y.getPixelForValue(0) - top)
-        ctx.fillStyle = 'rgba(200, 0, 0, 0.2)';
-        ctx.fillRect(left, y.getPixelForValue(cov_thres), width, height / 2)
-        ctx.restore();
-    }
-
+function fillList(my_list, second_list) {
+    let secondListIndex = 0;
+    let third_list = my_list.map((value, index) => {
+        if (value) {
+            return second_list[secondListIndex++];
+        } else {
+            return 0;
+        }
+    });
+    return third_list;
 }
 
-// only active function for mouse leave element
-function handleMouseOut(chart, event) {
-    chart.update('none');
-    chart.update();
-}
+export const SelectionBiasPlots = ({
+    orig_data,
+    gen_data,
+    x_values,
+    selectedStatus
+}) => {
 
-export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres }) => {
+    let parsed_gen_data = fillList(selectedStatus, gen_data);
+
+    let origColor = [];
+    let origBorderColor = [];
+    let genColor = [];
+    let genBorderColor = [];
+
+    for (let i = 0; i < selectedStatus.length; i++) {
+        if (selectedStatus[i]) {
+            origColor.push("#67A3FF30");
+            origBorderColor.push("#244CB1");
+            genColor.push("#D6424230");
+            genBorderColor.push("#B70808");
+        }
+        else {
+            origColor.push("#E5E5E5");
+            origBorderColor.push("#6B6B6B");
+            genColor.push("#E5E5E5");
+            genBorderColor.push("#6B6B6B");
+        }
+    };
 
     let data = {
         labels: labelWrapper(x_values),
@@ -59,14 +61,14 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
             {
                 label: 'original',
                 stack: 'Stack 0',
-                data: y_values,
+                data: orig_data,
                 pointRadius: 0,
                 fill: true,
-                backgroundColor: ["#E5E5E5", "#67A3FF30"],
+                backgroundColor: origColor,
                 borderWidth: 1,
-                borderColor: ["#6B6B6B", "#244CB1"],
-                barPercentage: 0.6,
-                categoryPercentage: 0.8,
+                borderColor: origBorderColor,
+                barPercentage: 0.7,
+                categoryPercentage: 0.85,
                 //maxBarThickness: 20,
                 datalabels: {
                     offset: 0,
@@ -75,14 +77,14 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
             {
                 label: 'generated',
                 stack: 'Stack 0',
-                data: [0, 1000],
+                data: parsed_gen_data,
                 pointRadius: 0,
                 fill: true,
-                backgroundColor: ["#E5E5E5", "#D6424230"],
+                backgroundColor: genColor,
                 borderWidth: 1,
-                borderColor: ["#6B6B6B", "#B70808"],
-                barPercentage: 0.6,
-                categoryPercentage: 0.8,
+                borderColor: genBorderColor,
+                barPercentage: 0.7,
+                categoryPercentage: 0.85,
                 //maxBarThickness: 20,
                 datalabels: {
                     offset: 0,
@@ -99,52 +101,67 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
             legend: { display: false },
             datalabels: {
                 color: function (context) {
-                    if (context.dataset.label === "generated" & context.dataIndex === 1) {
-                        return "#B70808";
-                    }
-                    else if (context.dataset.label === "original" & context.dataIndex === 1) {
-                        return "#244CB1";
+                    if (!selectedStatus[context.dataIndex]) {
+                        return "#6B6B6B";
                     }
                     else {
-                        return "#6B6B6B";
+                        if (context.dataset.label === "generated") {
+                            return "#B70808";
+                        }
+                        else if (context.dataset.label === "original") {
+                            return "#244CB1";
+                        }
                     }
                 },
                 anchor: function (context) {
-                    console.log(context)
-                    if (context.dataIndex == 1) {
-                        return "center";
+                    if (selectedStatus[context.dataIndex]) {
+                        if (context.dataset.label === "generated") {
+                            return "end";
+                        }
+                        else {
+
+                            return "center";
+                        }
                     }
-                    else if (context.dataIndex == 0) {
+                    else {
                         return "end";
                     }
                 },
 
                 align: function (context) {
-                    if (context.dataIndex == 1) {
-                        return "center";
+                    if (selectedStatus[context.dataIndex]) {
+                        if (context.dataset.label === "generated") {
+                            return "top";
+                        }
+                        else {
+
+                            return "center";
+                        }
                     }
-                    else if (context.dataIndex == 0) {
+                    else {
                         return "top";
                     }
                 },
                 formatter: function (value, context) {
-                    if (context.dataset.label === "generated" & context.dataIndex === 1) {
-                        return "generated";
-                    }
-                    else if (context.dataset.label === "original" & context.dataIndex === 1) {
-                        return "original";
-                    }
-                    else if (context.dataset.label === "original" & context.dataIndex === 0) {
-                        return "not selected during generation";
+                    if (!selectedStatus[context.dataIndex]) {
+                        return "not selected" + "\n" + "during generation";
                     }
                     else {
-                        return "";
+                        if (context.dataset.label === "generated") {
+                            return "generated";
+                        }
+                        else if (context.dataset.label === "original") {
+                            return "original";
+                        }
+                        else {
+                            return "";
+                        }
                     }
                 },
                 textAlign: 'center',
                 font: function (context) {
                     var width = context.chart.width;
-                    var size = Math.round(width / 40);
+                    var size = Math.round(width / 48);
                     return {
                         size: size,
                     };
@@ -156,6 +173,12 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
                 callbacks: {
                     label: function (context) {
                         let label = "Data Counts " || '';
+                        if (context.dataset.label === "generated") {
+                            label = "Generated data samples " || '';
+                        }
+                        else if (context.dataset.label === "original") {
+                            label = "Original data samples " || '';
+                        }
 
                         if (label) {
                             label += ': ';
@@ -192,7 +215,7 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
                     drawTicks: false,
                 },
                 min: 0,
-                max: Math.max.apply(Math, y_values) * 1.5,
+                max: (Math.max.apply(Math, orig_data) + Math.max.apply(Math, parsed_gen_data)) * 1.2,
                 ticks: {
                     padding: 0,
                     color: "#6B6B6B",
@@ -228,25 +251,6 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
             }
         },
     };
-
-
-
-    const onMove = (event) => {
-        const { current: chart } = chartRef;
-        if (!chart) {
-            return;
-        }
-        handleMouseMove(chart, event.nativeEvent, cov_thres);
-    }
-    const onOut = (event) => {
-        const { current: chart } = chartRef;
-        if (!chart) {
-            return;
-        }
-        handleMouseOut(
-            chart,
-            event.nativeEvent);
-    }
     // plugin block
     const thresholdLine = {
         id: 'thresholdLine',
@@ -295,7 +299,8 @@ export const SelectionBiasPlots = ({ y_values, x_values, coverage, rr, cov_thres
 
     data.labels = labelWrapper(x_values);
 
-    data.datasets[0].data = y_values;
+    data.datasets[0].data = orig_data;
+    data.datasets[1].data = parsed_gen_data;
 
     const chartRef = useRef();
 
