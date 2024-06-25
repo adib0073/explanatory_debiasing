@@ -17,7 +17,8 @@ export const DataGenController = (
         genDataAcc,
         genDataQuality,
         showBiasScreen,
-        setShowBiasScreen
+        setShowBiasScreen,
+        augTable
     }) => {
 
 
@@ -54,6 +55,7 @@ export const DataGenController = (
                                 setShowGDTable={setShowGDTable}
                                 setShowBiasScreen={setShowBiasScreen}
                                 genData={genData}
+                                augTable={augTable}
                             />
                             :
                             <EmptyDataGenController

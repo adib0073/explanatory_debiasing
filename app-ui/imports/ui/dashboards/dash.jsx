@@ -137,6 +137,7 @@ export const DASH = ({ user }) => {
                         genDataQuality={genDataQuality}
                         showBiasScreen={showBiasScreen}
                         setShowBiasScreen={setShowBiasScreen}
+                        augTable={augTable}
                     />
                 </div>
             </div>

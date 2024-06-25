@@ -54,11 +54,13 @@ const PostGenerateAndRetrain = ({
 
 const GetBiasAwarenessData = ({
     userid,
-    genData
+    genData,
+    augTable
 }) => {
 
     let payload = {
-        "GenDataList": genData
+        "GenDataList": genData,
+        "AugSettings": augTable
     }
 
     axios.post(BASE_API + '/biasawarenessinfo', {
@@ -90,7 +92,8 @@ export const BiasAwareness = (
         userid,
         setShowGDTable,
         setShowBiasScreen,
-        genData
+        genData,
+        augTable
     }) => {
     const handleChange = (value) => {
         console.log(`selected ${value}`);
@@ -115,7 +118,7 @@ export const BiasAwareness = (
     };
 
     useEffect(() => {
-        GetBiasAwarenessData({ userid, genData });
+        GetBiasAwarenessData({ userid, genData, augTable });
     }, []);
 
     return (
