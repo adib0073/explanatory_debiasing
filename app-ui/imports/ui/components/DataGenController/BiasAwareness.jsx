@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Collapse, Select, message, Empty } from 'antd';
 const { Option } = Select;
-import { redFont } from '../../Constants';
+import { AUGMENT_VARIABLES, redFont } from '../../Constants';
 import { SelectionBiasPlots } from './SelectionBiasPlots';
 import axios from 'axios';
 import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
@@ -99,6 +99,7 @@ export const BiasAwareness = (
     }) => {
     const handleChange = (value) => {
         console.log(`selected ${value}`);
+        setVarName(value)
     };
 
     const handleCancelButton = (value) => {
@@ -120,6 +121,7 @@ export const BiasAwareness = (
     };
 
     const [selectBiasList, setSelectBiasList] = useState([]);
+    const [varName, setVarName] = useState(null);
 
     useEffect(() => {
         console.log(augTable);
@@ -180,12 +182,16 @@ export const BiasAwareness = (
                                 {
                                     (selectBiasList.length > 0)
                                         ?
-                                        <SelectionBiasPlots
-                                            x_values={["High", "Low"]}
-                                            y_values={[2500, 1500]}
-                                            coverage={[2500, 1500]}
-                                            rr={[60, 40]}
-                                            cov_thres={2000} />
+                                        (varName != null)
+                                            ?
+                                            <SelectionBiasPlots
+                                                x_values={AUGMENT_VARIABLES[varName]["options"]}
+                                                y_values={[2500, 1500]}
+                                                coverage={[2500, 1500]}
+                                                rr={[60, 40]}
+                                                cov_thres={2000} />
+                                            :
+                                            <Empty description={"Please select a variable."} />
                                         :
                                         <Empty description={"No selection bias observed."} />
                                 }
