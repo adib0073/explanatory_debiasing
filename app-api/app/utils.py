@@ -834,8 +834,6 @@ def bias_awareness_info(settings_data):
     gendata_df.rename(columns = {"pred": TARGET_VARIABLE}, inplace=True)
 
     aug_cont_dict = settings_data.JsonData["AugSettings"]
-    print(aug_cont_dict)
-    # #TO-DO Extract selected and not selected from aug_cont_dict
 
     ### Calculate for gen data and train_df
     for feature in CATEGORICAL:
@@ -846,10 +844,15 @@ def bias_awareness_info(settings_data):
     # Calculate RR for each variable
     gd_rb_dict = {}
     td_rb_dict = {}
+    selected_vals_dict = {}
     for feature in ALL_FEATURES:
+        sorting_order = SORTING_ORDER[feature]['labels']
+        if(len(aug_cont_dict[feature]['selectedOptions']) > 0):            
+            sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in set(aug_cont_dict[feature]['selectedOptions'])]
+
         gd_rr, _, _ = calculate_representation_bias(
                                                 gendata_df[feature], 
-                                                SORTING_ORDER[feature]['labels'], 
+                                                sorting_order, 
                                                 80)
         gd_rb_dict[feature] = gd_rr
         td_rr, _, _ = calculate_representation_bias(
@@ -857,12 +860,21 @@ def bias_awareness_info(settings_data):
                                                 SORTING_ORDER[feature]['labels'], 
                                                 80)
         td_rb_dict[feature] = td_rr
-
-
+        # selected vals
+        if (len(aug_cont_dict[feature]['selectedOptions']) == 0):
+            selected_vals_dict[feature] = [True] * len(SORTING_ORDER[feature]['labels'])
+        else:
+            selected_vals_dict[feature] = []
+            for option in SORTING_ORDER[feature]['labels']:
+                if option in aug_cont_dict[feature]['selectedOptions']:
+                    selected_vals_dict[feature].append(True)
+                else:
+                    selected_vals_dict[feature].append(False)
+        
     return_dict = {
         "gen_data_vals" : gd_rb_dict,
         "train_data_vals" : td_rb_dict,
-        "selected_vals" : None
+        "selected_vals" : selected_vals_dict
     }
 
     return (True, f"Successful. New data and model available: {settings_data.UserId}", return_dict)
