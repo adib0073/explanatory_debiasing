@@ -77,7 +77,9 @@ export const AugmentationController = (
         resetFunc,
         setGenData,
         setGenDataAcc,
-        setGenDataQuality
+        setGenDataQuality,
+        augTable,
+        setAugTable
     }) => {
 
     const [augSettings, setAugSettings] = useState({
@@ -88,76 +90,7 @@ export const AugmentationController = (
         "covRateThres": 80
     })
 
-    const [augTable, setAugTable] = useState({
-        "Age": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "Gender": {
-            "type": "categorical",
-            "selectedOptions": []
-        },
-        "BMI": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "SBP": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "DBP": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "FPG": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "Chol": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "Tri": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "HDL": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "LDL": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "ALT": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "BUN": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "CCR": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "FFPG": {
-            "type": "numerical",
-            "selectedOptions": []
-        },
-        "smoking": {
-            "type": "categorical",
-            "selectedOptions": []
-        },
-        "drinking": {
-            "type": "categorical",
-            "selectedOptions": []
-        },
-        "family_history": {
-            "type": "categorical",
-            "selectedOptions": []
-        },
-    })
+    
 
     const handleAugSetting = (settingType, value) => {
         setAugSettings({

@@ -29,6 +29,77 @@ export const DASH = ({ user }) => {
     const [genDataAcc, setGenDataAcc] = useState(0.0);
     const [genDataQuality, setGenDataQuality] = useState(0.0);
 
+    const [augTable, setAugTable] = useState({
+        "Age": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "Gender": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+        "BMI": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "SBP": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "DBP": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "FPG": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "Chol": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "Tri": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "HDL": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "LDL": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "ALT": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "BUN": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "CCR": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "FFPG": {
+            "type": "numerical",
+            "selectedOptions": []
+        },
+        "smoking": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+        "drinking": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+        "family_history": {
+            "type": "categorical",
+            "selectedOptions": []
+        },
+    })
+
     const [seed, setSeed] = useState(1);
     const reset = () => {
         setSeed(Math.random());
@@ -53,6 +124,8 @@ export const DASH = ({ user }) => {
                         setGenData={setGenData}
                         setGenDataAcc={setGenDataAcc}
                         setGenDataQuality={setGenDataQuality}
+                        augTable={augTable}
+                        setAugTable={setAugTable}
                     />
                     <DataGenController
                         userid={userid}
