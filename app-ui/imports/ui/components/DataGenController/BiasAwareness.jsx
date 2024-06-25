@@ -77,6 +77,7 @@ const GetBiasAwarenessData = ({
         if (response.data["StatusCode"]) {
             // Initiate System Refresh
             // # TO-DO
+            console.log(response.data['OutputJson'])
         }
         else {
             console.log("Error reported. Login failed.")

@@ -117,6 +117,19 @@ async def RestoreSystem(user: str):
     }
     return response
 
+
+@app.post("/biasawarenessinfo", response_model=OutputwithPayloadDataModel)
+async def PostBiasAwarenessInfo(settings_data: AugControllerDataModel):
+    # Call method to restore default configurations
+    code, message, output_json = bias_awareness_info(settings_data)
+
+    response = {
+        "StatusCode": code,
+        "StatusMessage": message,
+        "OutputJson": output_json,
+    }
+    return response
+
 # TO-DO: Check when used
 """
 @app.post("/trackinteractions", response_model=OutputwithPayloadDataModel)
