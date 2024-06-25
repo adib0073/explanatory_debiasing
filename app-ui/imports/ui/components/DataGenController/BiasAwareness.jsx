@@ -2,11 +2,12 @@ import React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
-import { Collapse, Select, message } from 'antd';
+import { Collapse, Select, message, Empty } from 'antd';
+const { Option } = Select;
 import { redFont } from '../../Constants';
 import { SelectionBiasPlots } from './SelectionBiasPlots';
 import axios from 'axios';
-import { BASE_API } from '../../Constants.jsx';
+import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
 
 const { Panel } = Collapse;
 
@@ -118,9 +119,20 @@ export const BiasAwareness = (
         });
     };
 
+    const [selectBiasList, setSelectBiasList] = useState([]);
+
     useEffect(() => {
+        console.log(augTable);
+        let selectionBiasvariables = Object.keys(augTable)
+            .filter(key =>
+                augTable[key].selectedOptions.length > 0
+            );
+        console.log(selectionBiasvariables)
+        setSelectBiasList(selectionBiasvariables);
         GetBiasAwarenessData({ userid, genData, augTable });
     }, []);
+
+
 
     return (
         <>
@@ -147,28 +159,36 @@ export const BiasAwareness = (
                                 &nbsp;
                                 &nbsp;
                                 <Select
-                                    defaultValue="BMI"
-                                    onChange={handleChange}
-                                    options={[
-                                        {
-                                            value: 'age',
-                                            label: 'Age',
-                                        },
-                                        {
-                                            value: 'gender',
-                                            label: 'Gender',
-                                        },
-                                        {
-                                            value: 'bmi',
-                                            label: 'BMI',
-                                        }
-                                    ]}
+                                    defaultValue={"Please select:"}
                                     size='small'
-                                    style={{ width: '6vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
-                                />
+                                    style={{ width: '12vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                                    onChange={handleChange}>
+                                    {
+                                        (selectBiasList.length > 0)
+                                            ?
+                                            selectBiasList.map((item, index) => {
+                                                return (
+                                                    <Option key={index} value={item}>{FRIENDLY_NAMES_ENG[item]}</Option>
+                                                );
+                                            })
+                                            :
+                                            null
+                                    }
+                                </Select>
                             </div>
                             <div className='ba-r2'>
-                                <SelectionBiasPlots x_values={['High', 'Low']} y_values={[2500, 1500]} coverage={[2500, 1500]} rr={[60, 40]} cov_thres={2000} />
+                                {
+                                    (selectBiasList.length > 0)
+                                        ?
+                                        <SelectionBiasPlots
+                                            x_values={["High", "Low"]}
+                                            y_values={[2500, 1500]}
+                                            coverage={[2500, 1500]}
+                                            rr={[60, 40]}
+                                            cov_thres={2000} />
+                                        :
+                                        <Empty description={"No selection bias observed."} />
+                                }
                             </div>
                             <div className='ba-r3'>
                                 <p>
