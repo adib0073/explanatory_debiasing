@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Collapse, Select, message } from 'antd';
@@ -21,7 +21,7 @@ const PostGenerateAndRetrain = ({
         .then(() => setShowBiasScreen(false))
 
     let payload = {
-        "GenDataList" : genData
+        "GenDataList": genData
     }
 
     axios.post(BASE_API + '/postgenerateandretrain', {
@@ -52,6 +52,39 @@ const PostGenerateAndRetrain = ({
         });
 };
 
+const GetBiasAwarenessData = ({
+    userid,
+    genData
+}) => {
+
+    let payload = {
+        "GenDataList": genData
+    }
+
+    axios.post(BASE_API + '/biasawarenessinfo', {
+        UserId: userid,
+        JsonData: payload
+    }, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
+        }
+    }).then(function (response) {
+        if (response.data["StatusCode"]) {
+            // Initiate System Refresh
+            // # TO-DO
+        }
+        else {
+            console.log("Error reported. Login failed.")
+            // TO-DO: Navigate to Error Screen.
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
+
 export const BiasAwareness = (
     {
         userid,
@@ -80,6 +113,10 @@ export const BiasAwareness = (
             genData
         });
     };
+
+    useEffect(() => {
+        GetBiasAwarenessData({ userid, genData });
+    }, []);
 
     return (
         <>
