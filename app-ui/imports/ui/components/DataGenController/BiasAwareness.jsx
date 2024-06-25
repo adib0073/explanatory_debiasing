@@ -132,12 +132,10 @@ export const BiasAwareness = (
     const [varName, setVarName] = useState(null);
 
     useEffect(() => {
-        console.log(augTable);
         let selectionBiasvariables = Object.keys(augTable)
             .filter(key =>
                 augTable[key].selectedOptions.length > 0
             );
-        console.log(selectionBiasvariables)
         setSelectBiasList(selectionBiasvariables);
         GetBiasAwarenessData({
             userid,
@@ -214,7 +212,8 @@ export const BiasAwareness = (
                             <div className='ba-r3'>
                                 <p>
                                     Selection bias occurs when you have selected only one sub-category for the data generation process.
-                                    To avoid this bias, please click on 'Go Back' and 'Clear Unsaved Data' to start the data generation process again.
+                                    Proceed only if you think this form of bias is necessary.
+                                    Otherwise, please click on 'Go Back' and 'Clear Unsaved Data' to start the data generation process again.
                                 </p>
                             </div>
                         </Panel>
@@ -226,16 +225,17 @@ export const BiasAwareness = (
                         >
                             <div className='ba-r1'>
                                 <span>
-                                    Potential outliers have been found in the training dataset.
+                                    Generation bias occurs either due to the bias in data generation algorithms or when the data has been edited.
                                 </span>
-                                Options Here
+
                             </div>
                             <div className='ba-r2'>
-                                Graph Here
+
                             </div>
                             <div className='ba-r3'>
                                 <p>
-                                    {"Description Here"}
+                                    Kindly validate the estimated accuracy and the quality score of the generated data. 
+                                    If the estimated scores are below the current scores, the generated data can hamper the performance of the system.
                                 </p>
                             </div>
                         </Panel>

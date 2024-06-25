@@ -8,7 +8,7 @@ import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES } from '.
 import axios from 'axios';
 
 const FillGenDataTable = (responseData, setGenData) => {
-    console.log(responseData);
+    //console.log(responseData);
     let genData = [];
     for (let i = 0; i < responseData.length; i++) {
         /* Fixed Data Structure - modify if this needs to be dynamic */
@@ -49,9 +49,9 @@ const PostAugmentData = ({
             "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
         }
     }).then(function (response) {
-        console.log(response.data["OutputJson"]);
+        //console.log(response.data["OutputJson"]);
         if (response.data["StatusCode"]) {
-            console.log('data generation complete ...');
+            //console.log('data generation complete ...');
             FillGenDataTable(response.data['OutputJson']['GenDataList'], setGenData)
             setGenDataAcc(response.data['OutputJson']['PredAcc']);
             setGenDataQuality(response.data['OutputJson']['DataQuality']);
