@@ -1,7 +1,7 @@
 export const MenuItems = [
     {
-        title: 'Dashboard',
-        url: '/platform/',
+        title: 'Mark Complete',
+        url: '/',
         cName: 'nav-links'
     },
 ];

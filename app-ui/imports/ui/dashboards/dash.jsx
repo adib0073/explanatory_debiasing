@@ -16,6 +16,11 @@ export const DASH = ({ user }) => {
         userid = window.localStorage.getItem('userid');
     }
 
+    var phase = user.phase;
+    if (phase == null || phase == "") {
+        phase = window.localStorage.getItem('phase');
+    }
+
     useEffect(() => {
     }, []);
 

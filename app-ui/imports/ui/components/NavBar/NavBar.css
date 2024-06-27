@@ -29,12 +29,22 @@
     align-items: center;
 }
 
+.timer{
+    display: flex;
+    margin: 10px;
+    margin: 20px 10px 20px 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .nav-menu {
     display: grid;
     grid-template-columns: repeat(4, auto);
     grid-gap: 10px;
     list-style: none;
     text-align: center;
+    align-items: center;
     width: 70vw;
     justify-content: end;
     margin-right: 2rem;
