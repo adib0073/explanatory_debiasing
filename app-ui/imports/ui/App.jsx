@@ -7,9 +7,12 @@ import { LandingPage } from './LandingPage.jsx';
 export const App = () => {
     const [user, setUser] = useState({
         id: "",
-        phase: "explore"
+        phase: "explore",
+        datenow: ""
 
     });
+
+    console.log(user)
 
     const [updateDash, setUpdateDash] = useState(true);
 

@@ -18,7 +18,9 @@ export const DataGenController = (
         genDataQuality,
         showBiasScreen,
         setShowBiasScreen,
-        augTable
+        augTable,
+        phase,
+        datenow
     }) => {
 
 
@@ -62,6 +64,8 @@ export const DataGenController = (
                                 userid={userid}
                                 setShowGDTable={setShowGDTable}
                                 setShowBiasScreen={setShowBiasScreen}
+                                phase={phase}
+                                datenow={datenow}
                             />
                 }
             </div>

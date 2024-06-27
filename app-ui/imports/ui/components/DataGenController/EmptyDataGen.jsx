@@ -27,9 +27,18 @@ export const EmptyDataGenController = (
     {
         userid,
         setShowGDTable,
-        setShowBiasScreen
+        setShowBiasScreen,
+        phase,
+        datenow
     }) => {
 
+    if (phase == null || phase == "explore") {
+        phase = window.localStorage.getItem('phase');
+    }
+
+    if (datenow == null || datenow == "") {
+        datenow = window.localStorage.getItem('datenow');
+    }
     const handleRestoreButton = (value) => {
         if (window.confirm("Are you sure to restore to default settings?")) {
             // API call to restore and fetch everything

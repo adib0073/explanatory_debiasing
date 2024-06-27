@@ -17,9 +17,16 @@ export const DASH = ({ user }) => {
     }
 
     var phase = user.phase;
-    if (phase == null || phase == "") {
+    console.log(phase)
+    if (phase == null || phase == "explore") {
         phase = window.localStorage.getItem('phase');
     }
+
+    var datenow = user.datenow;
+    if (datenow == null || datenow == "") {
+        datenow = Number(window.localStorage.getItem('datenow'));
+    }
+    console.log(datenow)
 
     useEffect(() => {
     }, []);
@@ -112,7 +119,7 @@ export const DASH = ({ user }) => {
 
     return (
         <>
-            <NavBar user={user} />
+            <NavBar userid={userid} phase={phase} datenow={datenow} />
             <div className="dash-container">
                 <div className="dash-container-left">
                     <SystemOverview userid={userid} />
@@ -131,6 +138,8 @@ export const DASH = ({ user }) => {
                         setGenDataQuality={setGenDataQuality}
                         augTable={augTable}
                         setAugTable={setAugTable}
+                        phase={phase}
+                        datenow={datenow}
                     />
                     <DataGenController
                         userid={userid}
@@ -143,6 +152,8 @@ export const DASH = ({ user }) => {
                         showBiasScreen={showBiasScreen}
                         setShowBiasScreen={setShowBiasScreen}
                         augTable={augTable}
+                        phase={phase}
+                        datenow={datenow}
                     />
                 </div>
             </div>

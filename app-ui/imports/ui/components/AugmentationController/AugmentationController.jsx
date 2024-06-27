@@ -79,9 +79,11 @@ export const AugmentationController = (
         setGenDataAcc,
         setGenDataQuality,
         augTable,
-        setAugTable
+        setAugTable,
+        phase,
+        datenow
     }) => {
-
+    console.log(phase)
     const [augSettings, setAugSettings] = useState({
         "numSamples": 100,
         "predCategory": "Both",
@@ -89,8 +91,6 @@ export const AugmentationController = (
         "covThres": 300,
         "covRateThres": 80
     })
-
-    
 
     const handleAugSetting = (settingType, value) => {
         setAugSettings({

@@ -12,6 +12,9 @@ export const LandingPage = ({ user, setUser }) => {
     useEffect(() => {
         window.localStorage.setItem('phase', user.phase);
     }, [user.phase]);
+    useEffect(() => {
+        window.localStorage.setItem('datenow', user.datenow);
+    }, [user.datenow]);
 
     console.log(user);
 
@@ -69,7 +72,10 @@ export const LandingPage = ({ user, setUser }) => {
             [name]: value
         }));
 
-
+        setUser(prevState => ({
+            ...prevState,
+            ["datenow"]: Date.now()
+        }));
 
         if (value) {
             setButtonText("Let's Start");

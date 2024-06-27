@@ -5,19 +5,16 @@ import { MenuItems } from "./MenuItems";
 import './NavBar.css';
 const { Countdown } = Statistic;
 
-export const NavBar = ({ user }) => {
+export const NavBar = ({ userid, phase, datenow }) => {
     const [stateClick, setStateClick] = useState(false);
 
     handleClick = () => {
         setStateClick(!stateClick)
     }
 
-    var phase = user.phase;
-    if (phase == null || phase == "") {
-        phase = window.localStorage.getItem('phase');
-    }
-
-    const deadline = Date.now() + 1000 * 60 * 10; // Dayjs is also OK
+    let deadline = datenow + 1000 * 60 * 10; // Dayjs is also OK
+    console.log(datenow);
+    console.log("Deadline:",deadline);
     const onFinish = () => {
         console.log('finished!');
     };
