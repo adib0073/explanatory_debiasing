@@ -9,6 +9,11 @@ export const LandingPage = ({ user, setUser }) => {
     useEffect(() => {
         window.localStorage.setItem('userid', user.id);
     }, [user.id]);
+    useEffect(() => {
+        window.localStorage.setItem('phase', user.phase);
+    }, [user.phase]);
+
+    console.log(user);
 
     const [buttonText, setButtonText] = useState("Not ready yet?");
 
@@ -56,6 +61,21 @@ export const LandingPage = ({ user, setUser }) => {
             setButtonText("Let's Start");
         }
     };
+
+    const handlePhase = e => {
+        const { name, value } = e.target;
+        setUser(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+
+
+
+        if (value) {
+            setButtonText("Let's Start");
+        }
+    };
+
     console.log(BASE_API);
 
     return (<div className="app-container">
@@ -80,7 +100,13 @@ export const LandingPage = ({ user, setUser }) => {
                             onChange={handleChange}
                             required />
                         <br />
-
+                        <select className="lp-container-entry-input" defaultValue={'DEFAULT'} name="phase" onChange={handlePhase} required>
+                            <option value="DEFAULT" disabled>
+                                {"Please select one of the following:"}</option>
+                            <option value="phase1">Phase 1</option>
+                            <option value="phase2">Phase 2</option>
+                            <option value="explore">Explore</option>
+                        </select>
                         <br />
                         <button
                             className="lp-container-entry-button"
