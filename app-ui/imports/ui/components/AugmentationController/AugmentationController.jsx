@@ -317,10 +317,18 @@ export const AugmentationController = (
             <div className="chart-title">
                 Augmentation Controller
             </div>
-
-            <div className="chart-icons">
-                <InfoLogo />
-            </div>
+            <Tooltip
+                placement="top"
+                title={"This component allows to select categories or variables that require generated data."
+                    + "\n You can choose categories or variables that are under-representation and generate more samples for them."
+                    + "\n You can also decide the number of samples needed and alter the default thresholds for representation rate, data coverage and coverage rate."
+                }
+                overlayStyle={{ maxWidth: '500px' }}
+            >
+                <div className="chart-icons">
+                    <InfoLogo />
+                </div>
+            </Tooltip>
         </div>
         <div className="ac-container" >
             <div className="ac-subtitle">
@@ -329,7 +337,13 @@ export const AugmentationController = (
             <div className="ac-info-label">
                 <div className='ac-info-label-sub'>
                     <div className='label-sub-left'>
-                        Number of samples: &nbsp;
+                        <Tooltip
+                            placement="top"
+                            title={"Decide how many samples should be generated."}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Number of samples: &nbsp;
+                        </Tooltip>
                         <InputNumber
                             min={0}
                             defaultValue={augSettings.numSamples}
@@ -340,7 +354,13 @@ export const AugmentationController = (
                             style={{ width: '4vw', fontSize: '1.8vh' }} />
                     </div>
                     <div className='label-sub-right'>
-                        Prediction category: &nbsp;
+                        <Tooltip
+                            placement="top"
+                            title={"Do you want to generate samples for diabetic patients, non-diabetic patients or both?"}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Prediction category: &nbsp;
+                        </Tooltip>
                         <Select
                             defaultValue={augSettings.predCategory}
                             onChange={(value) => {
@@ -369,7 +389,13 @@ export const AugmentationController = (
             <div className="ac-info-label">
                 <div className='ac-info-label-sub'>
                     <div>
-                        Representation Rate Threshold: &nbsp;
+                        <Tooltip
+                            placement="top"
+                            title={"Do you want to change the default representation rate threshold?"}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Representation Rate Threshold: &nbsp;
+                        </Tooltip>
                         <InputNumber
                             min={0}
                             max={100}
@@ -385,7 +411,13 @@ export const AugmentationController = (
                 </div>
                 <div className='ac-info-label-sub'>
                     <div>
-                        Coverage Threshold: &nbsp;
+                        <Tooltip
+                            placement="top"
+                            title={"Do you want to change the default data coverage threshold?"}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Coverage Threshold: &nbsp;
+                        </Tooltip>
                         <InputNumber
                             min={0}
                             defaultValue={augSettings.covThres}
@@ -398,7 +430,13 @@ export const AugmentationController = (
                 </div>
                 <div className='ac-info-label-sub'>
                     <div>
-                        Coverage Rate Threshold: &nbsp;
+                        <Tooltip
+                            placement="top"
+                            title={"Do you want to change the default coverage rate threshold?"}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Coverage Rate Threshold: &nbsp;
+                        </Tooltip>
                         <InputNumber
                             min={0}
                             max={100}
