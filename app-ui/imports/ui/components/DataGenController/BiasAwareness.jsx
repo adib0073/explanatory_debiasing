@@ -8,6 +8,7 @@ import { AUGMENT_VARIABLES, redFont } from '../../Constants';
 import { SelectionBiasPlots } from './SelectionBiasPlots';
 import axios from 'axios';
 import { BASE_API, FRIENDLY_NAMES_ENG } from '../../Constants.jsx';
+import { GenBiasPlots } from './GenBiasPlots.jsx';
 
 const { Panel } = Collapse;
 
@@ -230,11 +231,15 @@ export const BiasAwareness = (
 
                             </div>
                             <div className='ba-r2'>
+                                < GenBiasPlots
+                                    x_values={["Model Accuracy", "Data Quality"]}
+                                    y_values={[[93, 85], [78, 69]]}
+                                />
 
                             </div>
                             <div className='ba-r3'>
                                 <p>
-                                    Kindly validate the estimated accuracy and the quality score of the generated data. 
+                                    Kindly validate the estimated accuracy and the quality score of the generated data.
                                     If the estimated scores are below the current scores, the generated data can hamper the performance of the system.
                                 </p>
                             </div>
