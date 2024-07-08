@@ -180,15 +180,20 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
         afterDatasetDraw(chart, args, option) {
             const { ctx, chartArea: { top, right, bottom, left, width, height }, scales: { x, y } } = chart;
             ctx.save();
-            const fontHeight = 0.25 * height;
-            ctx.font = `bold ${fontHeight / 2}px Helvetica`;
-            ctx.fillStyle = '#D64242';
-            ctx.textAlign = 'right';
-            ctx.fillText(`Overall accuracy: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)
-            // Threshold Line   
-            ctx.strokeStyle = "#D64242";
-            //ctx.setLineDash([5, 10]);
-            ctx.strokeRect(left, y.getPixelForValue(acc_thres), width, 0);
+
+            let min_acc = Math.min(...y_values.flat());
+
+            if (min_acc < acc_thres) {
+                const fontHeight = 0.25 * height;
+                ctx.font = `bold ${fontHeight / 2}px Helvetica`;
+                ctx.fillStyle = '#D64242';
+                ctx.textAlign = 'right';
+                ctx.fillText(`Overall accuracy: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)
+                // Threshold Line   
+                ctx.strokeStyle = "#D64242";
+                //ctx.setLineDash([5, 10]);
+                ctx.strokeRect(left, y.getPixelForValue(acc_thres), width, 0);
+            }
             ctx.restore();
         },
         afterDraw(chart, args, option) {

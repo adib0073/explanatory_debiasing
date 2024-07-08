@@ -13,8 +13,8 @@ export const NavBar = ({ userid, phase, datenow }) => {
     }
 
     let deadline = datenow + 1000 * 60 * 10; // Dayjs is also OK
-    console.log(datenow);
-    console.log("Deadline:",deadline);
+    //console.log(datenow);
+    //console.log("Deadline:",deadline);
     const onFinish = () => {
         console.log('finished!');
     };

@@ -216,16 +216,19 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
         afterDatasetDraw(chart, args, option) {
             const { ctx, chartArea: { top, right, bottom, left, width, height }, scales: { x, y } } = chart;
             ctx.save();
-            const fontHeight = 0.25 * height;
-            ctx.font = `bold ${fontHeight / 2}px Helvetica`;
-            ctx.fillStyle = '#D64242';
-            ctx.textAlign = 'right';
-            ctx.fillText('Coverage Threshold:', right, y.getPixelForValue(cov_thres) - (0.7 * height))
-            ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.55 * height))
-            // Threshold Line   
-            ctx.strokeStyle = "#D64242";
-            //ctx.setLineDash([5, 10]);
-            ctx.strokeRect(left, y.getPixelForValue(cov_thres), width, 0);
+            let min_acc = Math.min(...y_values.flat());
+            if (min_acc < cov_thres) {
+                const fontHeight = 0.25 * height;
+                ctx.font = `bold ${fontHeight / 2}px Helvetica`;
+                ctx.fillStyle = '#D64242';
+                ctx.textAlign = 'right';
+                ctx.fillText('Coverage Threshold:', right, y.getPixelForValue(cov_thres) - (0.7 * height))
+                ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.55 * height))
+                // Threshold Line   
+                ctx.strokeStyle = "#D64242";
+                //ctx.setLineDash([5, 10]);
+                ctx.strokeRect(left, y.getPixelForValue(cov_thres), width, 0);
+            }
             ctx.restore();
         },
         afterDraw(chart, args, option) {
