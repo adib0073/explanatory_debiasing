@@ -65,19 +65,35 @@ export const DataExplorer = (
             <div className="chart-title">
                 Data Explorer
             </div>
-
-            <div className="chart-icons">
-                <InfoLogo />
-            </div>
+            <Tooltip
+                placement="top"
+                title={
+                    "This component shows the amount of representation bias in the predictor variables and their impact on the prediction model."
+                }
+                overlayStyle={{ maxWidth: '500px' }}
+            >
+                <div className="chart-icons">
+                    <InfoLogo />
+                </div>
+            </Tooltip>
         </div>
         <div className="chart-container" >
             <div className="de-container" >
                 <div className="de-metric-container" >
                     <div className='de-info'>
-                        <div className='de-info-left'>
-                            {"Overall representation rate (RR) is :"}
-                            &nbsp;<b>{deChartVals["overall_rr"]}%</b>&nbsp;
-                        </div>
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Representation rate is a measure of bias in the variables. If the representation rate is low, amount of bias is high."
+                                + "\n If representation rate is high, amount of bias is low."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <div className='de-info-left'>
+                                {"Overall representation rate (RR) is :"}
+                                &nbsp;<b>{deChartVals["overall_rr"]}%</b>&nbsp;
+                            </div>
+                        </Tooltip>
                         <div className='de-info-right'>
                             {
                                 (rrDiff >= 0) ?
@@ -104,10 +120,19 @@ export const DataExplorer = (
                         </div>
                     </div>
                     <div className='de-info'>
-                        <div className='de-info-left'>
-                            {"Overall data coverage rate (CR) is :"}
-                            &nbsp;<b>{deChartVals["overall_cr"]}%</b>&nbsp;
-                        </div>
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Data coverage is defined as the minimum number of samples required in a sub-category of a predictor variable."
+                                + "\n A low data coverage and coverage rate for a specific variable or it's sub-category denotes under-representated samples and high bias."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <div className='de-info-left'>
+                                {"Overall data coverage rate (CR) is :"}
+                                &nbsp;<b>{deChartVals["overall_cr"]}%</b>&nbsp;
+                            </div>
+                        </Tooltip>
                         <div className='de-info-right'>
                             {
                                 (crDiff >= 0) ?
@@ -251,7 +276,15 @@ export const DataExplorer = (
                         ?
                         <>
                             <div className="de-insights-container" >
-                                <b>Quick Insights:</b>
+                                <Tooltip
+                                    placement="top"
+                                    title={
+                                        "Quick insights aim to highlight sub-categories where the impact of the bias is the highest."
+                                    }
+                                    overlayStyle={{ maxWidth: '500px' }}
+                                >
+                                    <b>Quick Insights:</b>
+                                </Tooltip>
                                 <div className='chart-container-info'>
                                     <HollowBullet /> &nbsp;
                                     {"RR is lowest for sub-category:"}

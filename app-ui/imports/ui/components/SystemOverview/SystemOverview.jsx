@@ -64,11 +64,19 @@ export const SystemOverview = (
             <div className="so-container" >
                 <div className="so-desc-left" >
                     <div className='chart-container-info'>
-                        <HollowBullet /> &nbsp;{"No. of training samples"} : <b>{soVals.nsamples}</b>
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Number of patients records used to train the prediction model."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <HollowBullet /> &nbsp;{"No. of training samples"} : <b>{soVals.nsamples}</b>
+                        </Tooltip>
                     </div>
                     <div className='chart-container-info'>
                         <Tooltip
-                            placement="bottom"
+                            placement="top"
                             title={
                                 "Predictor variables are health factors used to train the prediction model."
                                 + "\nThe name of the 17 predictor variables are shown in the Augmentation Controller and the Data Explorer."
@@ -79,7 +87,15 @@ export const SystemOverview = (
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
-                        <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{soVals.accuracy}%</b>
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Prediction accuracy denotes the number of times the system can accurately classify between diabetic and non-diabetic patients from their records."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{soVals.accuracy}%</b>
+                        </Tooltip>
                     </div>
                     <div className='chart-container-info'>
                         <span style={{ color: (soVals.pct > 0) ? greenFont : redFont }}>
