@@ -8,7 +8,7 @@ import { UpGreenArrow } from '../Icons/UpGreenArrow.jsx';
 import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
-import { Select, Empty } from 'antd';
+import { Select, Empty, Tooltip } from 'antd';
 const { Option } = Select;
 import { BASE_API, FRIENDLY_NAMES_ENG, greenFont, redFont } from '../../Constants.jsx';
 import axios from 'axios';

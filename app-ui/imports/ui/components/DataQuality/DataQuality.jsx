@@ -10,6 +10,7 @@ import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import GaugeChart from 'react-gauge-chart';
 import { greenFont, redFont, BASE_API, DATA_ISSUE_FRIENDLY_NAMES_Eng } from '../../Constants.jsx';
 import axios from 'axios';
+import { Tooltip } from 'antd';
 
 
 const GetDataQuality = ({ userid, setDqChartVals, setOrigDataQuality }) => {

@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
-import { Select, Table, InputNumber, message } from 'antd';
+import { Select, Table, InputNumber, message, Tooltip } from 'antd';
 import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES } from '../../Constants.jsx';
 import axios from 'axios';
 

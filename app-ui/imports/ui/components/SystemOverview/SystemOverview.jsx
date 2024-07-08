@@ -9,6 +9,7 @@ import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import { DoughnutChart } from '../EstimatedRiskChart/DoughnutChart.jsx';
 import { greenFont, redFont, BASE_API } from '../../Constants.jsx';
 import axios from 'axios';
+import { Tooltip } from 'antd';
 
 const GetSystemOverview = ({ userid, setSoVals, setOrigDataAcc }) => {
     axios.get(BASE_API + '/getsystemoverview/?user=' + userid)
@@ -34,7 +35,7 @@ export const SystemOverview = (
         setOrigDataAcc
     }) => {
     const accuracyChartRef = useRef();
-    const [soVals, setSoVals] = useState({ accuracy: 0, nsamples: 0, nfeats: 0, pct: 0});
+    const [soVals, setSoVals] = useState({ accuracy: 0, nsamples: 0, nfeats: 0, pct: 0 });
     useEffect(() => {
         GetSystemOverview({ userid, setSoVals, setOrigDataAcc });
     }, []);
@@ -45,10 +46,20 @@ export const SystemOverview = (
                 <div className="chart-title">
                     System Overview
                 </div>
+                <Tooltip
+                    placement="bottom"
+                    title={
+                        "This component shows the overall accuracy of the prediction model."
+                        + "\nIt shows number of patient records used to train the prediction model and the number of prediction variables present in the dataset."
+                    }
+                    overlayStyle={{ maxWidth: '500px' }}
+                >
+                    <div className="chart-icons">
 
-                <div className="chart-icons">
-                    <InfoLogo />
-                </div>
+                        <InfoLogo />
+                    </div>
+
+                </Tooltip>
             </div>
             <div className="so-container" >
                 <div className="so-desc-left" >
@@ -56,7 +67,16 @@ export const SystemOverview = (
                         <HollowBullet /> &nbsp;{"No. of training samples"} : <b>{soVals.nsamples}</b>
                     </div>
                     <div className='chart-container-info'>
-                        <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{soVals.nfeats}</b>
+                        <Tooltip
+                            placement="bottom"
+                            title={
+                                "Predictor variables are health factors used to train the prediction model."
+                                + "\nThe name of the 17 predictor variables are shown in the Augmentation Controller and the Data Explorer."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{soVals.nfeats}</b>
+                        </Tooltip>
                     </div>
                     <div className='chart-container-info'>
                         <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{soVals.accuracy}%</b>

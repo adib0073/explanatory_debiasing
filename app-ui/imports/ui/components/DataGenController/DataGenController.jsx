@@ -6,6 +6,7 @@ import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { EmptyDataGenController } from './EmptyDataGen.jsx';
 import { GenDataTable } from './GenDataTable.jsx';
 import { BiasAwareness } from './BiasAwareness.jsx';
+import { Tooltip } from 'antd';
 
 export const DataGenController = (
     {
