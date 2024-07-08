@@ -301,6 +301,16 @@ export const DATA_ISSUE_FRIENDLY_NAMES_Eng = {
   "correlation": "Feature Correlation",
 }
 
+// DATA ISSUE DESCRIPTIONS
+export const DATA_ISSUE_DESC = {
+  "drift": "It occurs when new data gradually changes over time, making prediction models less accurate",
+  "imbalance": "It occurs when some categories have much more data than others, leading to biased predictions.",
+  "skew": "It occurs when data is unevenly distributed, causing prediction models to be less reliable.",
+  "duplicate": "It occurs due to repeated entries that can confuse prediction models and skew results",
+  "outlier": "Outliers are unusual values that can distort prediction models and reduce accuracy",
+  "correlation": "It means some of predictor variables are closely related, which can mislead prediction models",
+}
+
 
 // FRIENDLY NAMES
 export const FRIENDLY_NAMES_ENG = {

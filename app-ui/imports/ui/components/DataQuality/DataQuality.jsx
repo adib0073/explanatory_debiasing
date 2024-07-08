@@ -8,7 +8,7 @@ import { UpRedArrow } from '../Icons/UpRedArrow.jsx';
 import { UpGreenArrow } from '../Icons/UpGreenArrow.jsx';
 import { DownRedArrow } from '../Icons/DownRedArrow.jsx';
 import GaugeChart from 'react-gauge-chart';
-import { greenFont, redFont, BASE_API, DATA_ISSUE_FRIENDLY_NAMES_Eng } from '../../Constants.jsx';
+import { greenFont, redFont, BASE_API, DATA_ISSUE_FRIENDLY_NAMES_Eng, DATA_ISSUE_DESC } from '../../Constants.jsx';
 import axios from 'axios';
 import { Tooltip } from 'antd';
 
@@ -54,10 +54,17 @@ export const DataQuality = (
             <div className="chart-title">
                 Data Quality Overview
             </div>
-
-            <div className="chart-icons">
-                <InfoLogo />
-            </div>
+            <Tooltip
+                placement="top"
+                title={
+                    "This component shows the quality of the dataset. The potential issues present in the data and their negative impact in the quality score are highlighted in this component."
+                }
+                overlayStyle={{ maxWidth: '500px' }}
+            >
+                <div className="chart-icons">
+                    <InfoLogo />
+                </div>
+            </Tooltip>
         </div>
         <div className='dq-container'>
             <div className="dq-guage">
@@ -78,11 +85,20 @@ export const DataQuality = (
                 </div>
             </div>
             <div className="dq-score">
-                <div>
-                    {dqChartVals["quality_class"]} - {Math.round((dqChartVals["score"] * 100 + Number.EPSILON) * 10) / 10}%
-                </div>
+                <Tooltip
+                    placement="top"
+                    title={
+                        "If the quality score is greater than 80, the quality is considered good. If the score is lesser than 50, it is considered as poor. Otherwise, the quality is considered as moderate."
+                    }
+                    overlayStyle={{ maxWidth: '500px' }}
+                >
+                    <div>
+                        {dqChartVals["quality_class"]} - {Math.round((dqChartVals["score"] * 100 + Number.EPSILON) * 10) / 10}%
+                    </div>
+                </Tooltip>
             </div>
             <div className="dq-tag">
+
                 <div>
                     {`The data quality is ${dqChartVals.quality_class.toLowerCase()} because of the following potential data issues.`}
                 </div>
@@ -90,21 +106,45 @@ export const DataQuality = (
             <div className="dq-info">
                 <div className="dq-info-left">
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[0]]} : <b>{- Math.round((dqChartVals.issue_val[0] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        <Tooltip
+                            placement="top"
+                            title={DATA_ISSUE_DESC[dqChartVals.issues[0]]}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[0]]} : <b>{- Math.round((dqChartVals.issue_val[0] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        </Tooltip>
                     </div>
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[1]]} : <b>{- Math.round((dqChartVals.issue_val[1] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        <Tooltip
+                            placement="top"
+                            title={DATA_ISSUE_DESC[dqChartVals.issues[1]]}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[1]]} : <b>{- Math.round((dqChartVals.issue_val[1] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        </Tooltip>
                     </div>
                 </div>
                 <div className='dq-info-right'>
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[2]]} : <b>{- Math.round((dqChartVals.issue_val[2] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        <Tooltip
+                            placement="top"
+                            title={DATA_ISSUE_DESC[dqChartVals.issues[2]]}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[2]]} : <b>{- Math.round((dqChartVals.issue_val[2] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        </Tooltip>
                     </div>
                     <div className='chart-container-info'>
-                        <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[3]]} : <b>{- Math.round((dqChartVals.issue_val[3] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        <Tooltip
+                            placement="top"
+                            title={DATA_ISSUE_DESC[dqChartVals.issues[3]]}
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[3]]} : <b>{- Math.round((dqChartVals.issue_val[3] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                        </Tooltip>
                     </div>
                 </div>
             </div>
         </div>
-    </div>);
+    </div >);
 };
