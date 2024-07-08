@@ -102,7 +102,11 @@ export const BiasAwareness = (
         setShowGDTable,
         setShowBiasScreen,
         genData,
-        augTable
+        augTable,
+        gen_acc,
+        gen_dq,
+        origDataAcc,
+        origDataQuality
     }) => {
     const handleChange = (value) => {
         setVarName(value)
@@ -148,8 +152,7 @@ export const BiasAwareness = (
         });
     }, []);
 
-
-
+    console.log(gen_acc, gen_dq)
     return (
         <>
             <div className='ba-subtitle'>
@@ -233,9 +236,8 @@ export const BiasAwareness = (
                             <div className='ba-r2'>
                                 < GenBiasPlots
                                     x_values={["Model Accuracy", "Data Quality"]}
-                                    y_values={[[93, 85], [78, 69]]}
+                                    y_values={[[origDataAcc, origDataQuality], [gen_acc, gen_dq]]}
                                 />
-
                             </div>
                             <div className='ba-r3'>
                                 <p>

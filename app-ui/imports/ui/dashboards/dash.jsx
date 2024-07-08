@@ -26,7 +26,7 @@ export const DASH = ({ user }) => {
     if (datenow == null || datenow == "") {
         datenow = Number(window.localStorage.getItem('datenow'));
     }
-    console.log(datenow)
+    //console.log(datenow)
 
     useEffect(() => {
     }, []);
@@ -40,6 +40,8 @@ export const DASH = ({ user }) => {
     const [genData, setGenData] = useState([]);
     const [genDataAcc, setGenDataAcc] = useState(0.0);
     const [genDataQuality, setGenDataQuality] = useState(0.0);
+    const [origDataAcc, setOrigDataAcc] = useState(0.0);
+    const [origDataQuality, setOrigDataQuality] = useState(0.0);
 
     const [augTable, setAugTable] = useState({
         "Age": {
@@ -122,9 +124,15 @@ export const DASH = ({ user }) => {
             <NavBar userid={userid} phase={phase} datenow={datenow} />
             <div className="dash-container">
                 <div className="dash-container-left">
-                    <SystemOverview userid={userid} />
+                    <SystemOverview
+                        userid={userid}
+                        setOrigDataAcc={setOrigDataAcc}
+                    />
                     <DataExplorer userid={userid} />
-                    <DataQuality userid={userid} />
+                    <DataQuality
+                        userid={userid}
+                        setOrigDataQuality={setOrigDataQuality}
+                    />
                 </div>
                 <div className="dash-container-right">
                     <AugmentationController
@@ -154,6 +162,8 @@ export const DASH = ({ user }) => {
                         augTable={augTable}
                         phase={phase}
                         datenow={datenow}
+                        origDataAcc={origDataAcc}
+                        origDataQuality={origDataQuality*100}                        
                     />
                 </div>
             </div>

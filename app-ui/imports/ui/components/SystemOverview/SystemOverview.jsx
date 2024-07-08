@@ -10,7 +10,7 @@ import { DoughnutChart } from '../EstimatedRiskChart/DoughnutChart.jsx';
 import { greenFont, redFont, BASE_API } from '../../Constants.jsx';
 import axios from 'axios';
 
-const GetSystemOverview = ({ userid, setSoVals }) => {
+const GetSystemOverview = ({ userid, setSoVals, setOrigDataAcc }) => {
     axios.get(BASE_API + '/getsystemoverview/?user=' + userid)
         .then(function (response) {
             //console.log(response.data["OutputJson"]);
@@ -20,6 +20,7 @@ const GetSystemOverview = ({ userid, setSoVals }) => {
                 nfeats: response.data["OutputJson"]["NumFeatures"],
                 pct: response.data["OutputJson"]["ScoreChange"],
             });
+            setOrigDataAcc(response.data["OutputJson"]["Accuracy"]);
 
         }).catch(function (error) {
             console.log(error);
@@ -30,11 +31,12 @@ const GetSystemOverview = ({ userid, setSoVals }) => {
 export const SystemOverview = (
     {
         userid,
+        setOrigDataAcc
     }) => {
     const accuracyChartRef = useRef();
     const [soVals, setSoVals] = useState({ accuracy: 0, nsamples: 0, nfeats: 0, pct: 0});
     useEffect(() => {
-        GetSystemOverview({ userid, setSoVals });
+        GetSystemOverview({ userid, setSoVals, setOrigDataAcc });
     }, []);
 
     return (

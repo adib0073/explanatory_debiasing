@@ -20,7 +20,9 @@ export const DataGenController = (
         setShowBiasScreen,
         augTable,
         phase,
-        datenow
+        datenow,
+        origDataAcc,
+        origDataQuality   
     }) => {
 
 
@@ -42,8 +44,8 @@ export const DataGenController = (
                             userid={userid}
                             gen_acc={genDataAcc}
                             gen_dq={genDataQuality}
-                            default_acc={80}
-                            default_dq={80}
+                            default_acc={origDataAcc}
+                            default_dq={origDataQuality}
                             data={genData}
                             setData={setGenData}
                             setShowGDTable={setShowGDTable}
@@ -58,6 +60,10 @@ export const DataGenController = (
                                 setShowBiasScreen={setShowBiasScreen}
                                 genData={genData}
                                 augTable={augTable}
+                                gen_acc={genDataAcc}
+                                gen_dq={genDataQuality}
+                                origDataAcc={origDataAcc}
+                                origDataQuality={origDataQuality}     
                             />
                             :
                             <EmptyDataGenController

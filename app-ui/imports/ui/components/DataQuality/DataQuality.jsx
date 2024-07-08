@@ -12,7 +12,7 @@ import { greenFont, redFont, BASE_API, DATA_ISSUE_FRIENDLY_NAMES_Eng } from '../
 import axios from 'axios';
 
 
-const GetDataQuality = ({ userid, setDqChartVals }) => {
+const GetDataQuality = ({ userid, setDqChartVals, setOrigDataQuality }) => {
     axios.get(BASE_API + '/getdataquality/?user=' + userid)
         .then(function (response) {
             //console.log(response.data["OutputJson"]);
@@ -22,6 +22,7 @@ const GetDataQuality = ({ userid, setDqChartVals }) => {
                 "issues": response.data["OutputJson"]["issues"],
                 "issue_val": response.data["OutputJson"]["issue_val"]
             });
+            setOrigDataQuality(response.data["OutputJson"]["score"]);
 
         }).catch(function (error) {
             console.log(error);
@@ -31,6 +32,7 @@ const GetDataQuality = ({ userid, setDqChartVals }) => {
 export const DataQuality = (
     {
         userid,
+        setOrigDataQuality
     }) => {
 
     const [dqChartVals, setDqChartVals] = useState({
@@ -41,7 +43,7 @@ export const DataQuality = (
     });
 
     useEffect(() => {
-        GetDataQuality({ userid, setDqChartVals });
+        GetDataQuality({ userid, setDqChartVals, setOrigDataQuality });
     }, []);
     // Data Quality Gauage Chart Color
     const dqChartColor = dqChartVals["score"] > 0.8 ? "#244CB1" : dqChartVals["score"] > 0.5 ? "#1363DF" : "#67A3FF"
