@@ -10,7 +10,7 @@ import { BiasCountPlots } from '../BiasDetectionPlots/BiasCountPlots.jsx';
 import { BiasAccPlots } from '../BiasDetectionPlots/BiasAccPlots.jsx';
 import { Select, Empty, Tooltip } from 'antd';
 const { Option } = Select;
-import { BASE_API, FRIENDLY_NAMES_ENG, greenFont, redFont } from '../../Constants.jsx';
+import { BASE_API, FRIENDLY_NAMES_ENG, greenFont, redFont, VAR_UNITS } from '../../Constants.jsx';
 import axios from 'axios';
 
 const GetDataExplorerInfo = ({ userid, setDeChartVals, setRRDiff, setCRDiff }) => {
@@ -183,7 +183,15 @@ export const DataExplorer = (
                                         ?
                                         Object.keys(deChartVals["feature_info"]).map((item, index) => {
                                             return (
-                                                <Option key={index} value={item}>{FRIENDLY_NAMES_ENG[item]}</Option>
+                                                <Option
+                                                    key={index}
+                                                    value={item}>
+                                                    {
+                                                        (VAR_UNITS[item] == null)
+                                                            ? FRIENDLY_NAMES_ENG[item]
+                                                            : `${FRIENDLY_NAMES_ENG[item]} (${VAR_UNITS[item]})`
+                                                    }
+                                                </Option>
                                             );
                                         })
                                         :

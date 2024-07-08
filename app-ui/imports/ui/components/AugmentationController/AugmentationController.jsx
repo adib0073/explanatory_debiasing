@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { Select, Table, InputNumber, message, Tooltip } from 'antd';
-import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES } from '../../Constants.jsx';
+import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES, VAR_UNITS } from '../../Constants.jsx';
 import axios from 'axios';
 
 const FillGenDataTable = (responseData, setGenData) => {
@@ -306,7 +306,9 @@ export const AugmentationController = (
     for (const [key, value] of Object.entries(AUGMENT_VARIABLES)) {
         ac_data.push({
             "key": key,
-            "feature": FRIENDLY_NAMES_ENG[key],
+            "feature": (VAR_UNITS[key] == null)
+                ? FRIENDLY_NAMES_ENG[key]
+                : `${FRIENDLY_NAMES_ENG[key]} (${VAR_UNITS[key]})`,
             "type": 'categorical',
             "values": value["options"]
         })
