@@ -21,6 +21,7 @@ const PostGenerateAndRetrain = ({
     message.loading('Adding generated data and retraining the system', 5)
         .then(() => setShowGDTable(false))
         .then(() => setShowBiasScreen(false))
+        .then(() => message.success('New data generated with selected settings', 1))
 
     let payload = {
         "GenDataList": genData
@@ -47,7 +48,6 @@ const PostGenerateAndRetrain = ({
             // TO-DO: Navigate to Error Screen.
         }
     })
-        .then(() => message.success('New data generated with selected settings', 1))
         .then(() => window.location.reload())
         .catch(function (error) {
             console.log(error);

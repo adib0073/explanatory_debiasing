@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { Table, Switch, Tag, Space, message } from 'antd';
+import { Table, Switch, Tag, Space, message, Tooltip } from 'antd';
 import { greenFont, redFont } from '../../Constants.jsx';
 import { CustomTableComponent } from './CustomTableComponent.jsx';
 import axios from 'axios';
@@ -20,7 +20,7 @@ const GetRestoreData = ({ userid, setShowGDTable, setShowBiasScreen }) => {
 
         })
         .then(() => window.location.reload())
-        .then(() => message.success('System restored to defaults', 3))        
+        .then(() => message.success('System restored to defaults', 3))
         .catch(function (error) {
             console.log(error);
         });
@@ -78,13 +78,30 @@ export const GenDataTable = (
             <div className='gd-subtitle'>
                 <div className='gd-subtitle-left'>
                     <div>
-                        Estimated prediction accuracy on generated data:
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Verify the model accuracy of the generated data to ensure that only accurate samples are added."
+                                + "Also, particularly verify generated samples with low confidence levels."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Estimated prediction accuracy on generated data:
+                        </Tooltip>
                         <span style={{ color: (gen_acc > default_acc) ? greenFont : redFont }}>
                             &nbsp;{gen_acc} %
                         </span>
                     </div>
                     <div>
-                        Estimated data quality of generated data:
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Verify the quality of the generated data to ensure that only good samples are added."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Estimated data quality of generated data:
+                        </Tooltip>
                         <span style={{ color: (gen_dq > default_dq) ? greenFont : redFont }}>
                             &nbsp;{gen_dq} %
                         </span>
@@ -92,7 +109,15 @@ export const GenDataTable = (
                 </div>
                 <div className='gd-subtitle-right'>
                     <div className='gd-subtitle-right-row'>
-                        Sort:
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Use this to sort the generated data table."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Sort:
+                        </Tooltip>
                         <div className='gd-subtitle-right-switch'>
                             <Switch
                                 size="small"
@@ -100,7 +125,15 @@ export const GenDataTable = (
                         </div>
                     </div>
                     <div className='gd-subtitle-right-row'>
-                        Filter:
+                        <Tooltip
+                            placement="top"
+                            title={
+                                "Use this to filter the generated data table."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            Filter:
+                        </Tooltip>
                         <div className='gd-subtitle-right-switch'>
                             <Switch
                                 size="small"
@@ -141,7 +174,6 @@ export const GenDataTable = (
                 >
                     Save and Re-train
                 </button>
-
             </div>
         </>
     )

@@ -23,7 +23,7 @@ export const DataGenController = (
         phase,
         datenow,
         origDataAcc,
-        origDataQuality   
+        origDataQuality
     }) => {
 
 
@@ -32,16 +32,26 @@ export const DataGenController = (
             <div className="chart-title">
                 Generated Data Controller
             </div>
-
-            <div className="chart-icons">
-                <InfoLogo />
-            </div>
+            <Tooltip
+                placement="top"
+                title={"This component allows to validate and modify the generated data."
+                    + "\n You can edit each record if you think there are problems in the generated data and unrealistic records are generated."
+                    + "\n If the generated data is irrelevant, you can also remove the record completely."
+                    + "\n You can filter or sort to explore the records better."
+                }
+                overlayStyle={{ maxWidth: '500px' }}
+            >
+                <div className="chart-icons">
+                    <InfoLogo />
+                </div>
+            </Tooltip>
         </div>
         <div className='chart-container'>
             <div className="gd-container" >
                 {
                     (showGDTable == true && showBiasScreen == false)
-                        ? <GenDataTable
+                        ? 
+                        <GenDataTable
                             userid={userid}
                             gen_acc={genDataAcc}
                             gen_dq={genDataQuality}
@@ -64,7 +74,7 @@ export const DataGenController = (
                                 gen_acc={genDataAcc}
                                 gen_dq={genDataQuality}
                                 origDataAcc={origDataAcc}
-                                origDataQuality={origDataQuality}     
+                                origDataQuality={origDataQuality}
                             />
                             :
                             <EmptyDataGenController
