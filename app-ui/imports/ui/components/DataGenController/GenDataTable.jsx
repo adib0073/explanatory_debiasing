@@ -88,7 +88,7 @@ export const GenDataTable = (
                         >
                             Estimated prediction accuracy on generated data:
                         </Tooltip>
-                        <span style={{ color: (gen_acc > default_acc) ? greenFont : redFont }}>
+                        <span style={{ color: (gen_acc >= default_acc) ? greenFont : redFont }}>
                             &nbsp;{gen_acc} %
                         </span>
                     </div>
@@ -102,7 +102,7 @@ export const GenDataTable = (
                         >
                             Estimated data quality of generated data:
                         </Tooltip>
-                        <span style={{ color: (gen_dq > default_dq) ? greenFont : redFont }}>
+                        <span style={{ color: (gen_dq >= default_dq) ? greenFont : redFont }}>
                             &nbsp;{gen_dq} %
                         </span>
                     </div>

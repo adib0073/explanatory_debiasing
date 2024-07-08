@@ -252,7 +252,7 @@ export const CustomTableComponent = (
             data.length >= 1 ? (
                 <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
                     <a>
-                        <span style={{ color: redFont, fontSize: "1.5vh", textDecoration: "underline" }}>
+                        <span style={{ color: "darkred", fontSize: "1.5vh", textDecoration: "underline" }}>
                             Remove
                         </span>
                     </a>

@@ -332,3 +332,25 @@ export const FRIENDLY_NAMES_ENG = {
   "drinking": "Drinking Status",
   "family_history": "Family History of Diabetes"
 }
+
+
+// VARIABLE UNITS
+export const VAR_UNITS = {
+  "Age": "years",
+  "Gender": null,
+  "BMI": null,
+  "SBP": "mmHg",
+  "DBP": "mmHg",
+  "FPG": "mmol/L",
+  "Chol": "mmol/L",
+  "Tri": "mmol/L",
+  "HDL": "mmol/L",
+  "LDL": "mmol/L",
+  "ALT": "Units/L",
+  "BUN": "mmol/L",
+  "CCR": "mL/sec",
+  "FFPG": "mmol/L",
+  "smoking": null,
+  "drinking": null,
+  "family_history": null
+}
