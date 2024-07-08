@@ -1,3 +1,10 @@
+# Provide the mongodb atlas url to connect python to mongodb using pymongo
+CONNECTION_STRING = "mongodb+srv://Exdeb:Exdeb@1005@exdebcluster.vpp62zi.mongodb.net/?retryWrites=true&w=majority&appName=exdebcluster"
+# MONGO DATABASE NAME
+DBNAME = "exdeb_db" # <update_here>
+# MONGO COLLECTION NAME FOR USER DETAILS
+USER_COLLECTION = "user_collection" # <update_here>
+
 ALL_FEATURES = ["Age", "Gender", "BMI", 
                 "SBP", "DBP", "FPG", "Chol",
                 "Tri", "HDL", "LDL", "ALT", 
