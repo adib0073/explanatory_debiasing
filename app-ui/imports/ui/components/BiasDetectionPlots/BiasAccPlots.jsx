@@ -178,6 +178,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
     const thresholdLine = {
         id: 'thresholdLine',
         afterDatasetDraw(chart, args, option) {
+            chart.update('none');
             const { ctx, chartArea: { top, right, bottom, left, width, height }, scales: { x, y } } = chart;
             ctx.save();
 
@@ -188,7 +189,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
                 ctx.font = `bold ${fontHeight / 2}px Helvetica`;
                 ctx.fillStyle = '#D64242';
                 ctx.textAlign = 'right';
-                ctx.fillText(`Overall accuracy: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)
+                ctx.fillText(`THRESHOLD: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)
                 // Threshold Line   
                 ctx.strokeStyle = "#D64242";
                 //ctx.setLineDash([5, 10]);
@@ -233,7 +234,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
         <Bar
             data={data}
             options={options}
-            ref={chartRef}
+            //ref={chartRef}
             redraw={true}
             plugins={[ChartDataLabels, thresholdLine]}
         />

@@ -222,8 +222,8 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
                 ctx.font = `bold ${fontHeight / 2}px Helvetica`;
                 ctx.fillStyle = '#D64242';
                 ctx.textAlign = 'right';
-                ctx.fillText('Coverage Threshold:', right, y.getPixelForValue(cov_thres) - (0.7 * height))
-                ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.55 * height))
+                ctx.fillText(`THRESHOLD: ${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.7 * height))
+                //ctx.fillText(`${cov_thres}`, right, y.getPixelForValue(cov_thres) - (0.7 * height))
                 // Threshold Line   
                 ctx.strokeStyle = "#D64242";
                 //ctx.setLineDash([5, 10]);
@@ -267,7 +267,7 @@ export const BiasCountPlots = ({ y_values, x_values, coverage, rr, cov_thres }) 
         <Bar
             data={data}
             options={options}
-            ref={chartRef}
+            //ref={chartRef}
             redraw={true}
             //onMouseMove={onMove}
             //onMouseLeave={onOut}
