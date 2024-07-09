@@ -56,8 +56,15 @@ def save_interaction_data(interact_data):
     """
     Method to store interaction data
     """
-    insert_interaction_data(interact_data)
-    return (True, f"Successful. Interaction data inserted for user: {interact_data.UserId}", interact_data)
+    int_data_dict = {
+        "user": interact_data.UserId,
+        "component": interact_data.Component,
+        "clicks": interact_data.Clicks,
+        "time": interact_data.Time,
+        "clickList": interact_data.ClickList,
+    }
+    insert_interaction_data(int_data_dict)
+    return (True, f"Successful. Interaction data inserted for user: {interact_data.UserId}", int_data_dict)
 
 ##############################################
 # New

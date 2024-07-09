@@ -13,9 +13,9 @@ class OutputwithPayloadDataModel(BaseModel):
 
 class InteractDataModel(BaseModel):
     UserId: str
-    Component: str = None,
-    Clicks: int = 0,
-    Time: int = 0,
+    Component: str = None
+    Clicks: int = 0
+    Time: int = 0
     ClickList: list[str] = None
 
 class AugControllerDataModel(BaseModel):
