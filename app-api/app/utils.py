@@ -52,21 +52,12 @@ def login_service(user_name, phase):
         return (True, f"Record found for user: {user_name}", user_details)
     
 
-def save_interaction_data(config_data):
+def save_interaction_data(interact_data):
     """
     Method to store interaction data
     """
-    interaction_detail = {
-        "user": config_data.UserId,
-        "cohort": config_data.Cohort,
-        "viz": config_data.JsonData["viz"],
-        "eventType": config_data.JsonData["eventType"],
-        "description": config_data.JsonData["description"],
-        "timestamp": config_data.JsonData["timestamp"],
-        "duration": config_data.JsonData["duration"]
-    }
-    #insert_interaction_data(interaction_detail) -- Disabling interaction logs
-    return (True, f"Successful. Interaction data inserted for user: {config_data.UserId}", interaction_detail)
+    insert_interaction_data(interact_data)
+    return (True, f"Successful. Interaction data inserted for user: {interact_data.UserId}", interact_data)
 
 ##############################################
 # New

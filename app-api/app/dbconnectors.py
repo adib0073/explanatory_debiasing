@@ -71,8 +71,8 @@ def fetch_user_augsettings(user):
 
 def insert_interaction_data(interaction_detail):
     client, db = get_database()
-    collection_name = db[INTERACTIONS_COLLECTION]
+    collection_name = db[INTERACT_COLLECTION]
     interaction_detail.update(
-        {"_id": interaction_detail["user"]+interaction_detail["cohort"]+uuid.uuid4().hex})
+        {"_id": interaction_detail["user"]+uuid.uuid4().hex})
     collection_name.insert_one(interaction_detail)
     client.close()

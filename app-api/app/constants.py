@@ -12,6 +12,7 @@ DBNAME = "exdeb_db" # <update_here>
 USER_COLLECTION = "user_collection" # <update_here>
 RB_COLLECTION = "rep_collection" # <update_here>
 AC_COLLECTION = "aug_collection" # <update_here>
+INTERACT_COLLECTION = "interact_collection"
 
 ALL_FEATURES = ["Age", "Gender", "BMI", 
                 "SBP", "DBP", "FPG", "Chol",

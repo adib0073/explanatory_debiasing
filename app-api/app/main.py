@@ -128,12 +128,10 @@ async def PostBiasAwarenessInfo(settings_data: AugControllerDataModel):
     }
     return response
 
-# TO-DO: Check when used
-"""
 @app.post("/trackinteractions", response_model=OutputwithPayloadDataModel)
-async def track_interaction(config_data: ConfigDataModel):
+async def track_interaction(interact_data: InteractDataModel):
     # Call method to restore default configurations
-    code, message, output_json = save_interaction_data(config_data)
+    code, message, output_json = save_interaction_data(interact_data)
 
     response = {
         "StatusCode": code,
@@ -141,4 +139,3 @@ async def track_interaction(config_data: ConfigDataModel):
         "OutputJson": output_json,
     }
     return response
-"""
