@@ -26,6 +26,14 @@ export const DataGenController = (
         origDataQuality
     }) => {
 
+    const [interactData, setInteractData] = useState({
+        "component": null,
+        "clicks": 0,
+        "time": 0,
+        "clickList": []
+    });
+
+    console.log(interactData);
 
     return (<div className="dash-container-gen-controller">
         <div className="chart-title-box">
@@ -61,6 +69,8 @@ export const DataGenController = (
                             setData={setGenData}
                             setShowGDTable={setShowGDTable}
                             setShowBiasScreen={setShowBiasScreen}
+                            interactData={interactData}
+                            setInteractData={setInteractData}
                         />
                         :
                         (showGDTable == false && showBiasScreen == true)
@@ -75,6 +85,8 @@ export const DataGenController = (
                                 gen_dq={genDataQuality}
                                 origDataAcc={origDataAcc}
                                 origDataQuality={origDataQuality}
+                                interactData={interactData}
+                                setInteractData={setInteractData}
                             />
                             :
                             <EmptyDataGenController
@@ -83,6 +95,7 @@ export const DataGenController = (
                                 setShowBiasScreen={setShowBiasScreen}
                                 phase={phase}
                                 datenow={datenow}
+                                setInteractData={setInteractData}
                             />
                 }
             </div>

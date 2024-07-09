@@ -37,6 +37,8 @@ export const GenDataTable = (
         setData,
         setShowGDTable,
         setShowBiasScreen,
+        interactData,
+        setInteractData
     }) => {
 
     const onChangeSortSwitch = (checked) => {
@@ -149,6 +151,7 @@ export const GenDataTable = (
                         isFilter={filterSwitch}
                         data={data}
                         setData={setData}
+                        setInteractData={setInteractData}
                     />
                 </div>
             </div>

@@ -54,7 +54,8 @@ export const CustomTableComponent = (
         isSort,
         isFilter,
         data,
-        setData
+        setData,
+        setInteractData
     }) => {
 
 
@@ -65,6 +66,11 @@ export const CustomTableComponent = (
     const handleDelete = (key) => {
         const newData = data.filter((item) => item.key !== key);
         setData(newData);
+        setInteractData(prevState => ({
+            ...prevState,  // Spread the previous state
+            clicks: prevState.clicks + 1,  // Update 'clicks' property
+            //clickList: prevState.clickList.push("remove")
+        }));
     };
 
     const onChange = (pagination, filters, sorter, extra) => {
@@ -89,6 +95,13 @@ export const CustomTableComponent = (
             const row = await form.validateFields();
             const newData = [...data];
             const index = newData.findIndex((item) => key === item.key);
+            // Update interaction data
+            setInteractData(prevState => ({
+                ...prevState,  // Spread the previous state
+                clicks: prevState.clicks + 1,  // Update 'clicks' property
+                //clickList: prevState.clickList.push("edit")
+            }));
+            // -----
             if (index > -1) {
                 const item = newData[index];
                 newData.splice(index, 1, {
@@ -259,7 +272,7 @@ export const CustomTableComponent = (
             data.length >= 1 ? (
                 <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
                     <a>
-                        <CloseCircleTwoTone twoToneColor="#D6424295" style={{fontSize: "2.2vh"}}/>
+                        <CloseCircleTwoTone twoToneColor="#D6424295" style={{ fontSize: "2.2vh" }} />
                     </a>
                 </Popconfirm>
             ) : null,
@@ -304,7 +317,7 @@ export const CustomTableComponent = (
                     }
                     scroll={{
                         x: "max-content",
-                        y: "30vh"
+                        y: "40vh"
                     }}
                     pagination={false}
                     showSorterTooltip={{

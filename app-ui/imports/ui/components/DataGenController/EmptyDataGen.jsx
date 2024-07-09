@@ -29,7 +29,8 @@ export const EmptyDataGenController = (
         setShowGDTable,
         setShowBiasScreen,
         phase,
-        datenow
+        datenow,
+        setInteractData
     }) => {
 
     if (phase == null || phase == "explore") {
@@ -45,6 +46,7 @@ export const EmptyDataGenController = (
             GetRestoreData({ userid, setShowGDTable, setShowBiasScreen });
         }
     };
+
     return (
         <>
             <div className='gd-subtitle'>
