@@ -85,30 +85,27 @@ export const GenDataTable = (
     const interactDataRef = useRef(interactData);
     interactDataRef.current = interactData;
 
-    const handleTrainButton = (value) => {
+    const handleTrainButton = async (value) => {
+        
+        var endTime = new Date();
+        var timeDiff = endTime - startTime; //in ms
+        // strip the ms
+        timeDiff /= 1000;
+        // get seconds
+        var duration = Math.round(timeDiff % 60);
+
+        const newState = await updateInteractData({
+            component: "GenDataTable",
+            clicks: interactDataRef.current.clicks + 1,
+            time: duration,
+            clickList: [...interactDataRef.current.clickList, "train"]
+        });
+        PostInteractions({ userid, interactData: newState });
+
         // Show Bias Awareness Screen First
         if (window.confirm("Are you ready to proceed?")) {
             setShowGDTable(false);
             setShowBiasScreen(true);
-
-            var endTime = new Date();
-            var timeDiff = endTime - startTime; //in ms
-            // strip the ms
-            timeDiff /= 1000;
-            // get seconds
-            var duration = Math.round(timeDiff % 60);
-
-            // Update interaction data
-            setInteractData(prevState => ({
-                ...prevState,  // Spread the previous state
-                component: "GenDataTable",
-                clicks: prevState.clicks + 1,  // Update 'clicks' property
-                time: duration,
-                clickList: [...prevState.clickList, "train"]
-            }));
-            // -----
-            // Post Interactions
-            PostInteractions({ userid, interactData });
         }
     };
 
@@ -144,29 +141,27 @@ export const GenDataTable = (
         }
     };
 
-    const handleRestoreButton = (value) => {
+    const handleRestoreButton = async (value) => {
+
+        var endTime = new Date();
+        var timeDiff = endTime - startTime; //in ms
+        // strip the ms
+        timeDiff /= 1000;
+        // get seconds
+        var duration = Math.round(timeDiff % 60);
+
+        const newState = await updateInteractData({
+            component: "GenDataTable",
+            clicks: interactDataRef.current.clicks + 1,
+            time: duration,
+            clickList: [...interactDataRef.current.clickList, "restore"]
+        });
+        PostInteractions({ userid, interactData: newState });
+
         if (window.confirm("Are you sure to restore to default settings?")) {
             // API call to restore and fetch everything
             GetRestoreData({ userid, setShowGDTable, setShowBiasScreen });
 
-            var endTime = new Date();
-            var timeDiff = endTime - startTime; //in ms
-            // strip the ms
-            timeDiff /= 1000;
-            // get seconds
-            var duration = Math.round(timeDiff % 60);
-
-            // Update interaction data
-            setInteractData(prevState => ({
-                ...prevState,  // Spread the previous state
-                component: "GenDataTable",
-                clicks: prevState.clicks + 1,  // Update 'clicks' property
-                time: duration,
-                clickList: [...prevState.clickList, "restore"]
-            }));
-            // -----
-            // Post Interactions
-            PostInteractions({ userid, interactData });
         }
     };
 
