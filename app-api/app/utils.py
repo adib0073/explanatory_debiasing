@@ -125,9 +125,11 @@ def get_system_overview(user):
         }
     
     # Update scores
-    update_user_details(user, {"CurrentAcc": np.round(model.score(x_test, y_test) * 100, 0)})
-    update_user_details(user, {"PrevAcc": curr_score})
-    update_user_details(user, {"TrainAcc": np.round(model.score(x_train, y_train) * 100, 0)})
+    update_user_details(user, {
+        "CurrentAcc": np.round(model.score(x_test, y_test) * 100, 0),
+        "PrevAcc": curr_score,
+        "TrainAcc": np.round(model.score(x_train, y_train) * 100, 0)
+        })
 
     return (True, f"Successful. Data summary details founde for user: {user}", output_json)
 
@@ -235,16 +237,12 @@ def data_quality_gen(user):
     """
     Method to estimate data quality based on data issues
     """
-    ####################################################
-    # TO-DO : Fetch user details when connected to Mongo
-    ####################################################
-    '''
     # Load user data
     client, user_details = fetch_user_details(user)
     client.close()
     if user_details is None:
         return (False, f"Invalid username: {user}", user_details)
-    '''
+
     model, train_df, test_df = load_data_model(user)
     x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
     y_train = train_df.filter([TARGET_VARIABLE],axis='columns')  
@@ -269,6 +267,10 @@ def data_quality_gen(user):
         "issues": sorted_data_issues,
         "issue_val": sorted_issue_vals
     }
+    update_user_details(user, {
+        "DataQuality": np.round(quality_score * 100, 2),
+        "DataIssues": list(zip(sorted_data_issues, sorted_issue_vals))
+        })  
 
     return (True, f"Successful. Data quality information obtained for user: {user}", output_json)
 
