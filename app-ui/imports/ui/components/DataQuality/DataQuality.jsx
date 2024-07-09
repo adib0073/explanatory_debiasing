@@ -93,7 +93,7 @@ export const DataQuality = (
                     overlayStyle={{ maxWidth: '500px' }}
                 >
                     <div>
-                        {dqChartVals["quality_class"]} - {Math.round((dqChartVals["score"] * 100 + Number.EPSILON) * 10) / 10}%
+                        {dqChartVals["quality_class"]}: {Math.round((dqChartVals["score"] * 100 + Number.EPSILON) * 10) / 10}%
                     </div>
                 </Tooltip>
             </div>
@@ -111,7 +111,7 @@ export const DataQuality = (
                             title={DATA_ISSUE_DESC[dqChartVals.issues[0]]}
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[0]]} : <b>{- Math.round((dqChartVals.issue_val[0] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[0]]}: <b>{- Math.round((dqChartVals.issue_val[0] / 6 + Number.EPSILON) * 10) / 10}%</b>
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
@@ -120,7 +120,7 @@ export const DataQuality = (
                             title={DATA_ISSUE_DESC[dqChartVals.issues[1]]}
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[1]]} : <b>{- Math.round((dqChartVals.issue_val[1] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[1]]}: <b>{- Math.round((dqChartVals.issue_val[1] / 6 + Number.EPSILON) * 10) / 10}%</b>
                         </Tooltip>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ export const DataQuality = (
                             title={DATA_ISSUE_DESC[dqChartVals.issues[2]]}
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[2]]} : <b>{- Math.round((dqChartVals.issue_val[2] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[2]]}: <b>{- Math.round((dqChartVals.issue_val[2] / 6 + Number.EPSILON) * 10) / 10}%</b>
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
@@ -140,7 +140,7 @@ export const DataQuality = (
                             title={DATA_ISSUE_DESC[dqChartVals.issues[3]]}
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[3]]} : <b>{- Math.round((dqChartVals.issue_val[3] / 6 + Number.EPSILON) * 10) / 10}%</b>
+                            <UpRedArrow /> &nbsp;{DATA_ISSUE_FRIENDLY_NAMES_Eng[dqChartVals.issues[3]]}: <b>{- Math.round((dqChartVals.issue_val[3] / 6 + Number.EPSILON) * 10) / 10}%</b>
                         </Tooltip>
                     </div>
                 </div>

@@ -71,7 +71,7 @@ export const SystemOverview = (
                             }
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <HollowBullet /> &nbsp;{"No. of training samples"} : <b>{soVals.nsamples}</b>
+                            <HollowBullet /> &nbsp;{"No. of training samples"}: <b>{soVals.nsamples}</b>
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
@@ -83,7 +83,7 @@ export const SystemOverview = (
                             }
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <HollowBullet /> &nbsp;{"No. of predictor variables"} : <b>{soVals.nfeats}</b>
+                            <HollowBullet /> &nbsp;{"No. of predictor variables"}: <b>{soVals.nfeats}</b>
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
@@ -94,7 +94,7 @@ export const SystemOverview = (
                             }
                             overlayStyle={{ maxWidth: '500px' }}
                         >
-                            <HollowBullet /> &nbsp;{"Overall prediction accuracy"} : <b>{soVals.accuracy}%</b>
+                            <HollowBullet /> &nbsp;{"Overall prediction accuracy"}: <b>{soVals.accuracy}%</b>
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
