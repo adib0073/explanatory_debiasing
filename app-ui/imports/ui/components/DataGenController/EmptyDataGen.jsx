@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { Empty, message } from 'antd';
@@ -46,6 +46,15 @@ export const EmptyDataGenController = (
             GetRestoreData({ userid, setShowGDTable, setShowBiasScreen });
         }
     };
+
+    useEffect(() => {
+        setInteractData({
+            "component": null,
+            "clicks": 0,
+            "time": 0,
+            "clickList": []
+        });
+    }, []);
 
     return (
         <>

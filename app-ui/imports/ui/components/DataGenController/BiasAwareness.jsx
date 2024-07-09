@@ -54,6 +54,35 @@ const PostGenerateAndRetrain = ({
         });
 };
 
+
+const PostInteractions = ({ userid, interactData }) => {
+    axios.post(BASE_API + '/trackinteractions', {
+        UserId: userid,
+        Component: interactData["component"],
+        Clicks: interactData["clicks"],
+        Time: interactData["time"],
+        ClickList: interactData["clickList"]
+    }, {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept"
+        }
+    }).then(function (response) {
+        //console.log(response.data["OutputJson"]);
+        if (response.data["StatusCode"]) {
+            // Fire and Forget
+        }
+        else {
+            console.log("Error reported. Login failed.")
+            // TO-DO: Navigate to Error Screen.
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
+
 const GetBiasAwarenessData = ({
     userid,
     genData,
@@ -109,11 +138,25 @@ export const BiasAwareness = (
         interactData,
         setInteractData
     }) => {
+
+    const interactDataRef = useRef(interactData);
+    interactDataRef.current = interactData;
+
     const handleChange = (value) => {
         setVarName(value)
     };
 
-    const handleCancelButton = (value) => {
+    const updateInteractData = (update) => {
+        return new Promise((resolve) => {
+            setInteractData(prevState => {
+                const newState = { ...prevState, ...update };
+                resolve(newState);
+                return newState;
+            });
+        });
+    };
+
+    const handleCancelButton = async (value) => {
         // Return to previous screen
         setShowGDTable(true);
         setShowBiasScreen(false);
@@ -124,20 +167,18 @@ export const BiasAwareness = (
         timeDiff /= 1000;
         // get seconds
         var duration = Math.round(timeDiff % 60);
-
-        // Update interaction data
-        setInteractData(prevState => ({
-            ...prevState,  // Spread the previous state
-            component: "BiasAwareness",
-            time: duration
-        }));
         // -----
         // Post Interaction
+        const newState = await updateInteractData({
+            component: "BiasAwareness",
+            time: duration
+        });
+        PostInteractions({ userid, interactData: newState });
     };
 
     //console.log(userid);
 
-    const handleConfirmButton = (value) => {
+    const handleConfirmButton = async (value) => {
         // API call to re-train model and fetch everything
         PostGenerateAndRetrain({
             userid,
@@ -153,14 +194,11 @@ export const BiasAwareness = (
         // get seconds
         var duration = Math.round(timeDiff % 60);
 
-        // Update interaction data
-        setInteractData(prevState => ({
-            ...prevState,  // Spread the previous state
+        const newState = await updateInteractData({
             component: "BiasAwareness",
             time: duration
-        }));
-        // -----
-        // Post Interaction
+        });
+        PostInteractions({ userid, interactData: newState });
     };
 
     const [selectBiasList, setSelectBiasList] = useState([]);
@@ -171,7 +209,7 @@ export const BiasAwareness = (
     // Hover time for interaction data
     const [startTime, setStartTime] = useState(new Date());
 
-    useEffect(() => {   
+    useEffect(() => {
 
         let selectionBiasvariables = Object.keys(augTable)
             .filter(key =>
