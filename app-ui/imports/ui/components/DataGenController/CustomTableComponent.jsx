@@ -1,6 +1,8 @@
 import React from 'react';
 import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
+import { CloseCircleTwoTone, EditTwoTone } from '@ant-design/icons';
+
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
 import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, INV_CONT_BIN_DICT, redFont } from '../../Constants';
@@ -110,7 +112,8 @@ export const CustomTableComponent = (
             title: 'Edit',
             dataIndex: 'edit',
             fixed: 'left',
-            width: "5vw",
+            align: "center",
+            width: "6vw",
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
@@ -129,7 +132,7 @@ export const CustomTableComponent = (
                     </span>
                 ) : (
                     <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-                        Edit
+                        <EditTwoTone />
                     </Typography.Link>
                 );
             },
@@ -137,6 +140,7 @@ export const CustomTableComponent = (
         {
             title: 'Confidence',
             dataIndex: 'conf',
+            align: "center",
             width: "8vw",
             ellipsis: true,
             editable: false,
@@ -180,6 +184,8 @@ export const CustomTableComponent = (
             dataIndex: 'pred',
             editable: false,
             ellipsis: true,
+            align: "center",
+            width: "8vw",
             filters: (isFilter) ? [
                 {
                     text: 'Diabetic',
@@ -217,7 +223,8 @@ export const CustomTableComponent = (
             dataIndex: ALL_FEATURES[i],
             editable: true,
             ellipsis: true,
-            width: "10vw",
+            width: "8vw",
+            align: "center",
             sorter: (isSort)
                 ?
                 (AUGMENT_VARIABLES[ALL_FEATURES[i]].type == "categorical")
@@ -248,13 +255,12 @@ export const CustomTableComponent = (
         dataIndex: 'remove',
         width: "6vw",
         fixed: 'right',
+        align: "center",
         render: (_, record) =>
             data.length >= 1 ? (
                 <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
                     <a>
-                        <span style={{ color: "darkred", fontSize: "1.5vh", textDecoration: "underline" }}>
-                            Remove
-                        </span>
+                        <CloseCircleTwoTone twoToneColor="#D6424295" style={{fontSize: "2.2vh"}}/>
                     </a>
                 </Popconfirm>
             ) : null,
@@ -277,7 +283,7 @@ export const CustomTableComponent = (
             }),
         };
     });
-   
+
     return (
         <>
             <Form form={form} component={false}>
