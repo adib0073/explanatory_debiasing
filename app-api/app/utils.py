@@ -401,11 +401,19 @@ def data_bias_explorer(user):
     """
     Method to estimate data quality based on data issues
     """
-    # TO-DO: Get Augmentation Data Instead
-    # client, user_details = fetch_user_details(user)
-    # client.close()
-    # if user_details is None:
-    #    return (False, f"Invalid username: {user}", user_details)
+    # Get Augmentation Data Instead
+    client, augsettings = fetch_user_augsettings(user)
+    client.close()
+    thres_rr = 80 
+    thres_cov = 300
+    thres_cr = 80
+    thres_acc = 80
+
+    if augsettings is not None:
+        thres_rr = augsettings["repThres"]
+        thres_cov = augsettings["covThres"]
+        thres_cr = augsettings["covRateThres"]
+        thres_acc = 80
     
     model, train_df, test_df = load_data_model(user)
     x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
@@ -414,12 +422,13 @@ def data_bias_explorer(user):
     x_test = test_df.drop([TARGET_VARIABLE],axis='columns')
     y_test = test_df.filter([TARGET_VARIABLE],axis='columns') 
 
-    thres_rr = 80 # TO-DO Get from Mongo API
-    thres_cov = 300 # TO-DO Get from Mongo API
-    thres_cr = 80 # TO-DO Get from Mongo API
-    thres_acc = 80 # TO-DO Get from Mongo API
-
-    feature_info, overall_rr, overall_cr = BiasDetector(x_train, y_train, model, thres_rr, thres_cov, x_test, y_test)
+    feature_info, overall_rr, overall_cr = BiasDetector(x_train, 
+                                                        y_train, 
+                                                        model, 
+                                                        thres_rr, 
+                                                        thres_cov, 
+                                                        x_test, 
+                                                        y_test)
 
     output_json = {
         "overall_rr" : overall_rr,
@@ -536,6 +545,7 @@ def generated_new_data(augcontroller_data):
     # Update Threshold scores if needed
     insertion_aug_data = aug_cont_dict
     insertion_aug_data["user"] = augcontroller_data.UserId
+    insertion_aug_data['timestamp'] = datetime.now()
     insert_augsettings_data(insertion_aug_data)
 
     # Load metadata from json file

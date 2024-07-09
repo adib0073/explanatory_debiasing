@@ -56,12 +56,17 @@ def insert_augsettings_data(aug_details):
         print(f"### Error: {e}")
 
 
-def insert_accuracy_detail(accuracy_detail):
-    client, db = get_database()
-    collection_name = db[ACCURACY_COLLECTION]
-    accuracy_detail.update({"_id": uuid.uuid4().hex})
-    collection_name.insert_one(accuracy_detail)
-    client.close()
+def fetch_user_augsettings(user):
+    try:
+        client, db = get_database()
+        collection_name = db[AC_COLLECTION]
+        latest_record = collection_name.find({"user": user}).sort("timestamp", -1).limit(1)
+        for record in latest_record:
+            aug_settings = record
+        print(aug_settings)
+        return client, aug_settings
+    except Exception as e:
+        print(f"### Error: {e}")
 
 
 def insert_interaction_data(interaction_detail):
