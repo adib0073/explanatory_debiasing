@@ -81,8 +81,7 @@ const GetBiasAwarenessData = ({
     }).then(function (response) {
         if (response.data["StatusCode"]) {
             // Initiate System Refresh
-            // # TO-DO
-            console.log(response.data['OutputJson'])
+            //console.log(response.data['OutputJson'])
             setCategorySelections(response.data['OutputJson']['selected_vals']);
             setOdVals(response.data['OutputJson']['train_data_vals']);
             setGdVals(response.data['OutputJson']['gen_data_vals'])
@@ -106,7 +105,9 @@ export const BiasAwareness = (
         gen_acc,
         gen_dq,
         origDataAcc,
-        origDataQuality
+        origDataQuality,
+        interactData,
+        setInteractData
     }) => {
     const handleChange = (value) => {
         setVarName(value)
@@ -118,7 +119,7 @@ export const BiasAwareness = (
         setShowBiasScreen(false);
     };
 
-    console.log(userid);
+    //console.log(userid);
 
     const handleConfirmButton = (value) => {
         // API call to re-train model and fetch everything
@@ -152,7 +153,21 @@ export const BiasAwareness = (
         });
     }, []);
 
-    console.log(gen_acc, gen_dq)
+    const handlePanelClick = (biasType) => {
+
+        console.log(biasType)
+        // Update interaction data
+        setInteractData(prevState => ({
+            ...prevState,  // Spread the previous state
+            component: "BiasAwareness",
+            clicks: prevState.clicks + 1,  // Update 'clicks' property
+            clickList: [...prevState.clickList, biasType]
+        }));
+        // -----
+        // Post Interactions
+    };
+
+    //console.log(gen_acc, gen_dq)
     return (
         <>
             <div className='ba-subtitle'>
@@ -170,7 +185,9 @@ export const BiasAwareness = (
                     <Collapse accordion>
                         <Panel header={"Selection Bias"} key="1"
                             className="collapse-panel-custom"
-                            style={{ ["--header-border"]: "2px dashed #C4C4C4" }}>
+                            style={{ ["--header-border"]: "2px dashed #C4C4C4" }}
+                            onClick={() => { handlePanelClick("selection_bias") }}
+                        >
                             <div className='ba-r1'>
                                 <span>
                                     The augmentation process might have introduced selection bias for these variables:
@@ -226,6 +243,7 @@ export const BiasAwareness = (
                             key="2"
                             className="collapse-panel-custom"
                             style={{ ["--header-border"]: "2px dashed #C4C4C4" }}
+                            onClick={() => { handlePanelClick("generation_bias") }}
                         >
                             <div className='ba-r1'>
                                 <span>

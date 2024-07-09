@@ -57,6 +57,16 @@ export const GenDataTable = (
         if (window.confirm("Are you ready to proceed?")) {
             setShowGDTable(false);
             setShowBiasScreen(true);
+
+            // Update interaction data
+            setInteractData(prevState => ({
+                ...prevState,  // Spread the previous state
+                component: "GenDataTable",
+                clicks: prevState.clicks + 1,  // Update 'clicks' property
+                clickList: [...prevState.clickList, "train"]
+            }));
+            // -----
+            // Post Interactions
         }
     };
 
@@ -65,6 +75,15 @@ export const GenDataTable = (
         if (window.confirm("Are you sure to discard the generated data? You have to generate new data again using the augmentation controller if you press ok.")) {
             setShowGDTable(false);
             setShowBiasScreen(false);
+            // Update interaction data
+            setInteractData(prevState => ({
+                ...prevState,  // Spread the previous state
+                component: "GenDataTable",
+                clicks: prevState.clicks + 1,  // Update 'clicks' property
+                clickList: [...prevState.clickList, "cancel"]
+            }));
+            // -----
+            // Post Interactions
         }
     };
 
@@ -72,6 +91,16 @@ export const GenDataTable = (
         if (window.confirm("Are you sure to restore to default settings?")) {
             // API call to restore and fetch everything
             GetRestoreData({ userid, setShowGDTable, setShowBiasScreen });
+
+            // Update interaction data
+            setInteractData(prevState => ({
+                ...prevState,  // Spread the previous state
+                component: "GenDataTable",
+                clicks: prevState.clicks + 1,  // Update 'clicks' property
+                clickList: [...prevState.clickList, "restore"]
+            }));
+            // -----
+            // Post interactions
         }
     };
 
