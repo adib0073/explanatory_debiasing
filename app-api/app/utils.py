@@ -95,20 +95,13 @@ def get_system_overview(user):
     # get user details
     # get current system overview
     """
-    ####################################################
-    # TO-DO : Fetch user details when connected to Mongo
-    ####################################################
-    '''
     client, user_details = fetch_user_details(user)
     client.close()
     if user_details is None:
         return (False, f"Invalid username: {user}", user_details)
     else:
-        filters, selected_features, data, labels = load_filtered_user_data(
-            user_details)
-
-        prev_score = user_details["PrevScore"]
-        curr_score = user_details["CurrentScore"]
+        prev_score = user_details["PrevAcc"]
+        curr_score = user_details["CurrentAcc"]
 
         # calc score change
         score_change = 0
@@ -116,7 +109,7 @@ def get_system_overview(user):
             score_change = 0
         else:
             score_change = np.ceil(curr_score) - np.ceil(prev_score)
-    '''
+
     # Load Data
     model, train_df, test_df = load_data_model(user)
     x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
@@ -128,8 +121,13 @@ def get_system_overview(user):
             "Accuracy": np.round(model.score(x_test, y_test) * 100, 0),
             "NumSamples": x_train.shape[0],
             "NumFeatures": x_train.shape[1],
-            "ScoreChange": 1, # fetch and change later
+            "ScoreChange": score_change, # fetch and change later
         }
+    
+    # Update scores
+    update_user_details(user, {"CurrentAcc": np.round(model.score(x_test, y_test) * 100, 0)})
+    update_user_details(user, {"PrevAcc": curr_score})
+    update_user_details(user, {"TrainAcc": np.round(model.score(x_train, y_train) * 100, 0)})
 
     return (True, f"Successful. Data summary details founde for user: {user}", output_json)
 

@@ -368,6 +368,7 @@ USER_DETAIL_JSON = {
     "Phase": None,
     "CurrentAcc": 93,
     "PrevAcc": 0,
+    "TrainAcc": 93,
     "DataQuality": 75
 }
 

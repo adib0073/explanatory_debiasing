@@ -98,8 +98,8 @@ export const SystemOverview = (
                         </Tooltip>
                     </div>
                     <div className='chart-container-info'>
-                        <span style={{ color: (soVals.pct > 0) ? greenFont : redFont }}>
-                            {(soVals.pct > 0) ? <UpGreenArrow /> : <DownRedArrow />}
+                        <span style={{ color: (soVals.pct >= 0) ? greenFont : redFont }}>
+                            {(soVals.pct >= 0) ? <UpGreenArrow /> : <DownRedArrow />}
                             <b> &nbsp;{soVals.pct}% </b>
                         </span>
                         {"from previous score"}

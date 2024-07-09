@@ -28,7 +28,6 @@ app.add_middleware(
 def get_root():
     return {'message': 'Explanatory Debiasing API'}
 
-# TO-DO: Check when used
 @app.post("/validateusers", response_model=OutputwithPayloadDataModel)
 async def validate_user(user: ValidateUserModel):
 
