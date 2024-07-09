@@ -2,7 +2,6 @@ import React from 'react';
 import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import { CloseCircleTwoTone, EditTwoTone } from '@ant-design/icons';
-
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
 import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, INV_CONT_BIN_DICT, redFont } from '../../Constants';
@@ -307,13 +306,7 @@ export const CustomTableComponent = (
                         x: "max-content",
                         y: "30vh"
                     }}
-                    pagination={{
-                        position: ["bottomLeft"],
-                        size: 'small',
-                        pageSize: 5,
-                        showSizeChanger: false,
-
-                    }}
+                    pagination={false}
                     showSorterTooltip={{
                         target: 'sorter-icon',
                     }}

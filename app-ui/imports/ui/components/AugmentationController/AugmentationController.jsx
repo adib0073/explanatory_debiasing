@@ -4,7 +4,8 @@ import 'antd/dist/antd.css';
 import "./AugmentationController.css"
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
 import { Select, Table, InputNumber, message, Tooltip } from 'antd';
-import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES, VAR_UNITS } from '../../Constants.jsx';
+import { CaretRightOutlined } from '@ant-design/icons';
+import { AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, BASE_API, ALL_FEATURES, VAR_UNITS, VAR_DESC } from '../../Constants.jsx';
 import axios from 'axios';
 
 const FillGenDataTable = (responseData, setGenData) => {
@@ -235,11 +236,18 @@ export const AugmentationController = (
             title: 'Predictor Variable',
             dataIndex: 'feature',
             key: 'feature',
+            align: "center",
             render: (_, record) => (
                 <>
                     <div className='ac-inner-cell-li'>
                         <div>
-                            {record.feature}
+                            <Tooltip
+                                placement="top"
+                                title={VAR_DESC[record.key]}
+                                overlayStyle={{ maxWidth: '500px' }}
+                            >
+                                {record.feature}
+                            </Tooltip>
                         </div>
                     </div>
                 </>
@@ -254,6 +262,7 @@ export const AugmentationController = (
         {
             title: 'Variable Values',
             dataIndex: 'values',
+            align: "center",
             key: 'values',
             render: (_, record) => (
                 (record.type == "categorical")
@@ -261,6 +270,7 @@ export const AugmentationController = (
                     <>
                         <div className='ac-inner-cell-cat'>
                             <div>
+                                <CaretRightOutlined /> &nbsp;
                             </div>
 
                             <div>
@@ -469,11 +479,11 @@ export const AugmentationController = (
                 <>
                     {contextHolder}
                     <button
-                        className="reset-button"
+                        className="cancel-button"
                         type="submit"
                         onClick={handleCancelButton}
                     >
-                        Cancel
+                        Clear changes
                     </button>
                 </>
 

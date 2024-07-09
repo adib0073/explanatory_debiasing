@@ -354,3 +354,24 @@ export const VAR_UNITS = {
   "drinking": null,
   "family_history": null
 }
+
+// VARIABLE DESC
+export const VAR_DESC = {
+  "Age": "Age of the patient in years",
+  "Gender": "Gender of the patient",
+  "BMI": "Body Mass Index of the patient",
+  "SBP": "Measures pressure in arteries during heartbeats; high levels can indicate cardiovascular risk in diabetics",
+  "DBP": "Measures pressure in arteries between heartbeats; elevated levels can suggest vascular complications in diabetics",
+  "FPG": "Measures blood sugar levels after fasting; crucial for diagnosing and monitoring diabetes",
+  "Chol": "Total cholesterol levels in blood; high levels are a risk factor for cardiovascular diseases in diabetics",
+  "Tri": "Measures blood triglycerides; elevated levels are linked to insulin resistance and diabetes",
+  "HDL": "Measures 'good' cholesterol; higher levels are protective against heart disease in diabetics",
+  "LDL": "Measures 'bad' cholesterol; high levels increase cardiovascular risk in diabetes patients",
+  "ALT": "Measures liver enzyme levels; elevated ALT can indicate liver dysfunction, common in diabetes",
+  "BUN": "Measures kidney function; high BUN can signal kidney complications in diabetes",
+  "CCR": "Assesses kidney function by measuring creatinine clearance rate; important for detecting diabetic nephropathy",
+  "FFPG": "Measures final blood sugar levels after fasting; essential for confirming diabetes diagnosis",
+  "smoking": "Indicates smoking habits; smoking exacerbates diabetes complications and cardiovascular risk",
+  "drinking": "Indicates alcohol consumption; excessive drinking can affect blood sugar control and liver function in diabetics",
+  "family_history": "Indicates genetic predisposition; family history is a significant risk factor for developing diabetes"
+}

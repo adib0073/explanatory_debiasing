@@ -167,7 +167,7 @@ export const BiasAwareness = (
                     <div className='ba-holder-header'>
                         Awareness for potential biases that may get introduced during the data generation process:
                     </div>
-                    <Collapse accordion defaultActiveKey={['1']}>
+                    <Collapse accordion>
                         <Panel header={"Selection Bias"} key="1"
                             className="collapse-panel-custom"
                             style={{ ["--header-border"]: "2px dashed #C4C4C4" }}>

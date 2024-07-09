@@ -66,12 +66,12 @@
 }
 
 .ac-inner-cell-li {
-    display: flex;
-    flex-direction: row;
     padding: 0px 5px 0px 5px;
     font-size: 1.8vh;
-    margin-left: 20px;
-    font-weight: 600;
+    font-weight: 400;
+    width: 80%; /* Set the width of the container */
+    margin: 0 auto; /* Center the container horizontally */
+    text-align: left;
 }
 
 .ac-inner-cell-cat {
