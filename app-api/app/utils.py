@@ -401,16 +401,12 @@ def data_bias_explorer(user):
     """
     Method to estimate data quality based on data issues
     """
-    ####################################################
-    # TO-DO : Fetch user details when connected to Mongo
-    ####################################################
-    '''
-    # Load user data
-    client, user_details = fetch_user_details(user)
-    client.close()
-    if user_details is None:
-        return (False, f"Invalid username: {user}", user_details)
-    '''
+    # TO-DO: Get Augmentation Data Instead
+    # client, user_details = fetch_user_details(user)
+    # client.close()
+    # if user_details is None:
+    #    return (False, f"Invalid username: {user}", user_details)
+    
     model, train_df, test_df = load_data_model(user)
     x_train = train_df.drop([TARGET_VARIABLE],axis='columns')
     y_train = train_df.filter([TARGET_VARIABLE],axis='columns')
@@ -434,6 +430,27 @@ def data_bias_explorer(user):
         "threshold_cov" : thres_cov,
         "acc_threshold" : thres_acc,
     }
+
+    # Extracting the required information
+    result = {key: {k: feature_info[key][k] for k in ('avg_rr', 'cr', 'd_acc', 'nd_acc')}
+            for key in feature_info}
+    
+    for key in feature_info:
+        result[key]['d_acc'] = np.mean(feature_info[key]['d_acc'])
+        result[key]['nd_acc'] = np.mean(feature_info[key]['nd_acc'])
+
+    insertion_bias_data = {
+        "user" : user,
+        "overall_rr" : overall_rr,
+        "threshold_rr" : thres_rr,
+        "overall_cr" : overall_cr,
+        "threshold_cr" : thres_cr,
+        "threshold_cov" : thres_cov,
+        "acc_threshold" : thres_acc,
+        "feature_info": result
+    }
+    # Insert bias data
+    insert_bias_data(insertion_bias_data)
 
     return (True, f"Successful. Data explorer information obtained for user: {user}", output_json)
 
@@ -512,12 +529,14 @@ def generated_new_data(augcontroller_data):
     """
     Method to generate new data based on controller settings
     """
-    # Update Threshold scores if needed
-    # TO-DO
-
     # Prepare for generating data
     model, train_df, test_df = load_data_model(augcontroller_data.UserId)
     aug_cont_dict = augcontroller_data.JsonData
+
+    # Update Threshold scores if needed
+    insertion_aug_data = aug_cont_dict
+    insertion_aug_data["user"] = augcontroller_data.UserId
+    insert_augsettings_data(insertion_aug_data)
 
     # Load metadata from json file
     metadata = SingleTableMetadata.load_from_json(filepath='data/metadata_v1.json')

@@ -235,7 +235,6 @@ export const AugmentationController = (
             title: 'Predictor Variable',
             dataIndex: 'feature',
             key: 'feature',
-            width: '30%',
             render: (_, record) => (
                 <>
                     <div className='ac-inner-cell-li'>
@@ -262,7 +261,6 @@ export const AugmentationController = (
                     <>
                         <div className='ac-inner-cell-cat'>
                             <div>
-                                Select Category:&nbsp;
                             </div>
 
                             <div>
@@ -270,9 +268,9 @@ export const AugmentationController = (
                                     mode="multiple"
                                     allowClear
                                     style={{
-                                        width: '16vw',
+                                        width: '18vw',
                                     }}
-                                    placeholder="Please select from the following:"
+                                    placeholder="Please select one or multiple options from the following:"
                                     onChange={(value) => {
                                         handleAugTableChange(feature = record.key, value = value)
                                     }}

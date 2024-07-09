@@ -10,6 +10,8 @@ CONNECTION_STRING = f"mongodb+srv://{UNAME}:{PWORD}@exdebcluster.vpp62zi.mongodb
 DBNAME = "exdeb_db" # <update_here>
 # MONGO COLLECTION NAME FOR USER DETAILS
 USER_COLLECTION = "user_collection" # <update_here>
+RB_COLLECTION = "rep_collection" # <update_here>
+AC_COLLECTION = "aug_collection" # <update_here>
 
 ALL_FEATURES = ["Age", "Gender", "BMI", 
                 "SBP", "DBP", "FPG", "Chol",

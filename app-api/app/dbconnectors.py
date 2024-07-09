@@ -34,20 +34,26 @@ def update_user_details(user, newValues):
     client.close()
 
 
-def insert_autocorrect_configs(autocorrect_configs):
-    client, db = get_database()
-    collection_name = db[AUTOCORRECT_CONFIG]
-    autocorrect_configs.update(
-        {"_id": autocorrect_configs["UserName"]+autocorrect_configs["Cohort"]})
-    collection_name.insert_one(autocorrect_configs)
-    client.close()
+def insert_bias_data(bias_details):
+    try:
+        client, db = get_database()
+        collection_name = db[RB_COLLECTION]
+        bias_details.update({"_id": bias_details["user"]+uuid.uuid4().hex})
+        collection_name.insert_one(bias_details)
+        client.close()
+    except Exception as e:
+        print(f"### Error: {e}")
 
 
-def update_autocorrect_details(user, newValues):
-    client, db = get_database()
-    collection_name = db[AUTOCORRECT_CONFIG]
-    collection_name.update_one({"UserName": user}, {"$set": newValues})
-    client.close()
+def insert_augsettings_data(aug_details):
+    try:
+        client, db = get_database()
+        collection_name = db[AC_COLLECTION]
+        aug_details.update({"_id": aug_details["user"]+uuid.uuid4().hex})
+        collection_name.insert_one(aug_details)
+        client.close()
+    except Exception as e:
+        print(f"### Error: {e}")
 
 
 def insert_accuracy_detail(accuracy_detail):

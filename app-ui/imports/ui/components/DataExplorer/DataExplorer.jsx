@@ -90,7 +90,7 @@ export const DataExplorer = (
                             overlayStyle={{ maxWidth: '500px' }}
                         >
                             <div className='de-info-left'>
-                                {"Overall representation rate (RR) is :"}
+                                {"Overall representation rate (RR) is:"}
                                 &nbsp;<b>{deChartVals["overall_rr"]}%</b>&nbsp;
                             </div>
                         </Tooltip>
@@ -129,7 +129,7 @@ export const DataExplorer = (
                             overlayStyle={{ maxWidth: '500px' }}
                         >
                             <div className='de-info-left'>
-                                {"Overall data coverage rate (CR) is :"}
+                                {"Overall data coverage rate (CR) is:"}
                                 &nbsp;<b>{deChartVals["overall_cr"]}%</b>&nbsp;
                             </div>
                         </Tooltip>
