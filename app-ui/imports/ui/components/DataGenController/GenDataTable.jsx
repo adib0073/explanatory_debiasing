@@ -51,6 +51,8 @@ export const GenDataTable = (
 
     const [sortSwitch, setSortSwitch] = useState(false);
     const [filterSwitch, setFilterSwitch] = useState(false);
+    // Hover time for interaction data
+    const [startTime, setStartTime] = useState(new Date());
 
     const handleTrainButton = (value) => {
         // Show Bias Awareness Screen First
@@ -58,11 +60,19 @@ export const GenDataTable = (
             setShowGDTable(false);
             setShowBiasScreen(true);
 
+            var endTime = new Date();
+            var timeDiff = endTime - startTime; //in ms
+            // strip the ms
+            timeDiff /= 1000;
+            // get seconds
+            var duration = Math.round(timeDiff % 60);
+
             // Update interaction data
             setInteractData(prevState => ({
                 ...prevState,  // Spread the previous state
                 component: "GenDataTable",
                 clicks: prevState.clicks + 1,  // Update 'clicks' property
+                time: duration,
                 clickList: [...prevState.clickList, "train"]
             }));
             // -----
@@ -75,11 +85,20 @@ export const GenDataTable = (
         if (window.confirm("Are you sure to discard the generated data? You have to generate new data again using the augmentation controller if you press ok.")) {
             setShowGDTable(false);
             setShowBiasScreen(false);
+
+            var endTime = new Date();
+            var timeDiff = endTime - startTime; //in ms
+            // strip the ms
+            timeDiff /= 1000;
+            // get seconds
+            var duration = Math.round(timeDiff % 60);
+
             // Update interaction data
             setInteractData(prevState => ({
                 ...prevState,  // Spread the previous state
                 component: "GenDataTable",
                 clicks: prevState.clicks + 1,  // Update 'clicks' property
+                time: duration,
                 clickList: [...prevState.clickList, "cancel"]
             }));
             // -----
@@ -92,11 +111,19 @@ export const GenDataTable = (
             // API call to restore and fetch everything
             GetRestoreData({ userid, setShowGDTable, setShowBiasScreen });
 
+            var endTime = new Date();
+            var timeDiff = endTime - startTime; //in ms
+            // strip the ms
+            timeDiff /= 1000;
+            // get seconds
+            var duration = Math.round(timeDiff % 60);
+
             // Update interaction data
             setInteractData(prevState => ({
                 ...prevState,  // Spread the previous state
                 component: "GenDataTable",
                 clicks: prevState.clicks + 1,  // Update 'clicks' property
+                time: duration,
                 clickList: [...prevState.clickList, "restore"]
             }));
             // -----

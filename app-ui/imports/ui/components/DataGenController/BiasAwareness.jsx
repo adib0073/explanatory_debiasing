@@ -117,6 +117,22 @@ export const BiasAwareness = (
         // Return to previous screen
         setShowGDTable(true);
         setShowBiasScreen(false);
+
+        var endTime = new Date();
+        var timeDiff = endTime - startTime; //in ms
+        // strip the ms
+        timeDiff /= 1000;
+        // get seconds
+        var duration = Math.round(timeDiff % 60);
+
+        // Update interaction data
+        setInteractData(prevState => ({
+            ...prevState,  // Spread the previous state
+            component: "BiasAwareness",
+            time: duration
+        }));
+        // -----
+        // Post Interaction
     };
 
     //console.log(userid);
@@ -129,6 +145,22 @@ export const BiasAwareness = (
             setShowBiasScreen,
             genData
         });
+
+        var endTime = new Date();
+        var timeDiff = endTime - startTime; //in ms
+        // strip the ms
+        timeDiff /= 1000;
+        // get seconds
+        var duration = Math.round(timeDiff % 60);
+
+        // Update interaction data
+        setInteractData(prevState => ({
+            ...prevState,  // Spread the previous state
+            component: "BiasAwareness",
+            time: duration
+        }));
+        // -----
+        // Post Interaction
     };
 
     const [selectBiasList, setSelectBiasList] = useState([]);
@@ -136,8 +168,11 @@ export const BiasAwareness = (
     const [gdVals, setGdVals] = useState(null);
     const [odVals, setOdVals] = useState(null);
     const [varName, setVarName] = useState(null);
+    // Hover time for interaction data
+    const [startTime, setStartTime] = useState(new Date());
 
-    useEffect(() => {
+    useEffect(() => {   
+
         let selectionBiasvariables = Object.keys(augTable)
             .filter(key =>
                 augTable[key].selectedOptions.length > 0
@@ -150,6 +185,12 @@ export const BiasAwareness = (
             setCategorySelections,
             setOdVals,
             setGdVals
+        });
+        setInteractData({
+            "component": null,
+            "clicks": 0,
+            "time": 0,
+            "clickList": []
         });
     }, []);
 
@@ -164,7 +205,6 @@ export const BiasAwareness = (
             clickList: [...prevState.clickList, biasType]
         }));
         // -----
-        // Post Interactions
     };
 
     //console.log(gen_acc, gen_dq)
