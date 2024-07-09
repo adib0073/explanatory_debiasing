@@ -63,7 +63,7 @@ def fetch_user_augsettings(user):
         latest_record = collection_name.find({"user": user}).sort("timestamp", -1).limit(1)
         for record in latest_record:
             aug_settings = record
-        print(aug_settings)
+        #print(aug_settings)
         return client, aug_settings
     except Exception as e:
         print(f"### Error: {e}")

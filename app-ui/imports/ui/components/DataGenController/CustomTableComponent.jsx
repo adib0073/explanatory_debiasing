@@ -69,12 +69,18 @@ export const CustomTableComponent = (
         setInteractData(prevState => ({
             ...prevState,  // Spread the previous state
             clicks: prevState.clicks + 1,  // Update 'clicks' property
-            //clickList: prevState.clickList.push("remove")
+            clickList: [...prevState.clickList, "remove"]
         }));
     };
 
     const onChange = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
+        //console.log('params', pagination, filters, sorter, extra);
+        console.log('onchnage output:', extra["action"]);
+        setInteractData(prevState => ({
+            ...prevState,  // Spread the previous state
+            clicks: prevState.clicks + 1,  // Update 'clicks' property
+            clickList: [...prevState.clickList, extra["action"]]
+        }));
     };
 
 
@@ -99,7 +105,7 @@ export const CustomTableComponent = (
             setInteractData(prevState => ({
                 ...prevState,  // Spread the previous state
                 clicks: prevState.clicks + 1,  // Update 'clicks' property
-                //clickList: prevState.clickList.push("edit")
+                clickList: [...prevState.clickList, "edit"]
             }));
             // -----
             if (index > -1) {
@@ -323,7 +329,7 @@ export const CustomTableComponent = (
                     showSorterTooltip={{
                         target: 'sorter-icon',
                     }}
-                //onChange={onChange}
+                    onChange={onChange}
                 />
             </Form>
         </>
