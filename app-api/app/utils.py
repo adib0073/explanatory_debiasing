@@ -26,7 +26,7 @@ import os
 import shutil
 
 
-def login_service(user_name, cohort, language):
+def login_service(user_name, phase):
     """
     Method to relieve user details if exists
     or create a new user if doesn't exist
@@ -40,25 +40,11 @@ def login_service(user_name, cohort, language):
         print("Record Not Found")
         new_user = USER_DETAIL_JSON
         new_user["UserName"] = user_name
-        new_user["Cohort"] = cohort
-        new_user["Language"] = language
-        new_user.update({"_id": user_name+cohort})
+        new_user["Phase"] = phase
+        new_user.update({"_id": user_name+phase})
         collection_name.insert_one(new_user)
         user_details = collection_name.find_one({"UserName": user_name})
         client.close()
-        autocorrect_configs = {
-            "UserName": user_name,
-            "Cohort": cohort,
-            "AutoCorrectConfig":   {
-                "outlier": False,
-                "correlation": False,
-                "skew": False,
-                "imbalance": False,
-                "drift": False,
-                "duplicate": False,
-            }
-        }
-        insert_autocorrect_configs(autocorrect_configs)
         return (True, f"New record created for user: {user_name}", user_details)
     else:
         print("Record found")

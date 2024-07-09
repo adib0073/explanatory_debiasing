@@ -33,7 +33,7 @@ def get_root():
 async def validate_user(user: ValidateUserModel):
 
     # Call method to validate user
-    code, message, output_json = login_service(user.UserId, user.Cohort, user.Language)
+    code, message, output_json = login_service(user.UserId, user.Phase)
 
     response = {
         "StatusCode": code,
@@ -42,7 +42,6 @@ async def validate_user(user: ValidateUserModel):
     }
     return response
 
-# TO-DO: To be used
 @app.get("/getsystemoverview/", response_model=OutputwithPayloadDataModel)
 async def GetSystemOverview(user: str):
 

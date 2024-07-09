@@ -21,13 +21,4 @@ class GenDataModel(BaseModel):
 
 class ValidateUserModel(BaseModel):
     UserId: str
-    Cohort: str
-    Language: str = "ENG"
-
-class FeaturesToInclude(BaseModel):
-    features_to_include: list[str] = ALL_FEATURES
-
-
-class FeatureRanges(BaseModel):
-    features_to_include: list[str] = ALL_FEATURES
-    features_ranges: list[tuple] = DEFAULT_VALUES
+    Phase: str

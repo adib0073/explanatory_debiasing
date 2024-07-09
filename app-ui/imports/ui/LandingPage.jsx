@@ -23,14 +23,11 @@ export const LandingPage = ({ user, setUser }) => {
     const selectedDashType = () => {
         setButtonText("Logging ...");
         console.log(user);
-        navigate('/platform/');
 
         // Include this when API part is integrated
-        /*
         axios.post(BASE_API + '/validateusers', {
             UserId: user.id,
-            Cohort: user.group,
-            Language: user.language,
+            Phase: user.phase,
         }, {
             headers: {
                 "Accept": "application/json",
@@ -41,7 +38,8 @@ export const LandingPage = ({ user, setUser }) => {
         }).then(function (response) {
             //console.log(response.data);
             if (response.data["StatusCode"]) {
-                navigate('/platform/' + user.cohort);
+                //navigate('/platform/' + user.cohort);
+                navigate('/platform/');
             }
             else {
                 console.log("Error reported. Login failed.")
@@ -50,7 +48,6 @@ export const LandingPage = ({ user, setUser }) => {
         }).catch(function (error) {
             console.log(error);
         });
-        */
     }
 
     const handleChange = e => {
