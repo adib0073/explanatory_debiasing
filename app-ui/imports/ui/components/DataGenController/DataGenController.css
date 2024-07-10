@@ -251,3 +251,17 @@
     flex-direction: row;
     padding: 10px;
 }
+/* Full Screen Styles */
+/* Fullscreen styles */
+:fullscreen .dash-container-gen-controller,
+:-webkit-full-screen .dash-container-gen-controller,
+:-moz-full-screen .dash-container-gen-controller,
+:-ms-fullscreen .dash-container-gen-controller {
+    width: 80vw; /* Full viewport width */
+    height: 80vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E5E5E5; /* Background color */
+    border: none; /* Remove border */
+}

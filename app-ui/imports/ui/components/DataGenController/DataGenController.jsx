@@ -7,6 +7,7 @@ import { EmptyDataGenController } from './EmptyDataGen.jsx';
 import { GenDataTable } from './GenDataTable.jsx';
 import { BiasAwareness } from './BiasAwareness.jsx';
 import { Tooltip } from 'antd';
+import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
 
 export const DataGenController = (
     {
@@ -77,19 +78,36 @@ export const DataGenController = (
             <div className="chart-title">
                 Generated Data Controller
             </div>
-            <Tooltip
-                placement="top"
-                title={"This component allows to validate and modify the generated data."
-                    + "\n You can edit each record if you think there are problems in the generated data and unrealistic records are generated."
-                    + "\n If the generated data is irrelevant, you can also remove the record completely."
-                    + "\n You can filter or sort to explore the records better."
+
+            <div className="chart-icons">
+                {
+                    (showGDTable == true && showBiasScreen == false)
+                        ?
+                        <div>
+                            {(isFullscreen)
+                                ?
+                                <FullscreenExitOutlined onClick={toggleFullscreen} />
+                                :
+                                <FullscreenOutlined onClick={toggleFullscreen} />
+                            }
+                        </div>
+                        :
+                        <Tooltip
+                            placement="top"
+                            title={"This component allows to validate and modify the generated data."
+                                + "\n You can edit each record if you think there are problems in the generated data and unrealistic records are generated."
+                                + "\n If the generated data is irrelevant, you can also remove the record completely."
+                                + "\n You can filter or sort to explore the records better."
+                            }
+                            overlayStyle={{ maxWidth: '500px' }}
+                        >
+                            <div>
+
+                                <InfoLogo />
+                            </div>
+                        </Tooltip>
                 }
-                overlayStyle={{ maxWidth: '500px' }}
-            >
-                <div className="chart-icons" onClick={toggleFullscreen}>
-                    <InfoLogo />
-                </div>
-            </Tooltip>
+            </div>
         </div>
         <div className='chart-container'>
             <div className="gd-container" >

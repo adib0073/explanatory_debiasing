@@ -11,39 +11,43 @@ body {
 }
 
 :fullscreen {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #E5E5E5;
+  background-color: #E5E5E5;  
+  margin: 10%;
 }
 
 :-webkit-full-screen {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #E5E5E5;
+  background-color: #E5E5E5;  
+  margin: 10%;
 }
 
 :-moz-full-screen {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #E5E5E5;
+  background-color: #E5E5E5;  
+  margin: 10%;
 }
 
 :-ms-fullscreen {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #E5E5E5;
+  margin: 10%;
 }
 
 /* app-container */
