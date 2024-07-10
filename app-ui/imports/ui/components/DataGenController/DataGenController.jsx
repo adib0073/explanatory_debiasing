@@ -35,7 +35,44 @@ export const DataGenController = (
 
     console.log(interactData);
 
-    return (<div className="dash-container-gen-controller">
+
+    // Handle full screen
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const divRef = useRef(null);
+
+    const toggleFullscreen = () => {
+        if (!isFullscreen) {
+            enterFullscreen();
+        } else {
+            exitFullscreen();
+        }
+    };
+    const enterFullscreen = () => {
+        if (divRef.current.requestFullscreen) {
+            divRef.current.requestFullscreen();
+        } else if (divRef.current.mozRequestFullScreen) { // Firefox
+            divRef.current.mozRequestFullScreen();
+        } else if (divRef.current.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            divRef.current.webkitRequestFullscreen();
+        } else if (divRef.current.msRequestFullscreen) { // IE/Edge
+            divRef.current.msRequestFullscreen();
+        }
+        setIsFullscreen(true);
+    };
+    const exitFullscreen = () => {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { // Firefox
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { // Chrome, Safari, and Opera
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { // IE/Edge
+            document.msExitFullscreen();
+        }
+        setIsFullscreen(false);
+    };
+
+    return (<div className="dash-container-gen-controller" ref={divRef}>
         <div className="chart-title-box">
             <div className="chart-title">
                 Generated Data Controller
@@ -49,7 +86,7 @@ export const DataGenController = (
                 }
                 overlayStyle={{ maxWidth: '500px' }}
             >
-                <div className="chart-icons">
+                <div className="chart-icons" onClick={toggleFullscreen}>
                     <InfoLogo />
                 </div>
             </Tooltip>
@@ -58,7 +95,7 @@ export const DataGenController = (
             <div className="gd-container" >
                 {
                     (showGDTable == true && showBiasScreen == false)
-                        ? 
+                        ?
                         <GenDataTable
                             userid={userid}
                             gen_acc={genDataAcc}

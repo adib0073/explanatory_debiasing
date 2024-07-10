@@ -103,6 +103,10 @@
     margin: 10px;
     align-items: center;
     justify-content: center;
+    border: 0px;
+    border-style: solid;
+    border-color: #dedede;
+    border-radius: 0px;
 }
 
 .ant-table table {

@@ -54,10 +54,10 @@
     flex: 6;
     border: 0.5px;
     border-style: solid;
-    border-color: #B5B5B5;
-    border-radius: 20px;
-    margin: 0px 10px 10px 10px;
-    padding: 5px 5px 0px 5px;
+    border-color: #dedede;
+    border-radius: 0px;
+    margin: 10px 20px 20px 15px;
+    padding: 0px 0px 0px 0px;
     font-size: 1.8vh;
     max-height: 60vh;
     overflow-y: hidden;
@@ -71,7 +71,7 @@
     font-weight: 400;
     width: 80%; /* Set the width of the container */
     margin: 0 auto; /* Center the container horizontally */
-    text-align: left;
+    text-align: center;
 }
 
 .ac-inner-cell-cat {

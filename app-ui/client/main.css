@@ -10,6 +10,42 @@ body {
   /*overflow: hidden;*/
 }
 
+:fullscreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E5E5E5;
+}
+
+:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E5E5E5;
+}
+
+:-moz-full-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E5E5E5;
+}
+
+:-ms-fullscreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E5E5E5;
+}
+
 /* app-container */
 .app-container {
   font-family: "Montserrat", sans-serif;

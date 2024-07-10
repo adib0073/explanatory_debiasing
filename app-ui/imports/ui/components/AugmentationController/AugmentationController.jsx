@@ -84,14 +84,14 @@ export const AugmentationController = (
         phase,
         datenow
     }) => {
-    console.log(phase)
+
     const [augSettings, setAugSettings] = useState({
         "numSamples": 100,
         "predCategory": "Both",
         "repThres": 80,
         "covThres": 300,
         "covRateThres": 80
-    })
+    });
 
     const handleAugSetting = (settingType, value) => {
         setAugSettings({
@@ -466,9 +466,12 @@ export const AugmentationController = (
                     columns={ac_columns}
                     dataSource={ac_data}
                     size='small'
+                    bordered={true}
                     pagination={false}
                     style={
-                        { fontSize: "1.5vh" }
+                        {
+                            fontSize: "1.5vh"
+                        }
                     }
                     scroll={{
                         y: "25vh",

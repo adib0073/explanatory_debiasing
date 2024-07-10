@@ -163,7 +163,7 @@ export const DASH = ({ user }) => {
                         phase={phase}
                         datenow={datenow}
                         origDataAcc={origDataAcc}
-                        origDataQuality={origDataQuality*100}                        
+                        origDataQuality={origDataQuality * 100}
                     />
                 </div>
             </div>

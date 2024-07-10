@@ -8,6 +8,7 @@ import { greenFont, redFont } from '../../Constants.jsx';
 import { CustomTableComponent } from './CustomTableComponent.jsx';
 import axios from 'axios';
 import { BASE_API } from '../../Constants.jsx';
+import FullScreen from "react-full-screen";
 
 const GetRestoreData = ({ userid, setShowGDTable, setShowBiasScreen }) => {
     message.loading('Restoring to defaults', 2)

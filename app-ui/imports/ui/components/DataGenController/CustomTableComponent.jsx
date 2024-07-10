@@ -5,6 +5,7 @@ import { CloseCircleTwoTone, EditTwoTone } from '@ant-design/icons';
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
 import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, INV_CONT_BIN_DICT, redFont } from '../../Constants';
+import FullScreen from "react-full-screen";
 
 function titleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
@@ -55,7 +56,7 @@ export const CustomTableComponent = (
         isFilter,
         data,
         setData,
-        setInteractData
+        setInteractData,
     }) => {
 
 
@@ -304,33 +305,33 @@ export const CustomTableComponent = (
 
     return (
         <>
-            <Form form={form} component={false}>
 
-                <Table
-                    components={{
-                        body: {
-                            cell: EditableCell,
-                        },
-                    }}
-                    bordered={true}
-                    dataSource={data}
-                    columns={mergedColumns}
-                    rowClassName="editable-row"
-                    style={
-                        {
-                            maxWidth: "45vw"
+            <Form form={form} component={false}>
+                    <Table
+                        components={{
+                            body: {
+                                cell: EditableCell,
+                            },
+                        }}
+                        bordered={true}
+                        dataSource={data}
+                        columns={mergedColumns}
+                        rowClassName="editable-row"
+                        style={
+                            {
+                                maxWidth: "45vw"
+                            }
                         }
-                    }
-                    scroll={{
-                        x: "max-content",
-                        y: "40vh"
-                    }}
-                    pagination={false}
-                    showSorterTooltip={{
-                        target: 'sorter-icon',
-                    }}
-                    onChange={onChange}
-                />
+                        scroll={{
+                            x: "max-content",
+                            y: "40vh"
+                        }}
+                        pagination={false}
+                        showSorterTooltip={{
+                            target: 'sorter-icon',
+                        }}
+                        onChange={onChange}
+                    />
             </Form>
         </>
     )
