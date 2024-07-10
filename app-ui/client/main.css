@@ -16,8 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #E5E5E5;  
-  margin: 10%;
+  background-color: #E5E5E5;
 }
 
 :-webkit-full-screen {
@@ -26,8 +25,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #E5E5E5;  
-  margin: 10%;
+  background-color: #E5E5E5; 
 }
 
 :-moz-full-screen {
@@ -47,7 +45,6 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #E5E5E5;
-  margin: 10%;
 }
 
 /* app-container */

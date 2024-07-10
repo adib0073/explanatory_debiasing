@@ -118,6 +118,8 @@ export const DASH = ({ user }) => {
     const reset = () => {
         setSeed(Math.random());
     }
+    const [tabWidth, setTabWidth] = useState(45);
+    const [tabHeight, setTabHeight] = useState(45);
 
     return (
         <>
@@ -148,6 +150,8 @@ export const DASH = ({ user }) => {
                         setAugTable={setAugTable}
                         phase={phase}
                         datenow={datenow}
+                        tabHeight={tabHeight}
+                        tabWidth={tabWidth}
                     />
                     <DataGenController
                         userid={userid}
@@ -164,6 +168,10 @@ export const DASH = ({ user }) => {
                         datenow={datenow}
                         origDataAcc={origDataAcc}
                         origDataQuality={origDataQuality * 100}
+                        tabHeight={tabHeight}
+                        tabWidth={tabWidth}
+                        setTabHeight={setTabHeight}
+                        setTabWidth={setTabWidth}
                     />
                 </div>
             </div>

@@ -67,7 +67,10 @@ export const GenDataTable = (
         setShowGDTable,
         setShowBiasScreen,
         interactData,
-        setInteractData
+        setInteractData,
+        isFullscreen,
+        tabWidth,
+        tabHeight
     }) => {
 
     const onChangeSortSwitch = (checked) => {
@@ -239,14 +242,17 @@ export const GenDataTable = (
                     </div>
                 </div>
             </div>
-            <div className='generated-data-holder'>
-                <div className='datagen-holder'>
+            <div className='generated-data-holder' style={{height:`${tabHeight}vh`}}>
+                <div className='datagen-holder' >
                     <CustomTableComponent
                         isSort={sortSwitch}
                         isFilter={filterSwitch}
                         data={data}
                         setData={setData}
                         setInteractData={setInteractData}
+                        isFullscreen={isFullscreen}
+                        tabWidth={tabWidth}
+                        tabHeight={tabHeight}
                     />
                 </div>
             </div>

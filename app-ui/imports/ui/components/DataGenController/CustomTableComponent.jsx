@@ -57,6 +57,9 @@ export const CustomTableComponent = (
         data,
         setData,
         setInteractData,
+        isFullscreen,
+        tabWidth,
+        tabHeight
     }) => {
 
 
@@ -319,12 +322,12 @@ export const CustomTableComponent = (
                         rowClassName="editable-row"
                         style={
                             {
-                                maxWidth: "45vw"
+                                maxWidth: tabWidth+"vw"
                             }
                         }
                         scroll={{
                             x: "max-content",
-                            y: "40vh"
+                            y: `${tabHeight-5}vh`
                         }}
                         pagination={false}
                         showSorterTooltip={{

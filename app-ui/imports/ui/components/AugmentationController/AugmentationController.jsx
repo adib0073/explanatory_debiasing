@@ -82,7 +82,9 @@ export const AugmentationController = (
         augTable,
         setAugTable,
         phase,
-        datenow
+        datenow,
+        tabHeight,
+        tabWidth
     }) => {
 
     const [augSettings, setAugSettings] = useState({
@@ -322,7 +324,7 @@ export const AugmentationController = (
         })
     }
 
-    return (<div className="dash-container-aug-controller">
+    return (<div className="dash-container-aug-controller" style={{ width: `${tabWidth + 5}vw` }}>
         <div className="chart-title-box">
             <div className="chart-title">
                 Augmentation Controller

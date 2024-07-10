@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import "./DataGenController.css";
 import { InfoLogo } from '../Icons/InfoLogo.jsx';
@@ -24,7 +24,11 @@ export const DataGenController = (
         phase,
         datenow,
         origDataAcc,
-        origDataQuality
+        origDataQuality,
+        tabHeight,
+        tabWidth,
+        setTabHeight,
+        setTabWidth,
     }) => {
 
     const [interactData, setInteractData] = useState({
@@ -34,7 +38,7 @@ export const DataGenController = (
         "clickList": []
     });
 
-    console.log(interactData);
+    //console.log(interactData);
 
 
     // Handle full screen
@@ -59,6 +63,8 @@ export const DataGenController = (
             divRef.current.msRequestFullscreen();
         }
         setIsFullscreen(true);
+        setTabWidth(95);
+        setTabHeight(75);
     };
     const exitFullscreen = () => {
         if (document.exitFullscreen) {
@@ -70,90 +76,138 @@ export const DataGenController = (
         } else if (document.msExitFullscreen) { // IE/Edge
             document.msExitFullscreen();
         }
+        setTabWidth(45)
+        setTabHeight(45)
         setIsFullscreen(false);
     };
 
-    return (<div className="dash-container-gen-controller" ref={divRef}>
-        <div className="chart-title-box">
-            <div className="chart-title">
-                Generated Data Controller
-            </div>
+    const handFullScreenChangeEvent = () => {
+        if (tabWidth == 95) {
+            setTabWidth(45)
+            setTabHeight(45)
+            setIsFullscreen(false);
+        }
 
-            <div className="chart-icons">
-                {
-                    (showGDTable == true && showBiasScreen == false)
-                        ?
-                        <div>
-                            {(isFullscreen)
-                                ?
-                                <FullscreenExitOutlined onClick={toggleFullscreen} />
-                                :
-                                <FullscreenOutlined onClick={toggleFullscreen} />
-                            }
-                        </div>
-                        :
-                        <Tooltip
-                            placement="top"
-                            title={"This component allows to validate and modify the generated data."
-                                + "\n You can edit each record if you think there are problems in the generated data and unrealistic records are generated."
-                                + "\n If the generated data is irrelevant, you can also remove the record completely."
-                                + "\n You can filter or sort to explore the records better."
-                            }
-                            overlayStyle={{ maxWidth: '500px' }}
-                        >
-                            <div>
+        if (tabWidth == 45) {
+            setIsFullscreen(true);
+            setTabWidth(95);
+            setTabHeight(75);
+        }
+    }
 
-                                <InfoLogo />
-                            </div>
-                        </Tooltip>
-                }
-            </div>
-        </div>
-        <div className='chart-container'>
-            <div className="gd-container" >
-                {
-                    (showGDTable == true && showBiasScreen == false)
-                        ?
-                        <GenDataTable
-                            userid={userid}
-                            gen_acc={genDataAcc}
-                            gen_dq={genDataQuality}
-                            default_acc={origDataAcc}
-                            default_dq={origDataQuality}
-                            data={genData}
-                            setData={setGenData}
-                            setShowGDTable={setShowGDTable}
-                            setShowBiasScreen={setShowBiasScreen}
-                            interactData={interactData}
-                            setInteractData={setInteractData}
-                        />
-                        :
-                        (showGDTable == false && showBiasScreen == true)
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            console.log(document.fullscreenElement === divRef.current);
+            if (document.fullscreenElement === divRef.current) {
+                setTabWidth(95)
+                setTabHeight(75)
+            }
+            else {
+                setTabWidth(45);
+                setTabHeight(45);
+            }
+        };
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        return () => {
+            document.removeEventListener('fullscreenchange', handleFullscreenChange);
+            document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+            document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+            document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+        };
+    }, []);
+
+    return (
+        <div className="dash-container-gen-controller"
+            ref={divRef}
+            style={{ width: `${tabWidth + 5}vw` }}
+        >
+            <div className="chart-title-box">
+                <div className="chart-title">
+                    Generated Data Controller
+                </div>
+
+                <div className="chart-icons">
+                    {
+                        (showGDTable == true && showBiasScreen == false)
                             ?
-                            <BiasAwareness
+                            <div>
+                                {(isFullscreen)
+                                    ?
+                                    <FullscreenExitOutlined onClick={toggleFullscreen} />
+                                    :
+                                    <FullscreenOutlined onClick={toggleFullscreen} />
+                                }
+                            </div>
+                            :
+                            <Tooltip
+                                placement="top"
+                                title={"This component allows to validate and modify the generated data."
+                                    + "\n You can edit each record if you think there are problems in the generated data and unrealistic records are generated."
+                                    + "\n If the generated data is irrelevant, you can also remove the record completely."
+                                    + "\n You can filter or sort to explore the records better."
+                                }
+                                overlayStyle={{ maxWidth: '500px' }}
+                            >
+                                <div>
+
+                                    <InfoLogo />
+                                </div>
+                            </Tooltip>
+                    }
+                </div>
+            </div>
+            <div className='chart-container'>
+                <div className="gd-container" >
+                    {
+                        (showGDTable == true && showBiasScreen == false)
+                            ?
+                            <GenDataTable
                                 userid={userid}
-                                setShowGDTable={setShowGDTable}
-                                setShowBiasScreen={setShowBiasScreen}
-                                genData={genData}
-                                augTable={augTable}
                                 gen_acc={genDataAcc}
                                 gen_dq={genDataQuality}
-                                origDataAcc={origDataAcc}
-                                origDataQuality={origDataQuality}
-                                interactData={interactData}
-                                setInteractData={setInteractData}
-                            />
-                            :
-                            <EmptyDataGenController
-                                userid={userid}
+                                default_acc={origDataAcc}
+                                default_dq={origDataQuality}
+                                data={genData}
+                                setData={setGenData}
                                 setShowGDTable={setShowGDTable}
                                 setShowBiasScreen={setShowBiasScreen}
-                                phase={phase}
-                                datenow={datenow}
+                                interactData={interactData}
                                 setInteractData={setInteractData}
+                                isFullscreen={isFullscreen}
+                                tabWidth={tabWidth}
+                                tabHeight={tabHeight}
                             />
-                }
+                            :
+                            (showGDTable == false && showBiasScreen == true)
+                                ?
+                                <BiasAwareness
+                                    userid={userid}
+                                    setShowGDTable={setShowGDTable}
+                                    setShowBiasScreen={setShowBiasScreen}
+                                    genData={genData}
+                                    augTable={augTable}
+                                    gen_acc={genDataAcc}
+                                    gen_dq={genDataQuality}
+                                    origDataAcc={origDataAcc}
+                                    origDataQuality={origDataQuality}
+                                    interactData={interactData}
+                                    setInteractData={setInteractData}
+                                />
+                                :
+                                <EmptyDataGenController
+                                    userid={userid}
+                                    setShowGDTable={setShowGDTable}
+                                    setShowBiasScreen={setShowBiasScreen}
+                                    phase={phase}
+                                    datenow={datenow}
+                                    setInteractData={setInteractData}
+                                />
+                    }
+                </div>
             </div>
-        </div>
-    </div>)
+        </div>)
 };
