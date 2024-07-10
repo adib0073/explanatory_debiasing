@@ -50,7 +50,7 @@
 .de-chart-container {
     flex: 6;
     display: flex;
-    border: 1px;
+    border: 0px;
     border-style: solid;
     border-color: #D9D9D9;
     border-radius: 20px;
@@ -61,7 +61,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 0px solid #D9D9D9;
     padding: 5px;
     margin-left: 10px;
     font-size: 1.7vh;
@@ -70,7 +70,7 @@
 .de-charts {
     display: flex;
     flex-direction: column;
-    margin: 5px 10px 5px 10px;
+    margin: 5px;
     border: 3px;
     border-style: solid;
     border-color: #E5E5E5;

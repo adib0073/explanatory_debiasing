@@ -77,8 +77,8 @@ export const GenDataTable = (
         setFilterSwitch(!filterSwitch);
     };
 
-    const [sortSwitch, setSortSwitch] = useState(false);
-    const [filterSwitch, setFilterSwitch] = useState(false);
+    const [sortSwitch, setSortSwitch] = useState(true);
+    const [filterSwitch, setFilterSwitch] = useState(true);
     // Hover time for interaction data
     const [startTime, setStartTime] = useState(new Date());
 
@@ -86,7 +86,7 @@ export const GenDataTable = (
     interactDataRef.current = interactData;
 
     const handleTrainButton = async (value) => {
-        
+
         var endTime = new Date();
         var timeDiff = endTime - startTime; //in ms
         // strip the ms
@@ -213,7 +213,9 @@ export const GenDataTable = (
                         <div className='gd-subtitle-right-switch'>
                             <Switch
                                 size="small"
-                                onChange={onChangeSortSwitch} />
+                                onChange={onChangeSortSwitch}
+                                defaultChecked={true}
+                            />
                         </div>
                     </div>
                     <div className='gd-subtitle-right-row'>
@@ -229,7 +231,9 @@ export const GenDataTable = (
                         <div className='gd-subtitle-right-switch'>
                             <Switch
                                 size="small"
-                                onChange={onChangeFilterSwitch} />
+                                onChange={onChangeFilterSwitch}
+                                defaultChecked={true}
+                            />
                         </div>
                     </div>
                 </div>

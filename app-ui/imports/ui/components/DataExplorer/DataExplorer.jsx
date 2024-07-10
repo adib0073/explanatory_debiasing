@@ -177,7 +177,9 @@ export const DataExplorer = (
                                 defaultValue={"Please select:"}
                                 size='small'
                                 style={{ width: '10vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
-                                onChange={variableFilter}>
+                                onChange={variableFilter}
+                                defaultActiveFirstOption={true}
+                            >
                                 {
                                     (Object.keys(deChartVals["feature_info"]).length > 0)
                                         ?
