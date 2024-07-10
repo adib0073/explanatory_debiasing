@@ -4,7 +4,7 @@ import { Bar as BarJS } from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import './BiasPlots.css'
-
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const labelWrapper = (value) => {
     let wrappedArray = []
@@ -189,7 +189,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
                 ctx.font = `bold ${fontHeight / 2}px Helvetica`;
                 ctx.fillStyle = '#D64242';
                 ctx.textAlign = 'right';
-                ctx.fillText(`THRESHOLD: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)
+                //ctx.fillText(`THRESHOLD: ${acc_thres}`, right, y.getPixelForValue(acc_thres) - top)
                 // Threshold Line   
                 ctx.strokeStyle = "#D64242";
                 //ctx.setLineDash([5, 10]);
@@ -230,13 +230,24 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
 
     const chartRef = useRef();
 
-    return (<div className="BarPlotContainer">
-        <Bar
-            data={data}
-            options={options}
-            //ref={chartRef}
-            redraw={true}
-            plugins={[ChartDataLabels, thresholdLine]}
-        />
-    </div>);
+    return (
+        <>
+            <div className="BarPlotContainer">
+                <Bar
+                    data={data}
+                    options={options}
+                    //ref={chartRef}
+                    redraw={true}
+                    plugins={[ChartDataLabels, thresholdLine]}
+                />
+            </div>
+            {(Math.min(...y_values.flat()) < acc_thres)
+                ?
+                <div className='BarSubTitle'>
+                    Warning: Accuracy of one of the sug-groups is below the threshold
+                </div>
+                : null
+            }
+        </>
+    );
 };

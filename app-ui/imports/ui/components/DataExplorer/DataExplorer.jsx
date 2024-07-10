@@ -178,7 +178,6 @@ export const DataExplorer = (
                                 size='small'
                                 style={{ width: '10vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
                                 onChange={variableFilter}
-                                defaultActiveFirstOption={true}
                             >
                                 {
                                     (Object.keys(deChartVals["feature_info"]).length > 0)
@@ -250,21 +249,30 @@ export const DataExplorer = (
                                 <Empty description={"Please select a variable."} image={Empty.PRESENTED_IMAGE_SIMPLE} />
                                 :
                                 <>
-                                    <BiasCountPlots x_values={Object.values(deChartVals.feature_info[varName]['categories'])}
-                                        y_values={Object.values(deChartVals.feature_info[varName]['counts'])}
-                                        coverage={Object.values(deChartVals.feature_info[varName]['counts'])}
-                                        rr={Object.values(deChartVals.feature_info[varName]['RR'])}
-                                        cov_thres={deChartVals.threshold_cov} />
+                                    <div className='de-charts-sc-plots'>
+                                        <BiasCountPlots x_values={Object.values(deChartVals.feature_info[varName]['categories'])}
+                                            y_values={Object.values(deChartVals.feature_info[varName]['counts'])}
+                                            coverage={Object.values(deChartVals.feature_info[varName]['counts'])}
+                                            rr={Object.values(deChartVals.feature_info[varName]['RR'])}
+                                            cov_thres={deChartVals.threshold_cov} />
 
-                                    <div className='de-charts-sc-legend'>
-                                        <div className="de-charts-sc-ltext">
-                                            RR: 100%
-                                        </div>
-                                        <div className="de-charts-sc-colorbar"></div>
-                                        <div className="de-charts-sc-ltext">
-                                            RR: 0%
+                                        <div className='de-charts-sc-legend'>
+                                            <div className="de-charts-sc-ltext">
+                                                RR: 100%
+                                            </div>
+                                            <div className="de-charts-sc-colorbar"></div>
+                                            <div className="de-charts-sc-ltext">
+                                                RR: 0%
+                                            </div>
                                         </div>
                                     </div>
+                                    {(Math.min(...Object.values(deChartVals.feature_info[varName]['counts']).flat()) < deChartVals.threshold_cov)
+                                        ?
+                                        <div className='BarSubTitle'>
+                                            Warning: Data coverage of one of the sug-groups is below the threshold
+                                        </div>
+                                        : null
+                                    }
                                 </>
                             }
                         </div>
