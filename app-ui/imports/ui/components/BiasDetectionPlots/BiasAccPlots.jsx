@@ -9,7 +9,7 @@ import './BiasPlots.css'
 const labelWrapper = (value) => {
     let wrappedArray = []
     for (let i = 0; i < value.length; i++) {
-        if (typeof (value[i]) === typeof ("string")) {
+        if (typeof (value[i]) === typeof ("string") && value.length > 9) {
             wrappedArray.push(value[i].split(" "));
 
         }
