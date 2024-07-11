@@ -847,7 +847,20 @@ def bias_awareness_info(settings_data):
     gendata_df.rename(columns = {"pred": TARGET_VARIABLE}, inplace=True)
 
     aug_cont_dict = settings_data.JsonData["AugSettings"]
+    # Get thres_cov from collections
+    # Get Augmentation Data Instead
+    client, saved_aug_settings = fetch_user_augsettings(settings_data.UserId)
+    client.close()
+    #thres_rr = 80 
+    #thres_cov = 300
+    thres_cr = 80
+    #thres_acc = 80
 
+    if saved_aug_settings is not None:
+        #thres_rr = augsettings["repThres"]
+        #thres_cov = augsettings["covThres"]
+        thres_cr = saved_aug_settings["covRateThres"]
+        #thres_acc = 80
     ### Calculate for gen data and train_df
     for feature in CATEGORICAL:
         train_df[feature] = inv_label_encoding(list(train_df[feature].values), INV_LABEL_ENCODING_DICT[feature])     
@@ -858,20 +871,21 @@ def bias_awareness_info(settings_data):
     gd_rb_dict = {}
     td_rb_dict = {}
     selected_vals_dict = {}
+    print(f"###BA API called {gendata_df.head()}")
     for feature in ALL_FEATURES:
         sorting_order = SORTING_ORDER[feature]['labels']
         if(len(aug_cont_dict[feature]['selectedOptions']) > 0):            
-            sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in set(aug_cont_dict[feature]['selectedOptions'])]
-        
+            sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in set(aug_cont_dict[feature]['selectedOptions']) and item in gendata_df[feature].values]
+            print(sorting_order)
         gd_rr, _, _ = calculate_representation_bias(
                                                 gendata_df[feature], 
                                                 sorting_order, 
-                                                80)
+                                                thres_cr)
         gd_rb_dict[feature] = gd_rr
         td_rr, _, _ = calculate_representation_bias(
                                                 train_df[feature], 
                                                 SORTING_ORDER[feature]['labels'], 
-                                                80)
+                                                thres_cr)
         td_rb_dict[feature] = td_rr
         # selected vals
         if (len(aug_cont_dict[feature]['selectedOptions']) == 0):
@@ -890,5 +904,6 @@ def bias_awareness_info(settings_data):
         "train_data_vals" : td_rb_dict,
         "selected_vals" : selected_vals_dict
     }
+    print(return_dict)
 
     return (True, f"Successful. New data and model available: {settings_data.UserId}", return_dict)

@@ -18,6 +18,10 @@ function fillList(my_list, second_list) {
     let secondListIndex = 0;
     let third_list = my_list.map((value, index) => {
         if (value) {
+            //console.log(`Value here: ${second_list[secondListIndex]}`)
+            if (second_list[secondListIndex] === undefined || second_list[secondListIndex] === null) {
+                return 0;
+            }
             return second_list[secondListIndex++];
         } else {
             return 0;
