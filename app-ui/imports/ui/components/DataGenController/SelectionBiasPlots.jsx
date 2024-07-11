@@ -44,8 +44,8 @@ export const SelectionBiasPlots = ({
         if (selectedStatus[i]) {
             origColor.push("#67A3FF30");
             origBorderColor.push("#244CB1");
-            genColor.push("#D6424230");
-            genBorderColor.push("#B70808");
+            genColor.push("#be95ff30");
+            genBorderColor.push("#6929c4");
         }
         else {
             origColor.push("#E5E5E5");
@@ -106,7 +106,7 @@ export const SelectionBiasPlots = ({
                     }
                     else {
                         if (context.dataset.label === "generated") {
-                            return "#B70808";
+                            return "#6929c4";
                         }
                         else if (context.dataset.label === "original") {
                             return "#244CB1";

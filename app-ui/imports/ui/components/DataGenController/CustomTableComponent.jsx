@@ -282,7 +282,7 @@ export const CustomTableComponent = (
             data.length >= 1 ? (
                 <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
                     <a>
-                        <CloseCircleTwoTone twoToneColor="#D6424295" style={{ fontSize: "2.2vh" }} />
+                        <CloseCircleTwoTone twoToneColor="#DAAF37" style={{ fontSize: "2.2vh" }} />
                     </a>
                 </Popconfirm>
             ) : null,

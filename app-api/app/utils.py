@@ -862,7 +862,7 @@ def bias_awareness_info(settings_data):
         sorting_order = SORTING_ORDER[feature]['labels']
         if(len(aug_cont_dict[feature]['selectedOptions']) > 0):            
             sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in set(aug_cont_dict[feature]['selectedOptions'])]
-
+        
         gd_rr, _, _ = calculate_representation_bias(
                                                 gendata_df[feature], 
                                                 sorting_order, 

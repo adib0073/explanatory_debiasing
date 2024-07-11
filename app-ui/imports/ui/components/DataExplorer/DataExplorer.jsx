@@ -269,7 +269,7 @@ export const DataExplorer = (
                                     {(Math.min(...Object.values(deChartVals.feature_info[varName]['counts']).flat()) < deChartVals.threshold_cov)
                                         ?
                                         <div className='BarSubTitle'>
-                                            Warning: Data coverage of one of the sug-groups is below the threshold
+                                            Warning: Data coverage of one of the sub-groups is below the threshold
                                         </div>
                                         : null
                                     }
