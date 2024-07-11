@@ -21,7 +21,7 @@ services:
     command:
       - --storageEngine=wiredTiger
     volumes:
-      - exdeb_data:/data/db
+      - exmos_data:/data/db
 
   py-app:
     build:

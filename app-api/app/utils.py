@@ -871,12 +871,12 @@ def bias_awareness_info(settings_data):
     gd_rb_dict = {}
     td_rb_dict = {}
     selected_vals_dict = {}
-    print(f"###BA API called {gendata_df.head()}")
+    #print(f"###BA API called {gendata_df.head()}")
     for feature in ALL_FEATURES:
         sorting_order = SORTING_ORDER[feature]['labels']
         if(len(aug_cont_dict[feature]['selectedOptions']) > 0):            
             sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in set(aug_cont_dict[feature]['selectedOptions']) and item in gendata_df[feature].values]
-            print(sorting_order)
+            #print(sorting_order)
         gd_rr, _, _ = calculate_representation_bias(
                                                 gendata_df[feature], 
                                                 sorting_order, 
@@ -904,6 +904,6 @@ def bias_awareness_info(settings_data):
         "train_data_vals" : td_rb_dict,
         "selected_vals" : selected_vals_dict
     }
-    print(return_dict)
+    #print(return_dict)
 
     return (True, f"Successful. New data and model available: {settings_data.UserId}", return_dict)

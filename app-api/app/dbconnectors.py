@@ -61,6 +61,7 @@ def fetch_user_augsettings(user):
         client, db = get_database()
         collection_name = db[AC_COLLECTION]
         latest_record = collection_name.find({"user": user}).sort("timestamp", -1).limit(1)
+        aug_settings = None
         for record in latest_record:
             aug_settings = record
         #print(aug_settings)
