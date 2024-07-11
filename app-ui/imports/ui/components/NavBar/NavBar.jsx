@@ -12,7 +12,7 @@ export const NavBar = ({ userid, phase, datenow }) => {
         setStateClick(!stateClick)
     }
 
-    let deadline = datenow + 1000 * 60 * 10; // Dayjs is also OK
+    let deadline = datenow + 1000 * 60 * 20; // 20 mins
     //console.log(datenow);
     //console.log("Deadline:",deadline);
     const onFinish = () => {

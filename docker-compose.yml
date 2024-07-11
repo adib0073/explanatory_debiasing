@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '3971:3000'
+      - '3991:3000'
     depends_on:
       - mongo
     environment:
@@ -21,14 +21,14 @@ services:
     command:
       - --storageEngine=wiredTiger
     volumes:
-      - exmos_data:/data/db
+      - exdeb_data:/data/db
 
   py-app:
     build:
       context: ./app-api
       dockerfile: Dockerfile
     ports:
-      - "3970:8000"
+      - "3990:8000"
     restart: always
 
 volumes:

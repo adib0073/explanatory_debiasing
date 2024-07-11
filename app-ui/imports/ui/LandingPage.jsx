@@ -106,8 +106,7 @@ export const LandingPage = ({ user, setUser }) => {
                         <select className="lp-container-entry-input" defaultValue={'DEFAULT'} name="phase" onChange={handlePhase} required>
                             <option value="DEFAULT" disabled>
                                 {"Please select one of the following:"}</option>
-                            <option value="phase1">Phase 1</option>
-                            <option value="phase2">Phase 2</option>
+                            <option value="phase1">Experiment</option>
                             <option value="explore">Explore</option>
                         </select>
                         <br />
