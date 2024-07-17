@@ -148,14 +148,9 @@ export const CustomTableComponent = (
                         >
                             Save
                         </Typography.Link>
-                        <Popconfirm title="Sure to cancel?"
-                            style={{ zIndexPopup: 9999, zIndex: 9999 }}
-                            overlayStyle={{ zIndex: 9999 }}
-                            onConfirm={cancel}
-                        >
-                            <a style={{ color: 'gray' }}>Cancel</a>
-                        </Popconfirm>
-                    </span>
+
+                        <a style={{ color: 'gray' }} onClick={cancel}>Cancel</a>
+                    </span >
                 ) : (
                     <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
                         <EditTwoTone />
