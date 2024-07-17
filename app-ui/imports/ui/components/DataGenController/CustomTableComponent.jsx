@@ -283,10 +283,7 @@ export const CustomTableComponent = (
                 <a>
                     <CloseCircleTwoTone
                         onClick={() => {
-                            if (window.confirm("Are you sure to delete?")) {
-                                console.log('Yes');
-                                handleDelete(record.key);
-                            }
+                            handleDelete(record.key);
                         }}
                         twoToneColor="#DAAF37"
                         style={{ fontSize: "2.2vh" }} />

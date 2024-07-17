@@ -281,7 +281,7 @@ def calculate_representation_bias(feature, sorting_order, thres_cr):
     
     average_rr = np.round(r_df['RR'].mean())
     cov_rate = np.round((len(r_df[r_df['counts'] >= thres_cr])/len(r_df)) * 100)
-    
+
     return r_df.to_dict(), average_rr, cov_rate
 
 
@@ -874,13 +874,23 @@ def bias_awareness_info(settings_data):
     #print(f"###BA API called {gendata_df.head()}")
     for feature in ALL_FEATURES:
         sorting_order = SORTING_ORDER[feature]['labels']
-        if(len(aug_cont_dict[feature]['selectedOptions']) > 0):            
+        if(len(aug_cont_dict[feature]['selectedOptions']) > 0):  
             sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in set(aug_cont_dict[feature]['selectedOptions']) and item in gendata_df[feature].values]
-            #print(sorting_order)
-        gd_rr, _, _ = calculate_representation_bias(
-                                                gendata_df[feature], 
-                                                sorting_order, 
-                                                thres_cr)
+        else:
+            sorting_order = [item for item in SORTING_ORDER[feature]['labels'] if item in gendata_df[feature].values]
+        try:
+            gd_rr, _, _ = calculate_representation_bias(
+                                                    gendata_df[feature], 
+                                                    sorting_order, 
+                                                    thres_cr)
+        except Exception as e:
+            print(e)
+            print(feature)
+            print(sorting_order)
+            print(gendata_df[feature].value_counts())
+            print(SORTING_ORDER[feature]['labels'])
+            print(set(aug_cont_dict[feature]['selectedOptions'])) 
+            print(gendata_df[feature].values)  
         gd_rb_dict[feature] = gd_rr
         td_rr, _, _ = calculate_representation_bias(
                                                 train_df[feature], 
