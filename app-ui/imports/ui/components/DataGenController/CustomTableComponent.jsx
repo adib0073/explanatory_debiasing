@@ -1,11 +1,10 @@
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { CloseCircleTwoTone, EditTwoTone } from '@ant-design/icons';
 import "./DataGenController.css";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Tag, Space } from 'antd';
 import { ALL_FEATURES, AUGMENT_VARIABLES, FRIENDLY_NAMES_ENG, INV_CONT_BIN_DICT, redFont } from '../../Constants';
-import FullScreen from "react-full-screen";
 
 function titleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
@@ -129,6 +128,7 @@ export const CustomTableComponent = (
             console.log('Validate Failed:', errInfo);
         }
     };
+
     const columns = [
         {
             title: 'Edit',
@@ -148,7 +148,11 @@ export const CustomTableComponent = (
                         >
                             Save
                         </Typography.Link>
-                        <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+                        <Popconfirm title="Sure to cancel?"
+                            style={{ zIndexPopup: 9999, zIndex: 9999 }}
+                            overlayStyle={{ zIndex: 9999 }}
+                            onConfirm={cancel}
+                        >
                             <a style={{ color: 'gray' }}>Cancel</a>
                         </Popconfirm>
                     </span>
@@ -280,11 +284,18 @@ export const CustomTableComponent = (
         align: "center",
         render: (_, record) =>
             data.length >= 1 ? (
-                <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-                    <a>
-                        <CloseCircleTwoTone twoToneColor="#DAAF37" style={{ fontSize: "2.2vh" }} />
-                    </a>
-                </Popconfirm>
+
+                <a>
+                    <CloseCircleTwoTone
+                        onClick={() => {
+                            if (window.confirm("Are you sure to delete?")) {
+                                console.log('Yes');
+                                handleDelete(record.key);
+                            }
+                        }}
+                        twoToneColor="#DAAF37"
+                        style={{ fontSize: "2.2vh" }} />
+                </a>
             ) : null,
     });
 
@@ -310,31 +321,34 @@ export const CustomTableComponent = (
         <>
 
             <Form form={form} component={false}>
-                    <Table
-                        components={{
-                            body: {
-                                cell: EditableCell,
-                            },
-                        }}
-                        bordered={true}
-                        dataSource={data}
-                        columns={mergedColumns}
-                        rowClassName="editable-row"
-                        style={
-                            {
-                                maxWidth: tabWidth+"vw"
-                            }
+                <Table
+                    components={{
+                        body: {
+                            cell: EditableCell,
+                        },
+                    }}
+                    bordered={true}
+                    dataSource={data}
+                    columns={mergedColumns}
+                    rowClassName="editable-row"
+                    style={
+                        {
+                            maxWidth: tabWidth + "vw",
+                            position: 'relative',
+                            zIndex: 1000
+
                         }
-                        scroll={{
-                            x: "max-content",
-                            y: `${tabHeight-5}vh`
-                        }}
-                        pagination={false}
-                        showSorterTooltip={{
-                            target: 'sorter-icon',
-                        }}
-                        onChange={onChange}
-                    />
+                    }
+                    scroll={{
+                        x: "max-content",
+                        y: `${tabHeight - 5}vh`
+                    }}
+                    pagination={false}
+                    showSorterTooltip={{
+                        target: 'sorter-icon',
+                    }}
+                    onChange={onChange}
+                />
             </Form>
         </>
     )

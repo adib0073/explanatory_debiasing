@@ -81,19 +81,6 @@ export const DataGenController = (
         setIsFullscreen(false);
     };
 
-    const handFullScreenChangeEvent = () => {
-        if (tabWidth == 95) {
-            setTabWidth(45)
-            setTabHeight(45)
-            setIsFullscreen(false);
-        }
-
-        if (tabWidth == 45) {
-            setIsFullscreen(true);
-            setTabWidth(95);
-            setTabHeight(75);
-        }
-    }
 
     useEffect(() => {
         const handleFullscreenChange = () => {
@@ -123,7 +110,11 @@ export const DataGenController = (
     return (
         <div className="dash-container-gen-controller"
             ref={divRef}
-            style={{ width: `${tabWidth + 5}vw` }}
+            style={{
+                width: `${tabWidth + 5}vw`,
+                position: 'relative',
+                zIndex: 1000
+            }}
         >
             <div className="chart-title-box">
                 <div className="chart-title">

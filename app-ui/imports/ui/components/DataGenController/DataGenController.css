@@ -69,10 +69,6 @@
     overflow-y: hidden;
 }
 
-.generated-data-holder::backdrop {
-    background-color: yellow;
-}
-
 /* GC Components */
 .empty-holder {
     display: flex;
@@ -256,3 +252,6 @@
     padding: 10px;
 }
 /* Full Screen Styles */
+.ant-popover {
+    z-index: 9999 !important;
+  }

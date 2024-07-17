@@ -244,7 +244,7 @@ export const BiasAccPlots = ({ y_values, x_values, acc_thres }) => {
             {(Math.min(...y_values.flat()) < acc_thres)
                 ?
                 <div className='BarSubTitle'>
-                    Warning: Accuracy of one of the sug-groups is below the threshold
+                    Warning: Accuracy of one of the sub-groups is below the threshold
                 </div>
                 : null
             }
