@@ -5,7 +5,7 @@ import urllib.parse
 UNAME = urllib.parse.quote_plus("Exdeb")
 PWORD = urllib.parse.quote_plus("Exdeb@1005")
 # Provide the mongodb atlas url to connect python to mongodb using pymongo
-CONNECTION_STRING = f"mongodb+srv://{UNAME}:{PWORD}@exdebcluster.vpp62zi.mongodb.net/?retryWrites=true&w=majority&appName=exdebcluster"
+CONNECTION_STRING = f"mongodb+srv://{UNAME}:{PWORD}@exdebug.8tqwuxo.mongodb.net/?retryWrites=true&w=majority&appName=EXDEBUG"
 # MONGO DATABASE NAME
 DBNAME = "exdeb_db" # <update_here>
 # MONGO COLLECTION NAME FOR USER DETAILS

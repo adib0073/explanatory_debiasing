@@ -294,7 +294,7 @@ export const BiasAwareness = (
                                 {
                                     (selectBiasList.length > 0)
                                         ?
-                                        (varName != null && odVals != null)
+                                        (varName != null && odVals != null && gdVals != null)
                                             ?
                                             <SelectionBiasPlots
                                                 x_values={AUGMENT_VARIABLES[varName]["options"]}
