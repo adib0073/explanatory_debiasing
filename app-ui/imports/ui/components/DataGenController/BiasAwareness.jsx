@@ -275,7 +275,7 @@ export const BiasAwareness = (
                                 <Select
                                     defaultValue={"Please select:"}
                                     size='small'
-                                    style={{ width: '12vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
+                                    style={{ width: '8vw', backgroundColor: '#E5E5E5', fontSize: '1.8vh' }}
                                     onChange={handleChange}>
                                     {
                                         (selectBiasList.length > 0)
