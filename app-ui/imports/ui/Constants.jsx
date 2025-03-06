@@ -1,5 +1,5 @@
-//export const BASE_API = "http://cassatt.experiments.cs.kuleuven.be:3990"; //"http://127.0.0.1:8000";
-export const BASE_API = "http://127.0.0.1:8000";
+//export const BASE_API = "<update BASE API>"; //"http://127.0.0.1:8000"; #UPDATE HERE
+//export const BASE_API = "http://127.0.0.1:8000";
 
 
 export const greenFont = "#449231";
