@@ -2,10 +2,10 @@ from pymongo import MongoClient
 import urllib.parse
 
 # Mongo User Credentials
-UNAME = urllib.parse.quote_plus("Exdeb")
-PWORD = urllib.parse.quote_plus("Exdeb@1005")
+UNAME = urllib.parse.quote_plus("<username>") # UPDATE THIS
+PWORD = urllib.parse.quote_plus("<password>") # UPDATE THIS
 # Provide the mongodb atlas url to connect python to mongodb using pymongo
-CONNECTION_STRING = f"mongodb+srv://{UNAME}:{PWORD}@exdebug.8tqwuxo.mongodb.net/?retryWrites=true&w=majority&appName=EXDEBUG"
+CONNECTION_STRING = f"<connection_string>" # UPDATE THIS
 # MONGO DATABASE NAME
 DBNAME = "exdeb_db" # <update_here>
 # MONGO COLLECTION NAME FOR USER DETAILS
