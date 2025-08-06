@@ -13,7 +13,7 @@ Representation bias is one of the most common types of biases in artificial inte
 This work received an honourable mention for best paper at ACM CHI 2025 and was presented at Yokohama, Japan for ACM CHI 2025.
 
 <p align="center" width="100%">
-<a href="https://youtu.be/eM_XB0W-Pvc" target="_blank"><img src="https://github.com/adib0073/explanatory_debiasing/blob/main/exdeb_screenshot.png" width="650" alt="EXDEB System"/></a>
+<a href="https://youtu.be/eM_XB0W-Pvc" target="_blank"><img src="https://github.com/adib0073/explanatory_debiasing/blob/main/exdeb_screenshot.png" width="350" alt="EXDEB System"/></a>
 </p>
 
 
