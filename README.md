@@ -34,7 +34,7 @@ The source code for our React.js based front-end web application, FastAPI Python
 
 **Step 2**: Clone this repository and then update necessary constant values, such as, the `Mongo DB connection string`, `collection names` and `application URL` in 
 ```
-EXMOS > app-api > app > constants.py
+explanatory_debiasing > app-api > app > constants.py
 ```
 and 
 
